@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>Los_Angeles_Life</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <OutputPath>C:\Users\kaibr\OneDrive\Desktop\Los Angeles Life\Altv-Server\resources\server</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AltV.Net" Version="14.0.2" />
+      <PackageReference Include="AltV.Net.Async" Version="14.0.2" />
+      <PackageReference Include="AltV.Net.EntitySync.ServerEvent" Version="14.0.2" />
+      <PackageReference Include="AltV.Net.Interactions" Version="14.0.2" />
+      <PackageReference Include="AltV.Net.Resources.Chat.Api" Version="14.0.2" />
+      <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
+    </ItemGroup>
+
+</Project>
