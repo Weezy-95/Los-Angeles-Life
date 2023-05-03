@@ -1,0 +1,30 @@
+[12:44:35] alt:V Server 14.17 (release)
+[12:44:35] Starting [DEV] Los Angeles Life on 0.0.0.0:7788
+[12:44:35] Loading resource chat
+[12:44:35][Warning] Using .cfg files is discouraged, consider using the '--convert-config-format' commandline argument
+[12:44:36] Loaded resource chat
+[12:44:36] Loading resource server
+[12:44:40] Loaded resource server
+[12:44:40] Loading resource client
+[12:44:40] Loaded resource client
+[12:44:40] Loading resource addon-map
+[12:44:41] Loaded resource addon-map
+[12:44:41] Loading resource addon-map-zoom
+[12:44:41] Loaded resource addon-map-zoom
+[12:44:41] Required server permissions:
+[12:44:41] Optional server permissions:
+[12:44:41] Starting HTTP server on 0.0.0.0:7788
+[12:44:41] Main thread started (ThreadId: 8100)
+[12:44:41] Colshape thread started (ThreadId: 19040)
+[12:44:41] EntityStreamer thread started (ThreadId: 9440)
+[12:44:41] Sync thread started (ThreadId: 18656)
+[12:44:41] Console thread started (ThreadId: 18112)
+[12:44:41] Network thread started (ThreadId: 15168)
+[12:44:41][Warning] Server started in debug mode
+[12:45:12] Stopping resource chat
+[12:45:12] Stopped resource chat
+[12:45:12] Stopping resource server
+[12:45:12] Stopped resource server
+[12:45:12] Stopping resource addon-map
+[12:45:12] Stopped resource addon-map
+[12:45:12] Server shutdown
