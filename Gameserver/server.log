@@ -1,30 +1,54 @@
-[12:44:35] alt:V Server 14.17 (release)
-[12:44:35] Starting [DEV] Los Angeles Life on 0.0.0.0:7788
-[12:44:35] Loading resource chat
-[12:44:35][Warning] Using .cfg files is discouraged, consider using the '--convert-config-format' commandline argument
-[12:44:36] Loaded resource chat
-[12:44:36] Loading resource server
-[12:44:40] Loaded resource server
-[12:44:40] Loading resource client
-[12:44:40] Loaded resource client
-[12:44:40] Loading resource addon-map
-[12:44:41] Loaded resource addon-map
-[12:44:41] Loading resource addon-map-zoom
-[12:44:41] Loaded resource addon-map-zoom
-[12:44:41] Required server permissions:
-[12:44:41] Optional server permissions:
-[12:44:41] Starting HTTP server on 0.0.0.0:7788
-[12:44:41] Main thread started (ThreadId: 8100)
-[12:44:41] Colshape thread started (ThreadId: 19040)
-[12:44:41] EntityStreamer thread started (ThreadId: 9440)
-[12:44:41] Sync thread started (ThreadId: 18656)
-[12:44:41] Console thread started (ThreadId: 18112)
-[12:44:41] Network thread started (ThreadId: 15168)
-[12:44:41][Warning] Server started in debug mode
-[12:45:12] Stopping resource chat
-[12:45:12] Stopped resource chat
-[12:45:12] Stopping resource server
-[12:45:12] Stopped resource server
-[12:45:12] Stopping resource addon-map
-[12:45:12] Stopped resource addon-map
-[12:45:12] Server shutdown
+[21:26:09] alt:V Server 14.17 (release)
+[21:26:09] Starting [DEV] Los Angeles Life on 0.0.0.0:7788
+[21:26:09] Loading resource chat
+[21:26:09][Warning] Using .cfg files is discouraged, consider using the '--convert-config-format' commandline argument
+[21:26:10] Loaded resource chat
+[21:26:10] Loading resource server
+[21:26:13] [MongoDB] Datenbank Verbindung erfolgreich aufgebaut!
+[21:26:14] Loaded resource server
+[21:26:14] Loading resource client
+[21:26:14] Loaded resource client
+[21:26:14] Loading resource addon-map
+[21:26:14] Loaded resource addon-map
+[21:26:14] Loading resource addon-map-zoom
+[21:26:14] Loaded resource addon-map-zoom
+[21:26:14] Required server permissions:
+[21:26:14] Optional server permissions:
+[21:26:14] Starting HTTP server on 0.0.0.0:7788
+[21:26:14] Main thread started (ThreadId: 19920)
+[21:26:14] Colshape thread started (ThreadId: 14004)
+[21:26:14] EntityStreamer thread started (ThreadId: 10032)
+[21:26:14] Sync thread started (ThreadId: 5480)
+[21:26:14] Network thread started (ThreadId: 14648)
+[21:26:14] Console thread started (ThreadId: 7444)
+[21:26:14][Warning] Server started in debug mode
+[21:26:15][Warning] resourceManager.Update() took: 78 ms
+[21:26:20] Der Spieler Kai_Mahone mit der ID 0 ist dem Server beigetreten
+[21:26:39][Warning] ReceiveData() took: 63 ms, received events:  1 , packets sent:  0
+[21:26:46][Warning] ReceiveData() took: 156 ms, received events:  3 , packets sent:  0
+[21:26:47][Warning] resourceManager.Update() took: 61 ms
+[21:26:50][Warning] ReceiveData() took: 60 ms, received events:  0 , packets sent:  0
+[21:26:51][Warning] ReceiveData() took: 174 ms, received events:  4 , packets sent:  0
+[21:27:21][Warning] ReceiveData() took: 86 ms, received events:  0 , packets sent:  0
+[21:27:44][Warning] ReceiveData() took: 119 ms, received events:  0 , packets sent:  0
+[21:27:55][Warning] ReceiveData() took: 67 ms, received events:  0 , packets sent:  0
+[21:27:58][Warning] ReceiveData() took: 85 ms, received events:  3 , packets sent:  0
+[21:28:08][Warning] ReceiveData() took: 76 ms, received events:  2 , packets sent:  0
+[21:28:08][Warning] ReceiveData() took: 55 ms, received events:  1 , packets sent:  0
+[21:28:09][Warning] ReceiveData() took: 125 ms, received events:  0 , packets sent:  2
+[21:28:11][Warning] ReceiveData() took: 74 ms, received events:  1 , packets sent:  0
+[21:28:21][Warning] ReceiveData() took: 93 ms, received events:  3 , packets sent:  0
+[21:28:30][Warning] ReceiveData() took: 56 ms, received events:  2 , packets sent:  0
+[21:28:31][Warning] ReceiveData() took: 179 ms, received events:  4 , packets sent:  1
+[21:28:40][Warning] ReceiveData() took: 148 ms, received events:  3 , packets sent:  0
+[21:28:41][Warning] ReceiveData() took: 144 ms, received events:  4 , packets sent:  0
+[21:28:43][Warning] resourceManager.Update() took: 215 ms
+[21:28:51][Warning] ReceiveData() took: 70 ms, received events:  3 , packets sent:  0
+[21:28:52][Warning] resourceManager.Update() took: 168 ms
+[21:29:04] Stopping resource chat
+[21:29:04] Stopped resource chat
+[21:29:04] Stopping resource server
+[21:29:05] Stopped resource server
+[21:29:05] Stopping resource addon-map
+[21:29:05] Stopped resource addon-map
+[21:29:05] Server shutdown
