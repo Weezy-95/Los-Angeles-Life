@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Factories;
-using Los_Angeles_Life.Handlers;
 
 namespace Los_Angeles_Life;
 
@@ -9,13 +8,13 @@ internal class Main : Resource
 {
     public override void OnStart()
     {
-        DatabaseHandler databaseHandler = new DatabaseHandler();
-        Console.WriteLine("[DEV] Server started!");
+
+        Console.WriteLine("[Dev-Server] Server wurde gestartet!");
     }
 
     public override void OnStop()
     {
-        Console.WriteLine("[DEV] Server stopped!");
+        Console.WriteLine("[Dev-Server] Server wurde gestoppt!");
     }
     
     public override IEntityFactory<IPlayer> GetPlayerFactory()

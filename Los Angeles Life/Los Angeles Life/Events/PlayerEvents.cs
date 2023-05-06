@@ -8,9 +8,9 @@ namespace Los_Angeles_Life.Events;
 public class PlayerEvents : IScript
 {
     [ScriptEvent(ScriptEventType.PlayerConnect)]
-    public void onPlayerConnect(MyPlayer player, string reason)
+    public void OnPlayerConnect(MyPlayer player, string reason)
     {
-        Alt.Log($"Der Spieler {player.Name} mit der Id {player.Id} ist dem Server beigetreten");
+        Alt.Log($"Der Spieler {player.Name} mit der ID {player.Id} ist dem Server beigetreten");
 
         player.Model = (uint)PedModel.FreemodeMale01;
         player.SetDateTime(DateTime.Now);
