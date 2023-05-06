@@ -33,3 +33,4 @@ msbuild.err
 msbuild.wrn
 Gameserver/cache
 Gameserver/resources/server/net6.0
+Client/node_modules
