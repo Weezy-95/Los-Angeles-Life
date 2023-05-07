@@ -18,7 +18,7 @@
       <PackageReference Include="AltV.Net.EntitySync.ServerEvent" Version="14.0.2" />
       <PackageReference Include="AltV.Net.Interactions" Version="14.0.2" />
       <PackageReference Include="AltV.Net.Resources.Chat.Api" Version="14.0.2" />
-      <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
+      <PackageReference Include="MySql.Data" Version="8.0.33" />
     </ItemGroup>
 
 </Project>
