@@ -5,7 +5,7 @@ using Los_Angeles_Life.Handlers;
 
 namespace Los_Angeles_Life;
 
-internal class Main : Resource
+internal class Server : Resource
 {
     private readonly DatabaseHandler _databaseHandler = new DatabaseHandler();
     
