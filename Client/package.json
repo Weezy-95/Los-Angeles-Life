@@ -7,15 +7,10 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "",
+    "build": "npm run clean && swc ./src -d ../Gameserver/resources/client --copy-files",
+    "clean": "rimraf ../Gameserver/resources/client/client",
     "copyFiles": "copy-files-from-to"
   },
-  "copyFiles": [
-    {
-      "from": "src/**",
-      "to": "../Gameserver/resources/client"
-    }
-  ],
   "devDependencies": {
     "@altv/types-client": "^2.4.4",
     "@altv/types-natives": "^1.4.8",
@@ -25,6 +20,10 @@
     "@altv/types-worker": "1.0.7"
   },
   "dependencies": {
-    "copy-files-from-to": "^3.8.0"
+    "mdb-ui-kit": "^6.2.0",
+    "rimraf": "^5.0.0",
+    "swc": "^1.0.11",
+    "typescript": "^5.0.4",
+    "vue": "^3.2.47"
   }
 }
