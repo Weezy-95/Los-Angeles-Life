@@ -1,0 +1,53 @@
+/* Font Imports */
+@font-face {
+    font-family: Roboto-Regular;
+    src: url("../Assets/Fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Light;
+    src: url("../Assets/Fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Black;
+    src: url("../Assets/Fonts/Roboto-Black.ttf");
+}
+
+@font-face {
+    font-family: Roboto-BlackItalic;
+    src: url("../Assets/Fonts/Roboto-BlackItalic.ttf");
+}
+
+body {
+    /*background-image: url("../Assets/images/bild1.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;*/
+
+    background-color: transparent;
+    font-family: Roboto-Regular;
+}
+
+.main-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-radius: 20px;
+    opacity: 0.8;
+
+    width: 1000px;
+    height: 600px;
+
+    background-color: #be670a;
+}
+
+.main-container .btn-login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    background-color: #686b6b;
+}
