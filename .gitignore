@@ -35,3 +35,4 @@ Gameserver/cache
 Gameserver/resources/server/net6.0
 Client/node_modules
 Gameserver/server.log
+Gameserver/resources
