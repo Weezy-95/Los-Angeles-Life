@@ -1,9 +1,8 @@
-// Loading Webview
-import './Webview/Login/app.js';
-import './Webview/Bank/app.js';
+// Loading webview
+import './webview/login/app.js';
 
-// Loading Systems
-import './Systems/MissedInterriors.js';
+// Loading systems
+import './world/missedInterrios.js';
 
-// Loading Handlers
-import './Handlers/LoginHandler.js';
+// Loading events
+import './events/connectionComplete.js';
