@@ -16,4 +16,10 @@ public class PlayerEvents : IScript
         player.SetDateTime(DateTime.Now);
         player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);
     }
+
+    [ClientEvent("token")]
+    public void DiscordToken(MyPlayer player, token)
+    {
+        
+    }
 }
