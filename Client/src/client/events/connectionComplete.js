@@ -20,9 +20,9 @@ async function handleConnectionComplete() {
 async function getOAuthToken() {
     try {
         const token = await alt.Discord.requestOAuth2Token(DISCORD_APP_ID);
-        alt.emitServer('token', token);
+        alt.emitServer('DiscordToken', token);
     } catch (e) {
-        alt.logError("[Client] Es ist ein Fehler aufgetreten: " + e);
+        alt.logError("[Client] Es gab einen Fehler mit dem Discord Token: " + e);
     }
 }
 
