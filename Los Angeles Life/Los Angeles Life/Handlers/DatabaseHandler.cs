@@ -1,5 +1,4 @@
-﻿using System.Data;
-using AltV.Net;
+﻿using AltV.Net;
 using Los_Angeles_Life.Entities;
 using MySql.Data.MySqlClient;
 
@@ -67,7 +66,7 @@ namespace Los_Angeles_Life.Handlers
             }
         }
 
-        public static bool CheckAccountExists(int discordId)
+        public static bool CheckAccountExists(long discordId)
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
             mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId LIMIT 1";
@@ -88,7 +87,7 @@ namespace Los_Angeles_Life.Handlers
             {
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
                 mySqlCommand.CommandText =
-                    "INSERT INTO accounts (playerName, discordId) VALUES (@playerName, @discordId)";
+                    "INSERT INTO accounts (PlayerName, DiscordId, DiscordName) VALUES (@playerName, @discordId, @discordName)";
 
                 mySqlCommand.Parameters.AddWithValue("@playerName", playerName);
                 mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
@@ -117,6 +116,7 @@ namespace Los_Angeles_Life.Handlers
                     dataReader.Read();
                     myPlayer.PlayerId = dataReader.GetInt32("PlayerID");
                     myPlayer.DiscordId = dataReader.GetInt32("DiscordID");
+                    myPlayer.DiscordName = dataReader.GetString("DiscordName");
                     myPlayer.PlayerName = dataReader.GetString("PlayerName");
                     myPlayer.SocialClub = dataReader.GetString("SocialClub");
                     myPlayer.Money = dataReader.GetInt32("Money");
@@ -133,8 +133,9 @@ namespace Los_Angeles_Life.Handlers
 
             mySqlCommand.Parameters.AddWithValue("@playerName", myPlayer.PlayerName);
             mySqlCommand.Parameters.AddWithValue("@money", myPlayer.Money);
-            mySqlCommand.Parameters.AddWithValue("@adminlevel", myPlayer.AdminLevel);
+            mySqlCommand.Parameters.AddWithValue("@adminLevel", myPlayer.AdminLevel);
             mySqlCommand.Parameters.AddWithValue("@discordId", myPlayer.DiscordId);
+            mySqlCommand.Parameters.AddWithValue("@discordName", myPlayer.DiscordName);
         }
     }
 }

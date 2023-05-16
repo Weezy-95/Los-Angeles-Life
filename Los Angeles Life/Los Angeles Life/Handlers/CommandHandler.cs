@@ -15,7 +15,6 @@ public class CommandHandler : IScript
         if (vehicle != null)
             player.SendChatMessage("You just Created a " + vehicleName);
         player.SetIntoVehicle(vehicle, 1);
-        
     }
     
     [Command("pos")]

@@ -8,18 +8,16 @@ namespace Los_Angeles_Life;
 internal class Server : Resource
 {
     private readonly DatabaseHandler _databaseHandler = new DatabaseHandler();
-    
+
     public override void OnStart()
     {
         _databaseHandler.OpenConnection();
-        
-        // Lädt die Datenbank Inhalte
         _databaseHandler.LoadAllPlayers();
     }
 
     public override void OnStop()
     {
-       _databaseHandler.CloseConnection();
+        _databaseHandler.CloseConnection();
     }
     
     public override IEntityFactory<IPlayer> GetPlayerFactory()
