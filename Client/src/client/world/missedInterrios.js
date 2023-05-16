@@ -1,8 +1,8 @@
 /// <reference types="@altv/types-client" />
 /// <reference types="@altv/types-natives" />
 
-import * as alt from 'alt-client';
-import * as native from 'natives';
+import alt from 'alt-client';
+import native from 'natives';
 
 alt.requestIpl('ex_dt1_02_office_02b');
 alt.requestIpl('chop_props');
