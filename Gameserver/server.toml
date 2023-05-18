@@ -11,4 +11,5 @@ website = 'https://discord.gg/TwBa2vAndG'
 language = 'de'
 description = 'Deutscher Hardcore Roleplay Server - In Entwicklung'
 modules = ['js-module', 'js-bytecode-module', 'csharp-module']
-resources = ['chat', 'server', 'client', 'addon-map', 'addon-map-zoom']
+resources = ['chat', 'server', 'client']
+[voice]
