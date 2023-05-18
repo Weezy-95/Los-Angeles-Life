@@ -69,7 +69,7 @@ namespace Los_Angeles_Life.Handlers
         public static bool CheckAccountExists(long discordId)
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
-            mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId LIMIT 1";
+            mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId";
             mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
 
             using MySqlDataReader dataReader = mySqlCommand.ExecuteReader();
@@ -81,16 +81,16 @@ namespace Los_Angeles_Life.Handlers
             return false;
         }
 
-        public static int CreateAccount(String playerName, int discordId)
+        public static int CreateAccount(string playerName, long discordId)
         {
             try
             {
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
-                mySqlCommand.CommandText =
-                    "INSERT INTO accounts (PlayerName, DiscordId, DiscordName) VALUES (@playerName, @discordId, @discordName)";
+                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName) VALUES (@discordId, @playerName)";
 
-                mySqlCommand.Parameters.AddWithValue("@playerName", playerName);
                 mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
+                mySqlCommand.Parameters.AddWithValue("@playerName", playerName);
+
                 mySqlCommand.ExecuteNonQuery();
 
                 return (int)mySqlCommand.LastInsertedId;
@@ -105,7 +105,7 @@ namespace Los_Angeles_Life.Handlers
         public static void LoadAccount(MyPlayer myPlayer)
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
-            mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId LIMT 1";
+            mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId";
 
             mySqlCommand.Parameters.AddWithValue("@discordId", myPlayer.DiscordId);
 
@@ -115,10 +115,9 @@ namespace Los_Angeles_Life.Handlers
                 {
                     dataReader.Read();
                     myPlayer.PlayerId = dataReader.GetInt32("PlayerID");
-                    myPlayer.DiscordId = dataReader.GetInt32("DiscordID");
-                    myPlayer.DiscordName = dataReader.GetString("DiscordName");
-                    myPlayer.PlayerName = dataReader.GetString("PlayerName");
-                    myPlayer.SocialClub = dataReader.GetString("SocialClub");
+                    myPlayer.DiscordId = dataReader.GetInt64("DiscordID");
+                    //myPlayer.PlayerName = dataReader.GetString("PlayerName");
+                    //myPlayer.SocialClub = dataReader.GetString("SocialClub");
                     myPlayer.Money = dataReader.GetInt32("Money");
                     myPlayer.AdminLevel = dataReader.GetInt16("AdminLevel");
                 }
@@ -135,7 +134,8 @@ namespace Los_Angeles_Life.Handlers
             mySqlCommand.Parameters.AddWithValue("@money", myPlayer.Money);
             mySqlCommand.Parameters.AddWithValue("@adminLevel", myPlayer.AdminLevel);
             mySqlCommand.Parameters.AddWithValue("@discordId", myPlayer.DiscordId);
-            mySqlCommand.Parameters.AddWithValue("@discordName", myPlayer.DiscordName);
+
+            mySqlCommand.ExecuteNonQuery();
         }
     }
 }

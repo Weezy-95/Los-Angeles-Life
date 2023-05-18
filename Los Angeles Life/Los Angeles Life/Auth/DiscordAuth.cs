@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using Los_Angeles_Life.Entities;
+using Los_Angeles_Life.Handlers;
 using Newtonsoft.Json;
 
 namespace Los_Angeles_Life.Auth;
@@ -38,8 +39,9 @@ public class DiscordAuth : IScript
             return;
         }
 
-        // Example of returned properties
-        Alt.Log($"Id: {result.id}");
-        Alt.Log($"Name: {result.username}#{result.discriminator}");
+        player.DiscordId = result.id;
+
+        var loginHandler = new LoginHandler();
+        loginHandler.PlayerAuth(player);
     }
 }
