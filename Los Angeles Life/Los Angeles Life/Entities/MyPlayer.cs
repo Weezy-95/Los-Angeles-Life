@@ -17,9 +17,6 @@ namespace Los_Angeles_Life.Entities
         
         public MyPlayer(ICore core, IntPtr nativePointer, ushort id) : base(core, nativePointer, id)
         {
-            Money = 0;
-            AdminLevel = 0;
-            IsLoggedIn = false;
         }
     }
 }

@@ -22,7 +22,10 @@ public class LoginHandler : IScript
         {
             player.PlayerName = player.Name;
             player.SocialClub = player.SocialClubId;
-            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub);
+            player.Money = 1500;
+            player.AdminLevel = 0;
+            player.IsWhitelisted = false;
+            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub, player.AdminLevel, player.Money, player.IsWhitelisted);
 
             player.Model = (uint)PedModel.FreemodeMale01;
             player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);

@@ -81,16 +81,19 @@ namespace Los_Angeles_Life.Handlers
             return false;
         }
 
-        public static int CreateAccount(string playerName, long discordId, ulong socialClub)
+        public static int CreateAccount(string playerName, long discordId, ulong socialClub, long AdminLevel, long Money, bool IsWhitelisted)
         {
             try
             {
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
-                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName, SocialClub) VALUES (@discordId, @playerName, @socialClub)";
+                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName, SocialClub, AdminLevel, Money, IsWhitelisted) VALUES (@discordId, @playerName, @socialClub, @adminLevel, @Money, @IsWhitelisted)";
 
                 mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
                 mySqlCommand.Parameters.AddWithValue("@playerName", playerName);
                 mySqlCommand.Parameters.AddWithValue("@socialClub", socialClub);
+                mySqlCommand.Parameters.AddWithValue("@adminLevel", AdminLevel);
+                mySqlCommand.Parameters.AddWithValue("@money", Money);
+                mySqlCommand.Parameters.AddWithValue("@isWhitelisted", IsWhitelisted);
 
                 mySqlCommand.ExecuteNonQuery();
 
