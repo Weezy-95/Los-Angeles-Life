@@ -8,7 +8,7 @@ namespace Los_Angeles_Life.Entities
         public int PlayerId { get; set; }
         public new long DiscordId { get; set; }
         public string PlayerName { get; set; }
-        public string SocialClub { get; set; }
+        public ulong SocialClub { get; set; }
         public long Money { get; set; }
         public int AdminLevel { get; set; }
         public bool IsAduty { get; set; }

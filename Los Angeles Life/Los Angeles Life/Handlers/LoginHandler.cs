@@ -11,24 +11,25 @@ public class LoginHandler : IScript
         if (DatabaseHandler.CheckAccountExists(player.DiscordId))
         {
             DatabaseHandler.LoadAccount(player);
-            Alt.Log("Lädt Account mit der Discord Id: " + player.DiscordId + " und der Player Id: " + player.PlayerId);
-            
+
             player.Model = (uint)PedModel.FreemodeMale01;
             player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);
             player.IsLoggedIn = true;
-            
+
             player.Emit("Client:Auth:CloseLoginHud");
         }
         else
         {
-            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId);
-            Alt.Log("Erstellt den Account mit der Discord Id: " + player.DiscordId);
-            
+            player.PlayerName = player.Name;
+            player.SocialClub = player.SocialClubId;
+            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub);
+
             player.Model = (uint)PedModel.FreemodeMale01;
             player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);
             player.IsLoggedIn = true;
-        
+
             player.Emit("Client:Auth:CloseLoginHud");
         }
     }
+
 }

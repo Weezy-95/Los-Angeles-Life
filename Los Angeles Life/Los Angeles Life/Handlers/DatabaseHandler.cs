@@ -81,15 +81,16 @@ namespace Los_Angeles_Life.Handlers
             return false;
         }
 
-        public static int CreateAccount(string playerName, long discordId)
+        public static int CreateAccount(string playerName, long discordId, ulong socialClub)
         {
             try
             {
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
-                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName) VALUES (@discordId, @playerName)";
+                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName, SocialClub) VALUES (@discordId, @playerName, @socialClub)";
 
                 mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
                 mySqlCommand.Parameters.AddWithValue("@playerName", playerName);
+                mySqlCommand.Parameters.AddWithValue("@socialClub", socialClub);
 
                 mySqlCommand.ExecuteNonQuery();
 
@@ -101,6 +102,7 @@ namespace Los_Angeles_Life.Handlers
                 return -1;
             }
         }
+
 
         public static void LoadAccount(MyPlayer myPlayer)
         {
@@ -116,13 +118,14 @@ namespace Los_Angeles_Life.Handlers
                     dataReader.Read();
                     myPlayer.PlayerId = dataReader.GetInt32("PlayerID");
                     myPlayer.DiscordId = dataReader.GetInt64("DiscordID");
-                    //myPlayer.PlayerName = dataReader.GetString("PlayerName");
-                    //myPlayer.SocialClub = dataReader.GetString("SocialClub");
+                    myPlayer.PlayerName = dataReader.GetString("PlayerName");
+                    myPlayer.SocialClub = dataReader.GetUInt64("SocialClub");
                     myPlayer.Money = dataReader.GetInt32("Money");
                     myPlayer.AdminLevel = dataReader.GetInt16("AdminLevel");
                 }
             }
         }
+
 
         public static void SaveAccount(MyPlayer myPlayer)
         {
