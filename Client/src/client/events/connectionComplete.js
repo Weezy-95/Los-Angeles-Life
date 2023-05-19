@@ -15,12 +15,14 @@ alt.onServer('Client:Auth:Open', () => {
     alt.showCursor(true);
     alt.toggleGameControls(false);
     alt.toggleVoiceControls(false);
+    native.displayRadar(false);
 });
 
 alt.onServer('Client:Auth:CloseLoginHud', () => {
    alt.showCursor(false);
    alt.toggleGameControls(true);
    alt.toggleVoiceControls(true);
+   native.displayRadar(true);
 
    if (loginHud) {
        loginHud.destroy();
