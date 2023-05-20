@@ -14,6 +14,7 @@ public class LoginHandler : IScript
 
             player.Model = (uint)PedModel.FreemodeMale01;
             player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);
+            player.Dimension = 0;
 
             player.Emit("Client:Auth:CloseLoginHud");
         }
@@ -28,6 +29,7 @@ public class LoginHandler : IScript
 
             player.Model = (uint)PedModel.FreemodeMale01;
             player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);
+            player.Dimension = 0;
 
             player.Emit("Client:Auth:CloseLoginHud");
         }

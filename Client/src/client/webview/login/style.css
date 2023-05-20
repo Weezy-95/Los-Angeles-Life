@@ -1,22 +1,22 @@
 /* Font Imports */
 @font-face {
     font-family: Roboto-Regular;
-    src: url("assets/Fonts/Roboto-Regular.ttf");
+    src: url("../assets/fonts/Roboto-Light.ttf");
 }
 
 @font-face {
     font-family: Roboto-Light;
-    src: url("assets/Fonts/Roboto-Light.ttf");
+    src: url("../assets/fonts/Roboto-Light.ttf");
 }
 
 @font-face {
     font-family: Roboto-Black;
-    src: url("assets/Fonts/Roboto-Black.ttf");
+    src: url("../assets/fonts/Roboto-Black.ttf");
 }
 
 @font-face {
     font-family: Roboto-BlackItalic;
-    src: url("assets/Fonts/Roboto-BlackItalic.ttf");
+    src: url("../assets/fonts/Roboto-BlackItalic.ttf");
 }
 
 body {
