@@ -13,7 +13,7 @@ namespace Los_Angeles_Life.Entities
         public int AdminLevel { get; set; }
         public bool IsAduty { get; set; }
         public bool IsWhitelisted { get; set; }
-        public bool IsLoggedIn { get; set; }
+        public bool IsConnected { get; set; }
         
         public MyPlayer(ICore core, IntPtr nativePointer, ushort id) : base(core, nativePointer, id)
         {
