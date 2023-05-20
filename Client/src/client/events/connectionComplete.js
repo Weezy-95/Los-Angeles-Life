@@ -25,13 +25,16 @@ alt.onServer('Client:Auth:Open', () => {
 });
 
 alt.onServer('Client:Auth:CloseLoginHud', () => {
-   alt.showCursor(false);
-   alt.toggleGameControls(true);
-   alt.toggleVoiceControls(true);
-   native.displayRadar(true);
-   native.freezeEntityPosition(alt.Player.local.scriptID, false);
-   native.destroyAllCams(true);
-   native.renderScriptCams(false, false, 0, false, false, 0);
+    alt.showCursor(false);
+    alt.toggleGameControls(true);
+    alt.toggleVoiceControls(true);
+    alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
+    native.displayRadar(true);
+    native.scaleformMovieMethodAddParamInt(3);
+    native.endScaleformMovieMethod();
+    native.freezeEntityPosition(alt.Player.local.scriptID, false);
+    native.destroyAllCams(true);
+    native.renderScriptCams(false, false, 0, false, false, 0);
 
    if (loginHud) {
        loginHud.destroy();
