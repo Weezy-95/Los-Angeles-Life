@@ -13,7 +13,7 @@ namespace Los_Angeles_Life.Handlers
             const string dbHost = "localhost";
             const string dbPort = "4406";
             const string dbUser = "dev";
-            const string dbPassword = "163540";
+            const string dbPassword = "Sonner2021$";
             const string dbName = "altv";
 
             const string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};";
