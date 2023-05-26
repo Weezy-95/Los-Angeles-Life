@@ -22,4 +22,39 @@ public class CommandHandler : IScript
     {
         Alt.Log(player.Position + player.Rotation.ToString());
     }
+
+    [Command("revive")]
+    public static void revive_CMD(MyPlayer player, ushort target)
+    {
+        foreach (var playerTarget in Alt.GetAllPlayers())
+        {
+            if (playerTarget.Id.Equals(target))
+            {
+                player = (MyPlayer)playerTarget;
+                player.Spawn(new Position(player.Position.X, player.Position.Y, player.Position.Z), 0);
+                player.Health = 200;
+            }
+            else
+            {
+                Alt.Log("Kein Spieler zum reviven gefunden");
+            }
+        }
+    }
+
+    [Command("kill")]
+    public static void test_CMD(MyPlayer player, ushort target)
+    {
+        foreach (var playerTarget in Alt.GetAllPlayers())
+        {
+            if (playerTarget.Id.Equals(target))
+            {
+                player = (MyPlayer)playerTarget;
+                player.Health = 0;
+            }
+            else
+            {
+                Alt.Log("Kein Spieler zum töten gefunden");
+            }
+        }
+    }
 }
