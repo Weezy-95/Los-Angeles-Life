@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <OutputPath>D:\git\Los-Angeles-Life\Gameserver\resources\server</OutputPath>
+      <OutputPath>..\..\Gameserver\resources\server</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>
