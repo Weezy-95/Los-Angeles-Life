@@ -81,12 +81,12 @@ namespace Los_Angeles_Life.Handlers
             return false;
         }
 
-        public static int CreateAccount(string playerName, long discordId, ulong socialClub, long AdminLevel, long Money, bool IsWhitelisted)
+        public static int CreateAccount(string playerName, long discordId, ulong socialClub, long AdminLevel, long Money, bool IsWhitelisted, float playerPos)
         {
             try
             {
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
-                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName, SocialClub, AdminLevel, Money, IsWhitelisted) VALUES (@discordId, @playerName, @socialClub, @adminLevel, @Money, @IsWhitelisted)";
+                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName, SocialClub, AdminLevel, Money, IsWhitelisted, PlayerPos) VALUES (@discordId, @playerName, @socialClub, @adminLevel, @Money, @IsWhitelisted, @playerPosX)";
 
                 mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
                 mySqlCommand.Parameters.AddWithValue("@playerName", playerName);
@@ -94,6 +94,7 @@ namespace Los_Angeles_Life.Handlers
                 mySqlCommand.Parameters.AddWithValue("@adminLevel", AdminLevel);
                 mySqlCommand.Parameters.AddWithValue("@money", Money);
                 mySqlCommand.Parameters.AddWithValue("@isWhitelisted", IsWhitelisted);
+                mySqlCommand.Parameters.AddWithValue("@playerPos", playerPos);
 
                 mySqlCommand.ExecuteNonQuery();
 
@@ -125,6 +126,7 @@ namespace Los_Angeles_Life.Handlers
                     myPlayer.SocialClub = dataReader.GetUInt64("SocialClub");
                     myPlayer.Money = dataReader.GetInt32("Money");
                     myPlayer.AdminLevel = dataReader.GetInt16("AdminLevel");
+                    myPlayer.PlayerPos = dataReader.GetFloat("PlayerPos");
                 }
             }
         }
@@ -134,12 +136,13 @@ namespace Los_Angeles_Life.Handlers
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
             mySqlCommand.CommandText =
-                "UPDATE accounts SET playerName=@playerName, money=@money, adminlevel=@adminlevel WHERE discordId=@discordId";
+                "UPDATE accounts SET playerName=@playerName, money=@money, adminlevel=@adminlevel, playerposx=@playerpos WHERE discordId=@discordId";
 
             mySqlCommand.Parameters.AddWithValue("@playerName", myPlayer.PlayerName);
             mySqlCommand.Parameters.AddWithValue("@money", myPlayer.Money);
             mySqlCommand.Parameters.AddWithValue("@adminLevel", myPlayer.AdminLevel);
             mySqlCommand.Parameters.AddWithValue("@discordId", myPlayer.DiscordId);
+            mySqlCommand.Parameters.AddWithValue("@playerPos", myPlayer.PlayerPos);
 
             mySqlCommand.ExecuteNonQuery();
         }

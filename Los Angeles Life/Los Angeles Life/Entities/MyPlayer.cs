@@ -11,6 +11,8 @@ namespace Los_Angeles_Life.Entities
         public ulong SocialClub { get; set; }
         public long Money { get; set; }
         public int AdminLevel { get; set; }
+        public float PlayerPos { get; set; }
+
         public bool IsAduty { get; set; }
         public bool IsWhitelisted { get; set; }
         public bool IsConnected { get; set; }
