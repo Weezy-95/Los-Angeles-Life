@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Projekt": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\Alex\\Desktop\\Los-Angeles-Life\\Gameserver\\altv-server.exe",
+      "workingDirectory": "C:\\Users\\Alex\\Desktop\\Los-Angeles-Life\\Gameserver"
+    }
+  }
+}
