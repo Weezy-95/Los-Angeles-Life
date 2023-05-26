@@ -36,3 +36,6 @@ Gameserver/resources/server/net6.0
 Client/node_modules
 Gameserver/server.log
 Gameserver/resources
+Los Angeles Life/Los Angeles Life/Properties/launchSettings.json
+Los Angeles Life/server.log
+Los Angeles Life/Los Angeles Life/Los Angeles Life.csproj
