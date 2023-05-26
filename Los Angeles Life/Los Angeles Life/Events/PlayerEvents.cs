@@ -21,6 +21,7 @@ namespace Los_Angeles_Life.Events
 
             player.Emit("Client:Auth:Open");
             _channel.AddPlayer(player);
+            Alt.Log("Start Leben: " + player.Health);
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
@@ -29,6 +30,12 @@ namespace Los_Angeles_Life.Events
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} hat den Server verlassen! Grund: " + reason);
             DatabaseHandler.SaveAccount(player);
             _channel.RemovePlayer(player);
+        }
+
+        [ScriptEvent(ScriptEventType.PlayerDead)]
+        public void OnPlayerDead(MyPlayer player, IEntity killer, uint weapon)
+        {
+            Alt.Log(DateTime.Now + ": " + player.PlayerName +" wurde von " + killer + " mit " + weapon + " getötet!");
         }
     }
 }
