@@ -36,7 +36,7 @@ public class CommandHandler : IScript
             }
             else
             {
-                Alt.Log("Kein Spieler zum reviven gefunden");
+                Alt.Log("Kein Spieler zum Reviven gefunden");
             }
         }
     }
@@ -53,7 +53,7 @@ public class CommandHandler : IScript
             }
             else
             {
-                Alt.Log("Kein Spieler zum töten gefunden");
+                Alt.Log("Kein Spieler zum Töten gefunden");
             }
         }
     }
