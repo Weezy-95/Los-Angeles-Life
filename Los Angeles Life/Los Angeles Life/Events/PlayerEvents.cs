@@ -26,11 +26,9 @@ namespace Los_Angeles_Life.Events
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-        public void OnPlayerDisconnect(MyPlayer player, string reason, Position lastPlayerPos)
+        public void OnPlayerDisconnect(MyPlayer player, string reason)
         {
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} hat den Server verlassen! Grund: " + reason);
-            Character.LastCharacterPos(player, lastPlayerPos);
-            Alt.Log("Disconnect Player Pos: " + lastPlayerPos);
             DatabaseHandler.SaveAccount(player);
             _channel.RemovePlayer(player);
         }

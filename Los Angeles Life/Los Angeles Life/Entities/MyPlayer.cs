@@ -12,6 +12,9 @@ namespace Los_Angeles_Life.Entities
         public long Money { get; set; }
         public int AdminLevel { get; set; }
         public float PlayerPos { get; set; }
+        public float PlayerLastPosX { get; set; }
+        public float PlayerLastPosY { get; set; }
+        public float PlayerLastPosZ { get; set; }
 
         public bool IsAduty { get; set; }
         public bool IsWhitelisted { get; set; }

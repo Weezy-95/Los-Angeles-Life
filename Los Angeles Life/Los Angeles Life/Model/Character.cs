@@ -7,14 +7,14 @@ namespace Los_Angeles_Life.Model
     public class Character : IScript
     {
         // Habe es nicht geschafft weiterzumachen, maybe müssen wir das doch einzeln in der DB speichern
-        public static void LastCharacterPos(MyPlayer player, Position lastPosition)
+        public static void LastCharacterPos(MyPlayer player, Position newPosition)
         {
-            float playerPosX = lastPosition.X;
-            float playerPosY = lastPosition.Y;
-            float playerPosZ = lastPosition.Z;
+            player.PlayerLastPosX = newPosition.X;
+            player.PlayerLastPosY = newPosition.Y;
+            player.PlayerLastPosZ = newPosition.Z;
 
-            player.PlayerPos = playerPosX + playerPosY + playerPosZ;
-            Alt.Log("Hier die Pos: " + player.PlayerPos);
+            player.PlayerPos = player.PlayerLastPosX + player.PlayerLastPosY + player.PlayerLastPosZ;
+            Alt.Log("LastCharacterPos: " + player.PlayerPos);
         }
     }
 }
