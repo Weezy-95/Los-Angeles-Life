@@ -1,7 +1,9 @@
 ﻿using AltV.Net;
+using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
 using Los_Angeles_Life.Handlers;
+using Los_Angeles_Life.Model;
 
 namespace Los_Angeles_Life.Events
 {
@@ -24,9 +26,11 @@ namespace Los_Angeles_Life.Events
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-        public void OnPlayerDisconnect(MyPlayer player, string reason)
+        public void OnPlayerDisconnect(MyPlayer player, string reason, Position lastPlayerPos)
         {
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} hat den Server verlassen! Grund: " + reason);
+            Character.LastCharacterPos(player, lastPlayerPos);
+            Alt.Log("Disconnect Player Pos: " + lastPlayerPos);
             DatabaseHandler.SaveAccount(player);
             _channel.RemovePlayer(player);
         }

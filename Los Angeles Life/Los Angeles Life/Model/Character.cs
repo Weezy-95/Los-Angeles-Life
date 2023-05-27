@@ -12,7 +12,9 @@ namespace Los_Angeles_Life.Model
             float playerPosX = lastPosition.X;
             float playerPosY = lastPosition.Y;
             float playerPosZ = lastPosition.Z;
-            
+
+            player.PlayerPos = playerPosX + playerPosY + playerPosZ;
+            Alt.Log("Hier die Pos: " + player.PlayerPos);
         }
     }
 }
