@@ -10,7 +10,7 @@ namespace Los_Angeles_Life.Handlers;
 public class CommandHandler : IScript
 {
     [Command("veh")]
-    public static void CreateVehicleCMD(MyPlayer player, string vehicleName)
+    public static void CreateVehicleCmd(MyPlayer player, string vehicleName)
     {
         IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y +1.5f, player.Position.Z),  player.Rotation);
         if (vehicle != null)
@@ -22,13 +22,13 @@ public class CommandHandler : IScript
     }
     
     [Command("pos")]
-    public static void CurrentPlayerPositionCMD(MyPlayer player)
+    public static void CurrentPlayerPositionCmd(MyPlayer player)
     {
         Alt.Log(player.Position + player.Rotation.ToString());
     }
 
     [Command("revive")]
-    public static void RevivePlayerCMD(MyPlayer player, ushort target)
+    public static void RevivePlayerCmd(MyPlayer player, ushort target)
     {
         foreach (IPlayer playerTarget in Alt.GetAllPlayers())
         {
@@ -45,7 +45,7 @@ public class CommandHandler : IScript
     }
 
     [Command("kill")]
-    public static void KillPlayerCMD(MyPlayer player, ushort target)
+    public static void KillPlayerCmd(MyPlayer player, ushort target)
     {
         foreach (IPlayer playerTarget in Alt.GetAllPlayers())
         {
@@ -63,7 +63,7 @@ public class CommandHandler : IScript
 
     // Beispiel -> /weapon WelcheWaffe WieVielMunition WelcherSpieler -> /weapon 584646201 90 0
     [Command("weapon")]
-    public static void GivePlayerWeaponCMD(MyPlayer player, uint weapon, int ammo, ushort target)
+    public static void GivePlayerWeaponCmd(MyPlayer player, uint weapon, int ammo, ushort target)
     {
         try
         {

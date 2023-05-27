@@ -21,7 +21,6 @@ namespace Los_Angeles_Life.Events
 
             player.Emit("Client:Auth:Open");
             _channel.AddPlayer(player);
-            Alt.Log("Start Leben: " + player.Health);
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
