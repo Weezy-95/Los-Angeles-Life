@@ -11,6 +11,8 @@ namespace Los_Angeles_Life.Entities
         public ulong SocialClub { get; set; }
         public long Money { get; set; }
         public int AdminLevel { get; set; }
+
+        // Hier das Objekt "Position" speichern. Aus der Position können wir die Werte abrufen (X, Y, Z, yaw für Rotation);
         public float PlayerPos { get; set; }
         public float PlayerLastPosX { get; set; }
         public float PlayerLastPosY { get; set; }
