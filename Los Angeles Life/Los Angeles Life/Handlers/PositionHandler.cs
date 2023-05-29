@@ -10,17 +10,13 @@ using System.Threading.Tasks;
 
 namespace Los_Angeles_Life.Handlers
 {
-    public class PositionHandler : IScript
+    public abstract class PositionHandler : IScript
     {
-        public static void HandlePositionSave(object state)
+        public static void HandlePositionSave(object? state)
         {
-            // Diese Methode wird bei jedem Timer-Tick aufgerufen
-            // Füge hier den Code ein, den du ausführen möchtest
-
-            // Zum Beispiel: Eine Chat-Nachricht an alle Spieler senden
             foreach (IPlayer player in Alt.GetAllPlayers())
             {
-                Alt.Log("Juhu!");
+                Alt.Log(player.Position.ToString());
             }
         }
     }

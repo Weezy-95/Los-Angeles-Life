@@ -7,22 +7,22 @@ namespace Los_Angeles_Life;
 
 internal class Server : Resource
 {
-    private readonly DatabaseHandler _databaseHandler = new DatabaseHandler();
+    private readonly DatabaseHandler _databaseHandler = new();
 
-    private Timer timer;
-    private int interval = 5000; // Intervall in Millisekunden (hier: 1 Sekunde)
+    private Timer _timer = null!;
+    private const int Interval = 5000;
 
     public override void OnStart()
     {
         _databaseHandler.OpenConnection();
         _databaseHandler.LoadAllPlayers();
-        timer = new Timer(PositionHandler.HandlePositionSave, null, interval, interval);
+        _timer = new Timer(PositionHandler.HandlePositionSave, null, Interval, Interval);
     }
 
     public override void OnStop()
     {
         _databaseHandler.CloseConnection();
-        timer.Dispose();
+        _timer.Dispose();
     }
     
     public override IEntityFactory<IPlayer> GetPlayerFactory()
