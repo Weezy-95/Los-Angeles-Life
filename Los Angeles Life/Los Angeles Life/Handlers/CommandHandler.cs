@@ -10,21 +10,112 @@ namespace Los_Angeles_Life.Handlers;
 public class CommandHandler : IScript
 {
     [Command("aduty")]
-    public static void Aduty(MyPlayer player)
+    public static void AdutyCmd(MyPlayer player, string status)
     {
-        player.Model = (uint)PedModel.Juggernaut02UMY;
+        if (!AdminHandler.CheckAdminPermissions(player, 1)) return;
+        switch (status)
+        {
+            case "on":
+                AdminHandler.Aduty(player);
+                break;
+            case "off":
+                AdminHandler.NoDuty(player);
+                break;
+        }
+    }
+
+    [Command("setSupporter")]
+    public static void SetSupporterCmd(MyPlayer player, int adminLevel, ushort target)
+    {
+        if (!AdminHandler.CheckAdminPermissions(player, 2) && player.IsAduty)
+        {
+            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            {
+                if (playerTarget.Id.Equals(target))
+                {
+                    player = (MyPlayer)playerTarget;
+                    player.AdminLevel = 1;
+                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
+                }
+                else
+                {
+                    Alt.Log("Ungültige Spieler ID");
+                }
+            }
+        }
+        else
+        {
+            Alt.Log("Deine Berechtigung reicht nicht aus!");
+        }
+    }
+    
+    [Command("setDeveloper")]
+    public static void SetDeveloperCmd(MyPlayer player, int adminLevel, ushort target)
+    {
+        if (!AdminHandler.CheckAdminPermissions(player, 3) && player.IsAduty)
+        {
+            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            {
+                if (playerTarget.Id.Equals(target))
+                {
+                    player = (MyPlayer)playerTarget;
+                    player.AdminLevel = 2;
+                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
+                }
+                else
+                {
+                    Alt.Log("Ungültige Spieler ID");
+                }
+            }
+        }
+        else
+        {
+            Alt.Log("Deine Berechtigung reicht nicht aus!");
+        }
+    }
+    
+    [Command("setAdmin")]
+    public static void SetAdminCmd(MyPlayer player, int adminLevel, ushort target)
+    {
+        if (!AdminHandler.CheckAdminPermissions(player, 4) && player.IsAduty)
+        {
+            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            {
+                if (playerTarget.Id.Equals(target))
+                {
+                    player = (MyPlayer)playerTarget;
+                    player.AdminLevel = 3;
+                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
+                }
+                else
+                {
+                    Alt.Log("Ungültige Spieler ID");
+                }
+            }
+        }
+        else
+        {
+            Alt.Log("Deine Berechtigung reicht nicht aus!");
+        }
     }
     
     [Command("veh")]
     public static void CreateVehicleCmd(MyPlayer player, string vehicleName)
     {
-        IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y +1.5f, player.Position.Z),  player.Rotation);
-        if (vehicle != null)
+        if (player.IsAduty)
         {
-            player.SendChatMessage("Fahrzeug " + vehicleName + " wurde erfolgreich erstellt. Erstellt von " + player.PlayerName + ".");
-        }
+            IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y +1.5f, player.Position.Z),  player.Rotation);
+            if (vehicle != null)
+            {
+                player.SendChatMessage("Fahrzeug " + vehicleName + " wurde erfolgreich erstellt. Erstellt von " + player.PlayerName + ".");
+            }
             
-        player.SetIntoVehicle(vehicle, 1);
+            player.SetIntoVehicle(vehicle, 1);
+        }
+        else
+        {
+            Alt.Log("Du bist nicht im Admin Modus");
+        }
     }
     
     [Command("pos")]
@@ -66,8 +157,7 @@ public class CommandHandler : IScript
         }
     }
 
-
-    // Beispiel -> /weapon WelcheWaffe WieVielMunition WelcherSpieler -> /weapon 584646201 90 0
+    
     [Command("weapon")]
     public static void GivePlayerWeaponCmd(MyPlayer player, uint weapon, int ammo, ushort target)
     {
@@ -85,14 +175,14 @@ public class CommandHandler : IScript
         }
         catch(Exception ex)
         {
-            Alt.Log("Kein Spieler mit der ID " + target + " gefunden.");
+            Alt.Log("Kein Spieler mit der ID " + target + " gefunden. Grund: " + ex);
         }   
     }
 
     [Command("kick")]
     public static void KickPlayerFromServerCmd(MyPlayer player)
     {
-        // richtige Kick Funktion einbauen
+        // TODO 1: richtige Kick Funktion einbauen
         player.Kick("Selbst gekickt!");
     }
 }
