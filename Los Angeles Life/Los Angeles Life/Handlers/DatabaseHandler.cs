@@ -82,13 +82,14 @@ namespace Los_Angeles_Life.Handlers
             return false;
         }
 
-        public static int CreateAccount(string playerName, long discordId, ulong socialClub, long adminLevel, long money, bool isWhitelisted, bool isConnected, Position playerPosition, Rotation playerRotation, int playerDimension)
+        public static int CreateAccount(string playerName, long discordId, ulong socialClub, long adminLevel, long money, bool isWhitelisted, 
+            Position playerPosition, Rotation playerRotation, int playerDimension)
         {
             try
             {
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
-                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName, SocialClub, AdminLevel, Money, IsWhitelisted, IsConnected, PlayerPosX, PlayerPosY, PlayerPosZ, PlayerRot, PlayerDim) " +
-                                           "VALUES (@discordId, @playerName, @socialClub, @adminLevel, @Money, @IsWhitelisted, @IsConnected, @playerPosX, @playerPosY, @playerPosZ, @playerRot, @playerDim)";
+                mySqlCommand.CommandText = "INSERT INTO accounts (DiscordId, PlayerName, SocialClub, AdminLevel, Money, IsWhitelisted, PlayerPosX, PlayerPosY, PlayerPosZ, PlayerRot, PlayerDim) " +
+                                           "VALUES (@discordId, @playerName, @socialClub, @adminLevel, @Money, @IsWhitelisted, @playerPosX, @playerPosY, @playerPosZ, @playerRot, @playerDim)";
 
                 mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
                 mySqlCommand.Parameters.AddWithValue("@playerName", playerName);
@@ -96,14 +97,12 @@ namespace Los_Angeles_Life.Handlers
                 mySqlCommand.Parameters.AddWithValue("@adminLevel", adminLevel);
                 mySqlCommand.Parameters.AddWithValue("@money", money);
                 mySqlCommand.Parameters.AddWithValue("@isWhitelisted", isWhitelisted);
-                mySqlCommand.Parameters.AddWithValue("@isConnected", isConnected);
                 mySqlCommand.Parameters.AddWithValue("@playerPosX", playerPosition.X);
                 mySqlCommand.Parameters.AddWithValue("@playerPosY", playerPosition.Y);
                 mySqlCommand.Parameters.AddWithValue("@playerPosZ", playerPosition.Z);
                 mySqlCommand.Parameters.AddWithValue("@playerRot", playerRotation.Yaw);
                 mySqlCommand.Parameters.AddWithValue("@playerDim", playerDimension);
-
-
+                
                 mySqlCommand.ExecuteNonQuery();
 
                 return (int)mySqlCommand.LastInsertedId;
@@ -116,31 +115,30 @@ namespace Los_Angeles_Life.Handlers
         }
 
 
-        public static void LoadAccount(MyPlayer myPlayer)
+        public static void LoadAccount(MyPlayer player)
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
             mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId";
 
-            mySqlCommand.Parameters.AddWithValue("@discordId", myPlayer.DiscordId);
+            mySqlCommand.Parameters.AddWithValue("@discordId", player.DiscordId);
 
             using (MySqlDataReader dataReader = mySqlCommand.ExecuteReader())
             {
                 if (dataReader.HasRows)
                 {
                     dataReader.Read();
-                    myPlayer.PlayerId = dataReader.GetInt32("PlayerID");
-                    myPlayer.DiscordId = dataReader.GetInt64("DiscordID");
-                    myPlayer.PlayerName = dataReader.GetString("PlayerName");
-                    myPlayer.SocialClub = dataReader.GetUInt64("SocialClub");
-                    myPlayer.Money = dataReader.GetInt32("Money");
-                    myPlayer.AdminLevel = dataReader.GetInt16("AdminLevel");
-                    myPlayer.IsWhitelisted = dataReader.GetBoolean("IsWhitelisted");
-                    myPlayer.IsConnected = dataReader.GetBoolean("IsConnected");
+                    player.PlayerId = dataReader.GetInt32("PlayerID");
+                    player.DiscordId = dataReader.GetInt64("DiscordID");
+                    player.PlayerName = dataReader.GetString("PlayerName");
+                    player.SocialClub = dataReader.GetUInt64("SocialClub");
+                    player.Money = dataReader.GetInt32("Money");
+                    player.AdminLevel = dataReader.GetInt16("AdminLevel");
+                    player.IsWhitelisted = dataReader.GetBoolean("IsWhitelisted");
                     Position loadedPosition = new Position(dataReader.GetFloat("PlayerPosX"), dataReader.GetFloat("PlayerPosY"), dataReader.GetFloat("PlayerPosZ"));
-                    myPlayer.PlayerPos = loadedPosition;
+                    player.PlayerPos = loadedPosition;
                     Rotation loadedRotation = new Rotation(0f, 0f, dataReader.GetFloat("PlayerRot"));
-                    myPlayer.PlayerRot = loadedRotation;
-                    myPlayer.PlayerDim = dataReader.GetInt16("PlayerDim");
+                    player.PlayerRot = loadedRotation;
+                    player.PlayerDim = dataReader.GetInt16("PlayerDim");
                 }
             }
         }
@@ -150,21 +148,20 @@ namespace Los_Angeles_Life.Handlers
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
             mySqlCommand.CommandText =
-                "UPDATE accounts SET playerName=@playerName, money=@money, adminLevel=@adminLevel, isWhitelisted=@isWhitelisted, isConnected=@isConnected, playerPosX=@playerPosX, playerPosY=@playerPosY, playerPosZ=@playerPosZ, playerRot=@playerRot, playerDim@playerDim WHERE discordId=@discordId";
+                "UPDATE accounts SET playerName=@playerName, money=@money, adminLevel=@adminLevel, isWhitelisted=@isWhitelisted, " +
+                "playerPosX=@playerPosX, playerPosY=@playerPosY, playerPosZ=@playerPosZ, playerRot=@playerRot, playerDim@playerDim WHERE discordId=@discordId";
 
             mySqlCommand.Parameters.AddWithValue("@discordId", player.DiscordId);
             mySqlCommand.Parameters.AddWithValue("@playerName", player.PlayerName);
             mySqlCommand.Parameters.AddWithValue("@money", player.Money);
             mySqlCommand.Parameters.AddWithValue("@adminLevel", player.AdminLevel);
             mySqlCommand.Parameters.AddWithValue("@isWhitelisted", player.IsWhitelisted);
-            mySqlCommand.Parameters.AddWithValue("@isConnected", player.IsConnected);
             mySqlCommand.Parameters.AddWithValue("@playerPosX", player.PlayerPos.X);
             mySqlCommand.Parameters.AddWithValue("@playerPosY", player.PlayerPos.Y);
             mySqlCommand.Parameters.AddWithValue("@playerPosZ", player.PlayerPos.Z);
             mySqlCommand.Parameters.AddWithValue("@playerRot", player.Rotation.Yaw);
             mySqlCommand.Parameters.AddWithValue("@playerDim", player.PlayerDim);
-
-
+            
             mySqlCommand.ExecuteNonQuery();
         }
 
@@ -174,32 +171,20 @@ namespace Los_Angeles_Life.Handlers
             {
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
                 mySqlCommand.CommandText =
-                    "UPDATE accounts SET playerPosX=@playerPosX, playerPosY=@playerPosY, playerPosZ=@playerPosZ, playerRot@playerRot WHERE discordId=@discordId";
+                    "UPDATE accounts SET playerPosX=@playerPosX, playerPosY=@playerPosY, playerPosZ=@playerPosZ, playerRot=@playerRot WHERE discordId=@discordId";
 
-                mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
                 mySqlCommand.Parameters.AddWithValue("@playerPosX", playerPosition.X);
                 mySqlCommand.Parameters.AddWithValue("@playerPosY", playerPosition.Y);
                 mySqlCommand.Parameters.AddWithValue("@playerPosZ", playerPosition.Z);
                 mySqlCommand.Parameters.AddWithValue("@playerRot", playerRotation.Yaw);
+                mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
 
                 mySqlCommand.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch(MySqlException ex)
             {
+                Alt.Log("[MySQL] Fehler beim Speichern der Position: " + ex);
             }
-            
-        }
-
-        public static void TestSaveRot(long discordId, Rotation playerRotation)
-        {
-            MySqlCommand mySqlCommand = _connection.CreateCommand();
-            mySqlCommand.CommandText =
-                "UPDATE accounts SET playerRot@playerRot WHERE discordId=@discordId";
-
-            mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
-            mySqlCommand.Parameters.AddWithValue("@playerRot", playerRotation.Yaw);
-
-            mySqlCommand.ExecuteNonQuery();
         }
     }
 }

@@ -9,14 +9,12 @@ internal class Server : Resource
 {
     private readonly DatabaseHandler _databaseHandler = new();
 
-    private Timer _timer = null!;
-    private const int Interval = 5000;
+    private readonly Timer _timer = null!;
 
     public override void OnStart()
     {
         _databaseHandler.OpenConnection();
         _databaseHandler.LoadAllPlayers();
-        _timer = new Timer(PlayerSaveHandler.SaveAllPlayersPositions, null, Interval, Interval);
     }
 
     public override void OnStop()
