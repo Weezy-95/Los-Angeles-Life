@@ -9,6 +9,12 @@ namespace Los_Angeles_Life.Handlers;
 
 public class CommandHandler : IScript
 {
+    [Command("aduty")]
+    public static void Aduty(MyPlayer player)
+    {
+        player.Model = (uint)PedModel.Juggernaut02UMY;
+    }
+    
     [Command("veh")]
     public static void CreateVehicleCmd(MyPlayer player, string vehicleName)
     {
