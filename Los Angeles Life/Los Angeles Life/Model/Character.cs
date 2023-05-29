@@ -6,16 +6,6 @@ namespace Los_Angeles_Life.Model
 {
     public class Character : IScript
     {
-        // Habe es nicht geschafft weiterzumachen, maybe müssen wir das doch einzeln in der DB speichern
-        // Könnte dieses Script nicht auch ebenfalls in MyPlayer sein? 
-        public static void LastCharacterPos(MyPlayer player, Position newPosition)
-        {
-            player.PlayerLastPosX = newPosition.X;
-            player.PlayerLastPosY = newPosition.Y;
-            player.PlayerLastPosZ = newPosition.Z;
-
-            player.PlayerPos = player.PlayerLastPosX + player.PlayerLastPosY + player.PlayerLastPosZ;
-            Alt.Log("LastCharacterPos: " + player.PlayerPos);
-        }
+        // Erstmal die Methode in MyPlayer ausgelagert. Kp, ob das mehr Sinn macht.
     }
 }
