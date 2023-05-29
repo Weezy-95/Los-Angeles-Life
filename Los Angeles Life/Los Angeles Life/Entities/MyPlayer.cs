@@ -23,8 +23,6 @@ namespace Los_Angeles_Life.Entities
 
         public MyPlayer(ICore core, IntPtr nativePointer, ushort id) : base(core, nativePointer, id)
         {
-            IsConnected = false;
-            IsWhitelisted = false;
         }
     }
 }

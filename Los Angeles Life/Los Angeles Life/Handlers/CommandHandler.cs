@@ -89,10 +89,4 @@ public class CommandHandler : IScript
         // richtige Kick Funktion einbauen
         player.Kick("Selbst gekickt!");
     }
-
-    [Command("save")]
-    public static void SaveTestCmd(MyPlayer player)
-    {
-        DatabaseHandler.TestSaveRot(player.DiscordId, player.PlayerRot);
-    }    
 }
