@@ -30,7 +30,6 @@ public class LoginHandler : IScript
             player.SocialClub = player.SocialClubId;
             player.Money = 1500;
             player.AdminLevel = 0;
-            player.IsConnected = true;
             player.IsWhitelisted = false;
             Position playerPos = new Position(0f, 0f, 75f);
             Rotation playerRot = new Rotation(0f, 0f, 0f);
