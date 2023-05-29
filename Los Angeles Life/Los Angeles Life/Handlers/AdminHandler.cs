@@ -1,6 +1,25 @@
-﻿namespace Los_Angeles_Life.Handlers;
+﻿using AltV.Net;
+using AltV.Net.Enums;
+using Los_Angeles_Life.Entities;
 
-public class AdminHandler
+namespace Los_Angeles_Life.Handlers;
+
+public abstract class AdminHandler : IScript
 {
+    public static bool CheckAdminPermissions(MyPlayer player, int requiredLevel)
+    {
+        return player.AdminLevel >= requiredLevel;
+    }
     
+    public static void Aduty(MyPlayer player)
+    {
+        player.IsAduty = true;
+        player.Model = (uint)PedModel.Juggernaut02UMY;
+    }
+
+    public static void NoDuty(MyPlayer player)
+    {
+        player.IsAduty = false;
+        player.Model = (uint)PedModel.FreemodeMale01;
+    }
 }
