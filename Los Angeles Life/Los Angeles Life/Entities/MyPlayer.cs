@@ -14,12 +14,11 @@ namespace Los_Angeles_Life.Entities
         public long Money { get; set; }
         public int AdminLevel { get; set; }
 
-        // Hier das Objekt "Position" speichern. Aus der Position können wir die Werte abrufen (X, Y, Z, yaw für Rotation);
         public Position PlayerPos { get; set; }
         public bool IsAduty { get; set; }
         public bool IsWhitelisted { get; set; }
         public bool IsConnected { get; set; }
-        
+
         public MyPlayer(ICore core, IntPtr nativePointer, ushort id) : base(core, nativePointer, id)
         {
         }

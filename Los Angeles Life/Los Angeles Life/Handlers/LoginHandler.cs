@@ -13,7 +13,7 @@ public class LoginHandler : IScript
             DatabaseHandler.LoadAccount(player);
 
             player.Model = (uint)PedModel.FreemodeMale01;
-            player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);
+            player.Spawn(new AltV.Net.Data.Position(player.PlayerPos.X, player.PlayerPos.Y, player.PlayerPos.Z), 0);
             player.Dimension = 0;
 
             player.Emit("Client:Auth:CloseLoginHud");
@@ -25,7 +25,8 @@ public class LoginHandler : IScript
             player.Money = 1500;
             player.AdminLevel = 0;
             player.IsWhitelisted = false;
-            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub, player.AdminLevel, player.Money, player.IsWhitelisted, player.PlayerPos);
+            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub, player.AdminLevel, player.Money, player.IsWhitelisted, 
+                player.PlayerPos.X, player.PlayerPos.Z, player.PlayerPos.Z);
 
             player.Model = (uint)PedModel.FreemodeMale01;
             player.Spawn(new AltV.Net.Data.Position(0, 0, 75), 0);

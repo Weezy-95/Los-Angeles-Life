@@ -4,7 +4,6 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using Los_Angeles_Life.Entities;
-using Los_Angeles_Life.Model;
 
 namespace Los_Angeles_Life.Handlers;
 
@@ -82,12 +81,5 @@ public class CommandHandler : IScript
         {
             Alt.Log("Kein Spieler mit der ID " + target + " gefunden.");
         }   
-    }
-
-    [Command("lastpos")]
-    public static void LastPlayerPos(MyPlayer player, Position lastPlayerPos)
-    {
-        Character.LastCharacterPos(player, lastPlayerPos);
-        Alt.Log("Hier: " + lastPlayerPos);
     }
 }

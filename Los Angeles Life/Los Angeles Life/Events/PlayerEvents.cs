@@ -1,9 +1,7 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
 using Los_Angeles_Life.Handlers;
-using Los_Angeles_Life.Model;
 
 namespace Los_Angeles_Life.Events
 {
@@ -15,6 +13,7 @@ namespace Los_Angeles_Life.Events
         public void OnPlayerConnect(MyPlayer player, string reason)
         {
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} ist dem Server beigetreten!");
+            
             player.SetDateTime(DateTime.Now);
             player.Dimension = -1;
             
@@ -29,6 +28,8 @@ namespace Los_Angeles_Life.Events
         public void OnPlayerDisconnect(MyPlayer player, string reason)
         {
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} hat den Server verlassen! Grund: " + reason);
+            Alt.Log("LastPos: " + player.PlayerPos.X + ":" + player.PlayerPos.Y);
+            
             DatabaseHandler.SaveAccount(player);
             _channel.RemovePlayer(player);
         }
