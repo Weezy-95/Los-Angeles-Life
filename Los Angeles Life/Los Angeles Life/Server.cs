@@ -9,8 +9,6 @@ internal class Server : Resource
 {
     private readonly DatabaseHandler _databaseHandler = new();
 
-    private readonly Timer _timer = null!;
-
     public override void OnStart()
     {
         _databaseHandler.OpenConnection();
@@ -20,7 +18,6 @@ internal class Server : Resource
     public override void OnStop()
     {
         _databaseHandler.CloseConnection();
-        _timer.Dispose();
     }
     
     public override IEntityFactory<IPlayer> GetPlayerFactory()
