@@ -185,5 +185,24 @@ namespace Los_Angeles_Life.Handlers
                 Alt.Log("[MySQL] Fehler beim Speichern der Position: " + ex);
             }
         }
+
+        public static void SetAdminLevel(long discordId, int adminLevel)
+        {
+            try
+            {
+                MySqlCommand mySqlCommand = _connection.CreateCommand();
+                mySqlCommand.CommandText =
+                    "UPDATE accounts SET adminLevel=@adminLevel WHERE discordId=@discordId";
+                
+                mySqlCommand.Parameters.AddWithValue("@adminLevel", adminLevel);
+                mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
+
+                mySqlCommand.ExecuteNonQuery();
+            }
+            catch(MySqlException ex)
+            {
+                Alt.Log("[MySQL] Fehler setzen des AdminLevels: " + ex);
+            }
+        }
     }
 }
