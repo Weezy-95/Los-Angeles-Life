@@ -28,7 +28,6 @@ namespace Los_Angeles_Life.Events
         public void OnPlayerDisconnect(MyPlayer player, string reason)
         {
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} hat den Server verlassen! Grund: " + reason);
-            Alt.Log("LastPos: " + player.PlayerPos.X + ":" + player.PlayerPos.Y);
             
             DatabaseHandler.SaveAccount(player);
             _channel.RemovePlayer(player);

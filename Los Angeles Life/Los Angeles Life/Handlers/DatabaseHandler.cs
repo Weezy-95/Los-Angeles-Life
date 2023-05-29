@@ -82,7 +82,7 @@ namespace Los_Angeles_Life.Handlers
             return false;
         }
 
-        public static int CreateAccount(string playerName, long discordId, ulong socialClub, long adminLevel, long money, bool isWhitelisted, float playerPosX, float playerPosY, float playerPosZ)
+        public static int CreateAccount(string playerName, long discordId, ulong socialClub, long adminLevel, long money, bool isWhitelisted, Position playerPosition)
         {
             try
             {
@@ -96,9 +96,9 @@ namespace Los_Angeles_Life.Handlers
                 mySqlCommand.Parameters.AddWithValue("@adminLevel", adminLevel);
                 mySqlCommand.Parameters.AddWithValue("@money", money);
                 mySqlCommand.Parameters.AddWithValue("@isWhitelisted", isWhitelisted);
-                mySqlCommand.Parameters.AddWithValue("@playerPosX", playerPosX);
-                mySqlCommand.Parameters.AddWithValue("@playerPosY", playerPosY);
-                mySqlCommand.Parameters.AddWithValue("@playerPosZ", playerPosZ);
+                mySqlCommand.Parameters.AddWithValue("@playerPosX", playerPosition.X);
+                mySqlCommand.Parameters.AddWithValue("@playerPosY", playerPosition.Y);
+                mySqlCommand.Parameters.AddWithValue("@playerPosZ", playerPosition.Z);
 
 
                 mySqlCommand.ExecuteNonQuery();
@@ -143,7 +143,7 @@ namespace Los_Angeles_Life.Handlers
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
             mySqlCommand.CommandText =
-                "UPDATE accounts SET playerName=@playerName, money=@money, adminlevel=@adminlevel, playerposx=@playerPosX, playerposy=@playerPosY, playerposz=@playerPosZ WHERE discordId=@discordId";
+                "UPDATE accounts SET playerName=@playerName, money=@money, adminLevel=@adminLevel, playerPosX=@playerPosX, playerPosY=@playerPosY, playerPosZ=@playerPosZ WHERE discordId=@discordId";
 
             mySqlCommand.Parameters.AddWithValue("@playerName", player.PlayerName);
             mySqlCommand.Parameters.AddWithValue("@money", player.Money);

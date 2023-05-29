@@ -82,4 +82,17 @@ public class CommandHandler : IScript
             Alt.Log("Kein Spieler mit der ID " + target + " gefunden.");
         }   
     }
+
+    [Command("kick")]
+    public static void KickPlayerFromServerCmd(MyPlayer player)
+    {
+        // richtige Kick Funktion einbauen
+        player.Kick("Selbst gekickt!");
+    }
+
+    [Command("save")]
+    public static void SaveTestCmd(MyPlayer player)
+    {
+        //DatabaseHandler.SaveAccount(player);
+    }    
 }
