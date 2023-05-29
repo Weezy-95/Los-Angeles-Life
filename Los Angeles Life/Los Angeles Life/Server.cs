@@ -16,7 +16,7 @@ internal class Server : Resource
     {
         _databaseHandler.OpenConnection();
         _databaseHandler.LoadAllPlayers();
-        _timer = new Timer(PositionHandler.HandlePositionSave, null, Interval, Interval);
+        _timer = new Timer(PlayerSaveHandler.SaveAllPlayersPositions, null, Interval, Interval);
     }
 
     public override void OnStop()

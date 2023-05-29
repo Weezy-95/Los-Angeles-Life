@@ -93,6 +93,6 @@ public class CommandHandler : IScript
     [Command("save")]
     public static void SaveTestCmd(MyPlayer player)
     {
-        //DatabaseHandler.SaveAccount(player);
+        DatabaseHandler.TestSaveRot(player.DiscordId, player.PlayerRot);
     }    
 }

@@ -15,18 +15,16 @@ namespace Los_Angeles_Life.Entities
         public int AdminLevel { get; set; }
 
         public Position PlayerPos { get; set; }
+        public Rotation PlayerRot { get; set; }
+        public int PlayerDim { get; set; }
         public bool IsAduty { get; set; }
         public bool IsWhitelisted { get; set; }
-        public bool IsConnected { get; set; }
+        public new bool IsConnected { get; set; }
 
         public MyPlayer(ICore core, IntPtr nativePointer, ushort id) : base(core, nativePointer, id)
         {
-        }
-
-        public void LastCharacterPos(MyPlayer player, Position newPosition)
-        {
-            PlayerPos = newPosition;
-            Alt.Log("LastCharacterPos: " + PlayerPos);
+            IsConnected = false;
+            IsWhitelisted = false;
         }
     }
 }

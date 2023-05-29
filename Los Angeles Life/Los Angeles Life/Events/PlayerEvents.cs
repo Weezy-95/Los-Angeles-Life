@@ -16,6 +16,8 @@ namespace Los_Angeles_Life.Events
             
             player.SetDateTime(DateTime.Now);
             player.Dimension = -1;
+            player.IsWhitelisted = false;
+            player.IsConnected = false;
             
             // Position for Login Camera
             player.Spawn(new AltV.Net.Data.Position((float)754.694, (float)1299.995, (float)360.294), 0);
