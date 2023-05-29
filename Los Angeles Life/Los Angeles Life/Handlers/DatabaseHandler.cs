@@ -142,14 +142,13 @@ namespace Los_Angeles_Life.Handlers
                 }
             }
         }
-
-
+        
         public static void SaveAccount(MyPlayer player)
         {
             MySqlCommand mySqlCommand = _connection.CreateCommand();
             mySqlCommand.CommandText =
                 "UPDATE accounts SET playerName=@playerName, money=@money, adminLevel=@adminLevel, isWhitelisted=@isWhitelisted, " +
-                "playerPosX=@playerPosX, playerPosY=@playerPosY, playerPosZ=@playerPosZ, playerRot=@playerRot, playerDim@playerDim WHERE discordId=@discordId";
+                "playerPosX=@playerPosX, playerPosY=@playerPosY, playerPosZ=@playerPosZ, playerRot=@playerRot, playerDim=@playerDim WHERE discordId=@discordId";
 
             mySqlCommand.Parameters.AddWithValue("@discordId", player.DiscordId);
             mySqlCommand.Parameters.AddWithValue("@playerName", player.PlayerName);
@@ -161,10 +160,10 @@ namespace Los_Angeles_Life.Handlers
             mySqlCommand.Parameters.AddWithValue("@playerPosZ", player.PlayerPos.Z);
             mySqlCommand.Parameters.AddWithValue("@playerRot", player.Rotation.Yaw);
             mySqlCommand.Parameters.AddWithValue("@playerDim", player.PlayerDim);
-            
+    
             mySqlCommand.ExecuteNonQuery();
         }
-
+        
         public static void SaveAllPlayersPositions(long discordId, Position playerPosition, Rotation playerRotation)
         {
             try
