@@ -17,6 +17,9 @@ namespace Los_Angeles_Life.Events
             player.SetDateTime(DateTime.Now);
             player.PlayerDim = -1;
             
+            // Position for Login Camera
+            player.Spawn(new AltV.Net.Data.Position((float)754.694, (float)1299.995, (float)360.294), 0);
+            
             player.Emit("Client:Auth:Open");
             _channel.AddPlayer(player);
         }

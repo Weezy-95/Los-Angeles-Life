@@ -43,5 +43,4 @@ public class LoginHandler : IScript
             _timer = new Timer(PlayerSaveHandler.SaveAllPlayersPositions, null, Interval, Interval);
         }
     }
-
 }

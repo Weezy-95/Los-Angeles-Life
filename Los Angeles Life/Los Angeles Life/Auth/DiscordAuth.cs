@@ -20,7 +20,7 @@ public class DiscordAuth : IScript
         }
         catch (AggregateException ex)
         {
-            player.Kick("Authorization failed");
+            player.Kick("Authorization failed: " + ex);
             return;
         }
 

@@ -236,6 +236,7 @@ namespace Los_Angeles_Life.Handlers
             catch (MySqlException ex)
             {
                 Alt.Log("[MySQL] Fehler beim Speichern der Position: " + ex);
+                throw;
             }
             finally
             {
@@ -261,6 +262,7 @@ namespace Los_Angeles_Life.Handlers
             catch (MySqlException ex)
             {
                 Alt.Log("[MySQL] Fehler setzen des AdminLevels: " + ex);
+                throw;
             }
             finally
             {
