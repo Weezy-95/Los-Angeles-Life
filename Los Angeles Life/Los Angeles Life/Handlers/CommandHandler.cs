@@ -25,22 +25,28 @@ public class CommandHandler : IScript
     }
 
     [Command("setSupporter")]
-    public static void SetSupporterCmd(MyPlayer player, int adminLevel, ushort target)
+    public static void SetSupporterCmd(MyPlayer player, int adminLevel, int target)
     {
-        if (!AdminHandler.CheckAdminPermissions(player, 2) && player.IsAduty)
+        if (AdminHandler.CheckAdminPermissions(player, 2))
         {
-            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            if (player.IsAduty)
             {
-                if (playerTarget.Id.Equals(target))
+                try
                 {
-                    var setPlayerAdmin = (MyPlayer)playerTarget;
+                    IPlayer selectedAdminPlayer = Alt.GetPlayersArray()[target].Value;
+                    MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
+                    
                     setPlayerAdmin.AdminLevel = 1;
-                    DatabaseHandler.SetAdminLevel(setPlayerAdmin.DiscordId, adminLevel);
+                    DatabaseHandler.SetAdminLevel(selectedAdminPlayer.DiscordId, adminLevel);
                 }
-                else
+                catch (Exception ex)
                 {
-                    Alt.Log("Ungültige Spieler ID");
+                    Alt.Log("Fehler beim setzen des Admin Status: " + ex);
                 }
+            }
+            else
+            {
+                Alt.Log("Du bist nicht im Adminmodus");
             }
         }
         else
