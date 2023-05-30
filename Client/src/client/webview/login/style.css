@@ -19,13 +19,20 @@
     src: url("../assets/fonts/Roboto-BlackItalic.ttf");
 }
 
-body {
-    /*background-image: url("../assets/images/bild1.jpg");
-    background-size: 100%;
-    background-repeat: no-repeat;*/
+@font-face {
+    font-family: Roboto-Bold;
+    src: url("../assets/fonts/Roboto-Bold.ttf");
+}
 
+@font-face {
+    font-family: Roboto-Medium;
+    src: url("../assets/fonts/Roboto-Medium.ttf");
+}
+
+body {
     background-color: transparent;
     font-family: Roboto-Regular;
+    color: #f8f8f8;
 }
 
 .main-container {
@@ -40,14 +47,46 @@ body {
     width: 1000px;
     height: 600px;
 
-    background-color: #be670a;
+    background-color: #e77200;
+}
+
+.inner-container {
+    position: absolute;
+    width: 1000px;
+    height: 150px;
+
+    border-radius: 20px 20px 0 0;
+
+    background-color: #201c1d;
+}
+
+.text-container {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 250px;
+    height: 150px;
+
+    color: #201c1d;
+    font-family: Roboto-Medium;
+    border-radius: 10px;
 }
 
 .main-container .btn-login {
     position: absolute;
-    top: 50%;
+    top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 1;
-    background-color: #686b6b;
+    background-color: #201c1d;
 }
+
+.logo-discord {
+    position: absolute;
+    top: 30%;
+    right: 4%;
+    transform: rotate(0.4rad);
+}
+
