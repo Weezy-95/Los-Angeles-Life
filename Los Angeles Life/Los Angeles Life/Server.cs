@@ -11,8 +11,7 @@ internal class Server : Resource
 
     public override void OnStart()
     {
-        _databaseHandler.OpenConnection();
-        _databaseHandler.LoadAllPlayers();
+        _databaseHandler.LoadPlayerCount();
     }
 
     public override void OnStop()

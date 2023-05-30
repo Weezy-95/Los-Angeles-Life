@@ -185,4 +185,10 @@ public class CommandHandler : IScript
         // TODO 1: richtige Kick Funktion einbauen
         player.Kick("Selbst gekickt!");
     }
+
+    [Command("dim")]
+    public static void ShowDim(MyPlayer player)
+    {
+        Alt.Log("Dim: " + player.PlayerDim);
+    }
 }
