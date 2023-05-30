@@ -15,9 +15,9 @@ public class LoginHandler : IScript
         if (DatabaseHandler.CheckAccountExists(player.DiscordId))
         {
             DatabaseHandler.LoadAccount(player);
-            Alt.Log("Auth: " + player.PlayerPos + "Dim: " + player.PlayerDim);
             player.Model = (uint)PedModel.FreemodeMale01;
-            player.Position = new Position(player.PlayerPos.X, player.PlayerPos.Y, player.PlayerPos.Z);
+            player.PlayerPos = new Position(player.PlayerPos.X, player.PlayerPos.Y, player.PlayerPos.Z);
+            player.Spawn(player.PlayerPos, 1);
 
             player.Emit("Client:Auth:CloseLoginHud");
             
@@ -30,13 +30,13 @@ public class LoginHandler : IScript
             player.Money = 1500;
             player.AdminLevel = 0;
             player.IsWhitelisted = false;
-            player.PlayerDim = 0;
             player.Model = (uint)PedModel.FreemodeMale01;
+            player.PlayerDim = 0;
 
             Position playerPos = new Position(0f, 0f, 75f);
             Rotation playerRot = new Rotation(0f, 0f, 0f);
             DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub, player.AdminLevel, player.Money, player.IsWhitelisted, playerPos, playerRot, player.PlayerDim);
-            player.Spawn(playerPos, 0);
+            player.Spawn(playerPos, 1);
          
             player.Emit("Client:Auth:CloseLoginHud");
             

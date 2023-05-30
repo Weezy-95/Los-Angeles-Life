@@ -171,7 +171,6 @@ namespace Los_Angeles_Life.Handlers
                         Rotation loadedRotation = new Rotation(0f, 0f, dataReader.GetFloat("PlayerRot"));
                         player.PlayerRot = loadedRotation;
                         player.PlayerDim = dataReader.GetInt16("PlayerDim");
-                        Alt.Log("DB: " + player.PlayerDim);
                     }
                 }
             }
@@ -194,18 +193,13 @@ namespace Los_Angeles_Life.Handlers
 
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
                 mySqlCommand.CommandText =
-                    "UPDATE accounts SET playerName=@playerName, money=@money, adminLevel=@adminLevel, isWhitelisted=@isWhitelisted, " +
-                    "playerDim=@playerDim WHERE discordId=@discordId";
+                    "UPDATE accounts SET playerName=@playerName, money=@money, adminLevel=@adminLevel, isWhitelisted=@isWhitelisted, playerDim=@playerDim WHERE discordId=@discordId";
 
                 mySqlCommand.Parameters.AddWithValue("@discordId", player.DiscordId);
                 mySqlCommand.Parameters.AddWithValue("@playerName", player.PlayerName);
                 mySqlCommand.Parameters.AddWithValue("@money", player.Money);
                 mySqlCommand.Parameters.AddWithValue("@adminLevel", player.AdminLevel);
                 mySqlCommand.Parameters.AddWithValue("@isWhitelisted", player.IsWhitelisted);
-                //mySqlCommand.Parameters.AddWithValue("@playerPosX", player.PlayerPos.X);
-                //mySqlCommand.Parameters.AddWithValue("@playerPosY", player.PlayerPos.Y);
-                //mySqlCommand.Parameters.AddWithValue("@playerPosZ", player.PlayerPos.Z);
-                //mySqlCommand.Parameters.AddWithValue("@playerRot", player.Rotation.Yaw);
                 mySqlCommand.Parameters.AddWithValue("@playerDim", player.PlayerDim);
 
                 mySqlCommand.ExecuteNonQuery();

@@ -33,9 +33,9 @@ public class CommandHandler : IScript
             {
                 if (playerTarget.Id.Equals(target))
                 {
-                    player = (MyPlayer)playerTarget;
-                    player.AdminLevel = 1;
-                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
+                    var setPlayerAdmin = (MyPlayer)playerTarget;
+                    setPlayerAdmin.AdminLevel = 1;
+                    DatabaseHandler.SetAdminLevel(setPlayerAdmin.DiscordId, adminLevel);
                 }
                 else
                 {
@@ -185,7 +185,8 @@ public class CommandHandler : IScript
         // TODO 1: richtige Kick Funktion einbauen
         player.Kick("Selbst gekickt!");
     }
-
+    
+    
     [Command("dim")]
     public static void ShowDim(MyPlayer player)
     {
