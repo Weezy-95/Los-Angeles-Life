@@ -17,9 +17,11 @@ public class CommandHandler : IScript
         {
             case "on":
                 AdminHandler.Aduty(player);
+                player.SendChatMessage("[aduty] Admin: On");
                 break;
             case "off":
                 AdminHandler.NoDuty(player);
+                player.SendChatMessage("[aduty] Admin: Off");
                 break;
         }
     }
@@ -29,23 +31,23 @@ public class CommandHandler : IScript
     {
         if (!AdminHandler.CheckAdminPermissions(player, 2) && player.IsAduty)
         {
-            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            try
             {
-                if (playerTarget.Id.Equals(target))
-                {
-                    var setPlayerAdmin = (MyPlayer)playerTarget;
-                    setPlayerAdmin.AdminLevel = 1;
-                    DatabaseHandler.SetAdminLevel(setPlayerAdmin.DiscordId, adminLevel);
-                }
-                else
-                {
-                    Alt.Log("Ungültige Spieler ID");
-                }
+                IPlayer selectedPlayerToSetToSupporter = Alt.GetPlayersArray()[target].Value;
+                MyPlayer playerToSetToSupporter = (MyPlayer)selectedPlayerToSetToSupporter;
+                playerToSetToSupporter.AdminLevel = 1;
+                DatabaseHandler.SetAdminLevel(playerToSetToSupporter.DiscordId, adminLevel);
+                Alt.Log("[SetSupporter] " + playerToSetToSupporter.Name + " wurde auf Supporter gesetzt.");
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Alt.Log("[SetSupporter] Keinen Spieler mit der ID " + target + " gefunden.");
+                System.Console.WriteLine("[SetSupporter] SetDeveloperCmd: " + ex.Message);
             }
         }
         else
         {
-            Alt.Log("Deine Berechtigung reicht nicht aus!");
+            Alt.Log("[SetSupporter] Deine Berechtigung reicht nicht aus!");
         }
     }
     
@@ -54,23 +56,23 @@ public class CommandHandler : IScript
     {
         if (!AdminHandler.CheckAdminPermissions(player, 3) && player.IsAduty)
         {
-            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            try
             {
-                if (playerTarget.Id.Equals(target))
-                {
-                    player = (MyPlayer)playerTarget;
-                    player.AdminLevel = 2;
-                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
-                }
-                else
-                {
-                    Alt.Log("Ungültige Spieler ID");
-                }
+                IPlayer selectedPlayerToSetToDeveloper = Alt.GetPlayersArray()[target].Value;
+                MyPlayer playerToSetToDeveloper = (MyPlayer)selectedPlayerToSetToDeveloper;
+                playerToSetToDeveloper.AdminLevel = 3;
+                DatabaseHandler.SetAdminLevel(playerToSetToDeveloper.DiscordId, adminLevel);
+                Alt.Log("[SetDeveloper] " + playerToSetToDeveloper.Name + " wurde auf Developer gesetzt.");
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Alt.Log("[SetDeveloper] Keinen Spieler mit der ID " + target + " gefunden.");
+                System.Console.WriteLine("[SetDeveloper] SetDeveloperCmd: " + ex.Message);
             }
         }
         else
         {
-            Alt.Log("Deine Berechtigung reicht nicht aus!");
+            Alt.Log("[SetDeveloper] Deine Berechtigung reicht nicht aus!");
         }
     }
     
@@ -79,23 +81,23 @@ public class CommandHandler : IScript
     {
         if (!AdminHandler.CheckAdminPermissions(player, 4) && player.IsAduty)
         {
-            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            try
             {
-                if (playerTarget.Id.Equals(target))
-                {
-                    player = (MyPlayer)playerTarget;
-                    player.AdminLevel = 3;
-                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
-                }
-                else
-                {
-                    Alt.Log("Ungültige Spieler ID");
-                }
+                IPlayer selectedPlayerToSetToAdmin = Alt.GetPlayersArray()[target].Value;
+                MyPlayer playerToSetToAdmin = (MyPlayer)selectedPlayerToSetToAdmin;
+                playerToSetToAdmin.AdminLevel = 3;
+                DatabaseHandler.SetAdminLevel(playerToSetToAdmin.DiscordId, adminLevel);
+                Alt.Log("[SetAdmin] " + playerToSetToAdmin.Name + " wurde auf Admin gesetzt.");
+            }
+            catch(IndexOutOfRangeException ex)
+            {
+                Alt.Log("[SetAdmin] Keinen Spieler mit der ID " + target + " gefunden.");
+                System.Console.WriteLine("[SetAdmin] SetAdminCmd: " + ex.Message);
             }
         }
         else
         {
-            Alt.Log("Deine Berechtigung reicht nicht aus!");
+            Alt.Log("[SetAdmin] Deine Berechtigung reicht nicht aus!");
         }
     }
     
@@ -107,59 +109,59 @@ public class CommandHandler : IScript
             IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y +1.5f, player.Position.Z),  player.Rotation);
             if (vehicle != null)
             {
-                player.SendChatMessage("Fahrzeug " + vehicleName + " wurde erfolgreich erstellt. Erstellt von " + player.PlayerName + ".");
+                Alt.Log("[Veh] Fahrzeug " + vehicleName + " wurde erfolgreich erstellt. Erstellt von " + player.PlayerName + ".");
             }
             
             player.SetIntoVehicle(vehicle, 1);
         }
         else
         {
-            Alt.Log("Du bist nicht im Admin Modus");
+            Alt.Log("[Veh] Du bist nicht im Admin Modus.");
         }
     }
     
     [Command("pos")]
     public static void CurrentPlayerPositionCmd(MyPlayer player)
     {
-        Alt.Log(player.Position + player.Rotation.ToString());
+        Alt.Log(player.Position.ToString());
     }
 
     [Command("revive")]
     public static void RevivePlayerCmd(MyPlayer player, ushort target)
     {
-        foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+        try
         {
-            if (playerTarget.Id.Equals(target))
-            {
-                playerTarget.Spawn(new Position(playerTarget.Position.X, playerTarget.Position.Y, playerTarget.Position.Z), 0);
-                playerTarget.Health = 200;
-            }
-            else
-            {
-                Alt.Log("Kein Spieler zum Reviven gefunden");
-            }
+            IPlayer selectedPlayerToRevive = Alt.GetPlayersArray()[target].Value;
+            selectedPlayerToRevive.Spawn(new Position(selectedPlayerToRevive.Position.X, selectedPlayerToRevive.Position.Y, selectedPlayerToRevive.Position.Z), 0);
+            selectedPlayerToRevive.Health = 200;
+            Alt.Log("[Revive] " + selectedPlayerToRevive.Name + " wurde wiederbelebt.");
+        }
+        catch(IndexOutOfRangeException ex) 
+        {
+            Alt.Log("[Revive] Keinen Spieler mit der ID " + target + " gefunden.");
+            System.Console.WriteLine("[Console] RevivePlayerCmd: " + ex.Message);
         }
     }
 
     [Command("kill")]
     public static void KillPlayerCmd(MyPlayer player, ushort target)
     {
-        foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+        try
         {
-            if (playerTarget.Id.Equals(target))
-            {
-                playerTarget.Health = 0;
-            }
-            else
-            {
-                Alt.Log("Kein Spieler zum Töten gefunden");
-            }
+            IPlayer selectedPlayerToKill = Alt.GetPlayersArray()[target].Value;
+            selectedPlayerToKill.Health = 0;
+            Alt.Log("[Kill] " + selectedPlayerToKill.Name + " wurde getötet.");
+        }
+        catch(IndexOutOfRangeException ex) 
+        {
+            Alt.Log("[Kill] Keinen Spieler mit der ID " + target + " gefunden.");
+            System.Console.WriteLine("[Console] KillPlayerCmd: " + ex.Message);
         }
     }
 
     
     [Command("weapon")]
-    public static void GivePlayerWeaponCmd(MyPlayer player, uint weapon, int ammo, ushort target)
+    public static void GivePlayerWeaponCmd(MyPlayer player, string weapon, int ammo, ushort target)
     {
         try
         {
@@ -170,26 +172,30 @@ public class CommandHandler : IScript
             }
 
             IPlayer selectedPlayer = Alt.GetPlayersArray()[target].Value;
-            selectedPlayer.GiveWeapon(weapon, ammo, true);
-            Alt.Log(player.PlayerName + "(" + player.PlayerId + ")" + " vergab die Waffe " + weapon + " an " + selectedPlayer.Name + "(" + target + ")" + " mit " + ammo + " Munition.");
+            selectedPlayer.GiveWeapon(Alt.Hash(weapon), ammo, true);
+            Alt.Log("[Weapon] " + player.PlayerName + "(" + player.PlayerId + ")" + " vergab die Waffe " + weapon + " an " + selectedPlayer.Name + "(" + target + ")" + " mit " + ammo + " Munition.");
         }
         catch(Exception ex)
         {
-            Alt.Log("Kein Spieler mit der ID " + target + " gefunden. Grund: " + ex);
+            Alt.Log("[Weapon] Keinen Spieler mit der ID " + target + " gefunden.");
+            System.Console.WriteLine("[Console] GivePlayerWeaponCmd: " + ex.Message);
         }   
     }
 
     [Command("kick")]
-    public static void KickPlayerFromServerCmd(MyPlayer player)
+    public static void KickPlayerFromServerCmd(MyPlayer player, int target, string reason)
     {
-        // TODO 1: richtige Kick Funktion einbauen
-        player.Kick("Selbst gekickt!");
-    }
-    
-    
-    [Command("dim")]
-    public static void ShowDim(MyPlayer player)
-    {
-        Alt.Log("Dim: " + player.PlayerDim);
+        try
+        {
+            IPlayer selectedPlayerToKick = Alt.GetPlayersArray()[target].Value;
+            Alt.Log("[Kick] " + selectedPlayerToKick.Name + " wurde gekickt. Grund: " + reason);
+
+            selectedPlayerToKick.Kick(reason);
+        }
+        catch(IndexOutOfRangeException ex)
+        {
+            Alt.Log("[Kick] Keinen Spieler mit der ID " + target + " gefunden.");
+            System.Console.WriteLine("[Console] KickPlayerFromServerCmd: " + ex.Message);
+        }
     }
 }
