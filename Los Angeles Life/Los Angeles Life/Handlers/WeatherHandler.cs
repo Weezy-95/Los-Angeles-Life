@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
+using Los_Angeles_Life.Entities;
 using System;
 
 namespace Los_Angeles_Life.Handlers
@@ -11,7 +12,7 @@ namespace Los_Angeles_Life.Handlers
         private static Dictionary<int, WeatherType[]> weatherTypes = new Dictionary<int, WeatherType[]>();
         private static Timer? weatherPatternTimer;
         private static Timer? weatherTimer;
-        private const double weatherPatternTime = 20;
+        private const double weatherPatternTime = 90;
         private static WeatherType[] currentWeatherPattern;
 
         private static WeatherType[] rainyWeather = {
@@ -46,21 +47,15 @@ namespace Los_Angeles_Life.Handlers
             if (currentWeatherPattern.Length > 0)
             {
                 WeatherType nextWeather = currentWeatherPattern[0];
-                // Ändern Sie hier den Wetterzustand entsprechend (z. B. über die API von Altv)
-                foreach(IPlayer player in Alt.GetAllPlayers())
-                {
-                    player.SetWeather(nextWeather);
-                    Alt.Log("ChangeWeatherInPattern: " + nextWeather);
-                }
-
-                currentWeatherPattern = currentWeatherPattern[1..]; // Entfernen Sie den aktuellen Wetterzustand aus dem Muster
+ 
+                Alt.SetSyncedMetaData("ChangeWeather", nextWeather.ToString().ToUpper());
+                currentWeatherPattern = currentWeatherPattern[1..];
 
                 if (currentWeatherPattern.Length == 0)
                 {
-                    // Wenn das Muster abgeschlossen ist, stoppen Sie den weatherTimer
                     StopChangeInPatternTimer();
                 }
-            }
+            } 
         }
 
         private static void StopChangeInPatternTimer()
