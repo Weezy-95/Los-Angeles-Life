@@ -12,7 +12,7 @@ namespace Los_Angeles_Life.Handlers
         private static Dictionary<int, WeatherType[]> weatherTypes = new Dictionary<int, WeatherType[]>();
         private static Timer? weatherPatternTimer;
         private static Timer? weatherTimer;
-        private const double weatherPatternTime = 90;
+        private const double weatherPatternTime = 80;
         private static WeatherType[] currentWeatherPattern;
 
         private static WeatherType[] rainyWeather = {
@@ -50,6 +50,7 @@ namespace Los_Angeles_Life.Handlers
  
                 Alt.SetSyncedMetaData("ChangeWeather", nextWeather.ToString().ToUpper());
                 currentWeatherPattern = currentWeatherPattern[1..];
+                Alt.Log(nextWeather.ToString().ToUpper());
 
                 if (currentWeatherPattern.Length == 0)
                 {

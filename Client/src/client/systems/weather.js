@@ -6,5 +6,5 @@ import native from 'natives';
 
 alt.on('globalSyncedMetaChange', (key, value, oldValue) => {
     if (key != 'ChangeWeather') return;
-    native.setCurrWeatherState(native.getHashKey(value), native.getHashKey(oldValue), 0.5);
+    native.setWeatherTypeOvertimePersist(value, 5);
 });
