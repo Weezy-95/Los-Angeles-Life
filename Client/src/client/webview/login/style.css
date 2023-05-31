@@ -33,6 +33,11 @@ body {
     background-color: transparent;
     font-family: Roboto-Regular;
     color: #f8f8f8;
+
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
+    user-select: None;
 }
 
 .main-container {
