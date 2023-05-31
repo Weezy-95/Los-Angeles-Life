@@ -95,3 +95,7 @@ body {
     transform: rotate(0.4rad);
 }
 
+.btn-primary {
+    --bs-btn-border-color: none;
+}
+
