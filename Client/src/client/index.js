@@ -6,6 +6,7 @@ import './webview/notifications/app.js';
 import './world/missedInterrios.js';
 import './systems/notification.js';
 import './systems/weather.js';
+import './systems/noclip.js';
 
 // Loading events
 import './events/connectionComplete.js';

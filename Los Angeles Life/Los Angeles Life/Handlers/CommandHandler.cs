@@ -148,11 +148,11 @@ public class CommandHandler : IScript
     {
         if (player.IsAduty)
         {
-            Alt.Log("[Pos] " + player.Position.ToString());
+            Alt.Log("[Pos] " + player.Position);
         }
         else
         {
-            Alt.Log("[Pos] Du bist nicht im Admin Modus.");
+            player.Emit("Client:ShowNotify","Du bist nicht im Admin Modus!");
         }
             
     }
@@ -177,7 +177,7 @@ public class CommandHandler : IScript
         }
         else
         {
-            Alt.Log("[Revive] Du bist nicht im Admin Modus.");
+            player.Emit("Client:ShowNotify","Du bist nicht im Admin Modus!");
         }  
     }
 
@@ -200,7 +200,8 @@ public class CommandHandler : IScript
         }
         else
         {
-            Alt.Log("[Kill] Du bist nicht im Admin Modus.");
+            player.Emit("Client:ShowNotify","Du bist nicht im Admin Modus!");
+
         }
     }
 
@@ -226,15 +227,14 @@ public class CommandHandler : IScript
             }
             catch (Exception ex)
             {
-                Alt.Log("[Weapon] Keinen Spieler mit der ID " + target + " gefunden.");
-                Alt.Log("[Weapon] GivePlayerWeaponCmd: " + ex.Message);
+                player.Emit("Client:ShowNotify","Keinen Spieler mit der ID " + target + " gefunden!");
+                Alt.Log("[Command] GivePlayerWeaponCmd: " + ex.Message);
             }
         }
         else
         {
-            Alt.Log("[Weapon] Du bist nicht im Admin Modus.");
+            player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
         }
-               
     }
 
     [Command("kick")]
@@ -245,20 +245,50 @@ public class CommandHandler : IScript
             try
             {
                 IPlayer selectedPlayerToKick = Alt.GetPlayersArray()[target].Value;
-                Alt.Log("[Kick] " + selectedPlayerToKick.Name + " wurde gekickt. Grund: " + reason);
+                player.Emit("Client:ShowNotify",selectedPlayerToKick.Name + " wurde gekickt. Grund: " + reason);
 
                 selectedPlayerToKick.Kick(reason);
             }
             catch (IndexOutOfRangeException ex)
             {
-                Alt.Log("[Kick] Keinen Spieler mit der ID " + target + " gefunden.");
-                Alt.Log("[Kick] KickPlayerFromServerCmd: " + ex.Message);
+                player.Emit("Client:ShowNotify","Keinen Spieler mit der ID " + target + " gefunden!");
+                Alt.Log("[Command] KickPlayerFromServerCmd: " + ex.Message);
             }
         }
         else
         {
             Alt.Log("[Kick] Du bist nicht im Admin Modus.");
         }
-            
+    }
+
+    [Command("freeze")]
+    public static void FreezePlayerCmd(MyPlayer player, int target)
+    {
+        if (player.IsAduty)
+        {
+            try
+            {
+                IPlayer selectedPlayerFreeze = Alt.GetPlayersArray()[target].Value;
+                selectedPlayerFreeze.Frozen = !selectedPlayerFreeze.Frozen;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                player.Emit("Client:ShowNotify","Keinen Spieler mit der ID " + target + " gefunden!");
+                Alt.Log("[Command] Freeze: " + ex.Message);
+            }
+        }
+        else
+        {
+            player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
+        }
+    }
+
+    [Command("noclip")]
+    public static void NoClipCmd(MyPlayer player)
+    {
+        player.Collision = !player.Collision;
+        player.Frozen = !player.Frozen;
+
+        Alt.Emit(player.Frozen ? "Client:noclip:start" : "Client:noclip:stop", player);
     }
 }

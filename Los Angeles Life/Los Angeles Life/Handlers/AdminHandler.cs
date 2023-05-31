@@ -14,12 +14,14 @@ public abstract class AdminHandler : IScript
     public static void Aduty(MyPlayer player)
     {
         player.IsAduty = true;
-        player.Model = (uint)PedModel.Juggernaut02UMY;
+        player.Model = (uint)PedModel.MovAlien01;
+        player.Invincible = true;
     }
 
     public static void NoDuty(MyPlayer player)
     {
         player.IsAduty = false;
         player.Model = (uint)PedModel.FreemodeMale01;
+        player.Invincible = false;
     }
 }
