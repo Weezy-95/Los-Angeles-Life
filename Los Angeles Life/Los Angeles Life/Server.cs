@@ -12,6 +12,7 @@ internal class Server : Resource
     public override void OnStart()
     {
         _databaseHandler.LoadPlayerCount();
+        WeatherHandler.StartWeather();
     }
 
     public override void OnStop()
