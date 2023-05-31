@@ -32,7 +32,7 @@
 body {
     background-color: transparent;
     font-family: Roboto-Regular;
-    color: #f8f8f8;
+    color: #201c1d;
 
     -ms-user-select: None;
     -moz-user-select: None;
@@ -42,60 +42,42 @@ body {
 
 .main-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 10%;
+    right: 5%;
 
-    border-radius: 20px;
-    opacity: 0.8;
+    width: 300px;
+    height: 100px;
 
-    width: 1000px;
-    height: 600px;
+    border-radius: 10px;
+    box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 0.38);
+    background-color: #201c1d;
+
+}
+
+.inner-container {
+    position: relative;
+    height: 35%;
 
     background-color: #e77200;
 }
 
-.inner-container {
-    position: absolute;
-    width: 1000px;
-    height: 150px;
-
-    border-radius: 20px 20px 0 0;
-
-    background-color: #201c1d;
-}
-
-.text-container {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: 250px;
-    height: 150px;
+.inner-title {
+    font-family: Roboto-Regular;
+    font-size: 20px;
+    text-align: center;
 
     color: #201c1d;
-    font-family: Roboto-Medium;
-    border-radius: 10px;
 }
 
-.main-container .btn-login {
+.main-text {
+    padding-top: 5%;
+    padding-left: 5%;
+    text-align: left;
+    color: #f8f8f8;
+}
+
+.warn-icon {
     position: absolute;
-    top: 85%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 1;
-    background-color: #201c1d;
+    left: 5%;
+    top: 50%
 }
-
-.logo-discord {
-    position: absolute;
-    top: 30%;
-    right: 4%;
-    transform: rotate(0.4rad);
-}
-
-.btn-primary {
-    --bs-btn-border-color: none;
-}
-
