@@ -1,39 +1,34 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
-using Los_Angeles_Life.Entities;
-using System;
 
 namespace Los_Angeles_Life.Handlers
 {
-    public class WeatherHandler
+    public abstract class WeatherHandler
     {
-        private static Dictionary<int, WeatherType[]> weatherTypes = new Dictionary<int, WeatherType[]>();
-        private static Timer? weatherPatternTimer;
+        private static Dictionary<int, WeatherType[]> weatherTypes = new();
         private static Timer? weatherTimer;
         private const double weatherPatternTime = 80;
         private static WeatherType[] currentWeatherPattern;
 
         private static WeatherType[] rainyWeather = {
-            AltV.Net.Enums.WeatherType.Clearing,
-            AltV.Net.Enums.WeatherType.Rain,
-            AltV.Net.Enums.WeatherType.Thunder,
-            AltV.Net.Enums.WeatherType.Foggy
+            WeatherType.Clearing,
+            WeatherType.Rain,
+            WeatherType.Thunder,
+            WeatherType.Foggy
         };
 
         private static WeatherType[] snowyWeather = {
-            AltV.Net.Enums.WeatherType.Snowlight,
-            AltV.Net.Enums.WeatherType.Snow,
-            AltV.Net.Enums.WeatherType.Blizzard,
-            AltV.Net.Enums.WeatherType.Snowlight
+            WeatherType.Snowlight,
+            WeatherType.Snow,
+            WeatherType.Blizzard,
+            WeatherType.Snowlight
         };
 
         public static void StartWeather()
         {
             weatherTypes.Add(1, rainyWeather);
             weatherTypes.Add(2, snowyWeather);
-            weatherPatternTimer = new Timer(StartWeatherPattern, null, TimeSpan.Zero, TimeSpan.FromSeconds(weatherPatternTime));
+            new Timer(StartWeatherPattern, null, TimeSpan.Zero, TimeSpan.FromSeconds(weatherPatternTime));
         }
 
         private static void StartWeatherPattern(object? state)
