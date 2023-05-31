@@ -17,11 +17,11 @@ public class CommandHandler : IScript
         {
             case "on":
                 AdminHandler.Aduty(player);
-                player.SendChatMessage("[aduty] Admin: On");
+                Alt.Log("[Aduty] Admin: On");
                 break;
             case "off":
                 AdminHandler.NoDuty(player);
-                player.SendChatMessage("[aduty] Admin: Off");
+                Alt.Log("[Aduty] Admin: Off");
                 break;
         }
     }
@@ -42,7 +42,7 @@ public class CommandHandler : IScript
             catch (IndexOutOfRangeException ex)
             {
                 Alt.Log("[SetSupporter] Keinen Spieler mit der ID " + target + " gefunden.");
-                System.Console.WriteLine("[SetSupporter] SetDeveloperCmd: " + ex.Message);
+                Alt.Log("[SetSupporter] SetDeveloperCmd: " + ex.Message);
             }
         }
         else
@@ -67,7 +67,7 @@ public class CommandHandler : IScript
             catch (IndexOutOfRangeException ex)
             {
                 Alt.Log("[SetDeveloper] Keinen Spieler mit der ID " + target + " gefunden.");
-                System.Console.WriteLine("[SetDeveloper] SetDeveloperCmd: " + ex.Message);
+                Alt.Log("[SetDeveloper] SetDeveloperCmd: " + ex.Message);
             }
         }
         else
@@ -92,7 +92,7 @@ public class CommandHandler : IScript
             catch(IndexOutOfRangeException ex)
             {
                 Alt.Log("[SetAdmin] Keinen Spieler mit der ID " + target + " gefunden.");
-                System.Console.WriteLine("[SetAdmin] SetAdminCmd: " + ex.Message);
+                Alt.Log("[SetAdmin] SetAdminCmd: " + ex.Message);
             }
         }
         else
@@ -123,39 +123,61 @@ public class CommandHandler : IScript
     [Command("pos")]
     public static void CurrentPlayerPositionCmd(MyPlayer player)
     {
-        Alt.Log(player.Position.ToString());
+        if (player.IsAduty)
+        {
+            Alt.Log("[Pos] " + player.Position.ToString());
+        }
+        else
+        {
+            Alt.Log("[Pos] Du bist nicht im Admin Modus.");
+        }
+            
     }
 
     [Command("revive")]
     public static void RevivePlayerCmd(MyPlayer player, ushort target)
     {
-        try
+        if (player.IsAduty)
         {
-            IPlayer selectedPlayerToRevive = Alt.GetPlayersArray()[target].Value;
-            selectedPlayerToRevive.Spawn(new Position(selectedPlayerToRevive.Position.X, selectedPlayerToRevive.Position.Y, selectedPlayerToRevive.Position.Z), 0);
-            selectedPlayerToRevive.Health = 200;
-            Alt.Log("[Revive] " + selectedPlayerToRevive.Name + " wurde wiederbelebt.");
+            try
+            {
+                IPlayer selectedPlayerToRevive = Alt.GetPlayersArray()[target].Value;
+                selectedPlayerToRevive.Spawn(new Position(selectedPlayerToRevive.Position.X, selectedPlayerToRevive.Position.Y, selectedPlayerToRevive.Position.Z), 0);
+                selectedPlayerToRevive.Health = 200;
+                Alt.Log("[Revive] " + selectedPlayerToRevive.Name + " wurde wiederbelebt.");
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Alt.Log("[Revive] Keinen Spieler mit der ID " + target + " gefunden.");
+                Alt.Log("[Revive] RevivePlayerCmd: " + ex.Message);
+            }
         }
-        catch(IndexOutOfRangeException ex) 
+        else
         {
-            Alt.Log("[Revive] Keinen Spieler mit der ID " + target + " gefunden.");
-            System.Console.WriteLine("[Console] RevivePlayerCmd: " + ex.Message);
-        }
+            Alt.Log("[Revive] Du bist nicht im Admin Modus.");
+        }  
     }
 
     [Command("kill")]
     public static void KillPlayerCmd(MyPlayer player, ushort target)
     {
-        try
+        if (player.IsAduty)
         {
-            IPlayer selectedPlayerToKill = Alt.GetPlayersArray()[target].Value;
-            selectedPlayerToKill.Health = 0;
-            Alt.Log("[Kill] " + selectedPlayerToKill.Name + " wurde getötet.");
+            try
+            {
+                IPlayer selectedPlayerToKill = Alt.GetPlayersArray()[target].Value;
+                selectedPlayerToKill.Health = 0;
+                Alt.Log("[Kill] " + selectedPlayerToKill.Name + " wurde getötet.");
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Alt.Log("[Kill] Keinen Spieler mit der ID " + target + " gefunden.");
+                Alt.Log("[Kill] KillPlayerCmd: " + ex.Message);
+            }
         }
-        catch(IndexOutOfRangeException ex) 
+        else
         {
-            Alt.Log("[Kill] Keinen Spieler mit der ID " + target + " gefunden.");
-            System.Console.WriteLine("[Console] KillPlayerCmd: " + ex.Message);
+            Alt.Log("[Kill] Du bist nicht im Admin Modus.");
         }
     }
 
@@ -163,39 +185,55 @@ public class CommandHandler : IScript
     [Command("weapon")]
     public static void GivePlayerWeaponCmd(MyPlayer player, string weapon, int ammo, ushort target)
     {
-        try
+        if (player.IsAduty)
         {
-            if(!Enum.IsDefined(typeof(WeaponModel), weapon))
+            try
             {
-                Alt.Log(weapon + " ist keine gültige Waffe.");
-                return;
-            }
+                if (!Enum.IsDefined(typeof(WeaponModel), weapon))
+                {
+                    Alt.Log(weapon + " ist keine gültige Waffe.");
+                    return;
+                }
 
-            IPlayer selectedPlayer = Alt.GetPlayersArray()[target].Value;
-            selectedPlayer.GiveWeapon(Alt.Hash(weapon), ammo, true);
-            Alt.Log("[Weapon] " + player.PlayerName + "(" + player.PlayerId + ")" + " vergab die Waffe " + weapon + " an " + selectedPlayer.Name + "(" + target + ")" + " mit " + ammo + " Munition.");
+                IPlayer selectedPlayer = Alt.GetPlayersArray()[target].Value;
+                selectedPlayer.GiveWeapon(Alt.Hash(weapon), ammo, true);
+                Alt.Log("[Weapon] " + player.PlayerName + "(" + player.PlayerId + ")" + " vergab die Waffe " + weapon + " an " + selectedPlayer.Name + "(" + target + ")" + " mit " + ammo + " Munition.");
+            }
+            catch (Exception ex)
+            {
+                Alt.Log("[Weapon] Keinen Spieler mit der ID " + target + " gefunden.");
+                Alt.Log("[Weapon] GivePlayerWeaponCmd: " + ex.Message);
+            }
         }
-        catch(Exception ex)
+        else
         {
-            Alt.Log("[Weapon] Keinen Spieler mit der ID " + target + " gefunden.");
-            System.Console.WriteLine("[Console] GivePlayerWeaponCmd: " + ex.Message);
-        }   
+            Alt.Log("[Weapon] Du bist nicht im Admin Modus.");
+        }
+               
     }
 
     [Command("kick")]
     public static void KickPlayerFromServerCmd(MyPlayer player, int target, string reason)
     {
-        try
+        if (player.IsAduty)
         {
-            IPlayer selectedPlayerToKick = Alt.GetPlayersArray()[target].Value;
-            Alt.Log("[Kick] " + selectedPlayerToKick.Name + " wurde gekickt. Grund: " + reason);
+            try
+            {
+                IPlayer selectedPlayerToKick = Alt.GetPlayersArray()[target].Value;
+                Alt.Log("[Kick] " + selectedPlayerToKick.Name + " wurde gekickt. Grund: " + reason);
 
-            selectedPlayerToKick.Kick(reason);
+                selectedPlayerToKick.Kick(reason);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Alt.Log("[Kick] Keinen Spieler mit der ID " + target + " gefunden.");
+                Alt.Log("[Kick] KickPlayerFromServerCmd: " + ex.Message);
+            }
         }
-        catch(IndexOutOfRangeException ex)
+        else
         {
-            Alt.Log("[Kick] Keinen Spieler mit der ID " + target + " gefunden.");
-            System.Console.WriteLine("[Console] KickPlayerFromServerCmd: " + ex.Message);
+            Alt.Log("[Kick] Du bist nicht im Admin Modus.");
         }
+            
     }
 }
