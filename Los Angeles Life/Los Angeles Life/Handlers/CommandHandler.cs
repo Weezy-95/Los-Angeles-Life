@@ -17,12 +17,11 @@ public class CommandHandler : IScript
         {
             case "on":
                 AdminHandler.Aduty(player);
-                player.Emit("Client:Notification", "Du bist im Admin Modus!");
-
+                player.Emit("Client:ShowNotify", "Du bist im Admin Modus!");
                 break;
             case "off":
                 AdminHandler.NoDuty(player);
-                player.Emit("Client:Notification", "Du hast den Admin Modus beendet!");
+                player.Emit("Client:ShowNotify", "Du hast den Admin Modus beendet!");
                 break;
         }
     }
@@ -41,70 +40,88 @@ public class CommandHandler : IScript
                     
                     setPlayerAdmin.AdminLevel = 1;
                     DatabaseHandler.SetAdminLevel(selectedAdminPlayer.DiscordId, adminLevel);
+                    player.Emit("Client:ShowNotify", " Du hast " + selectedAdminPlayer.Name + " zum Supporter gemacht");
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("Fehler beim setzen des Admin Status: " + ex);
+                    Alt.Log("Fehler beim setzten des Admin Status!" + ex);
+                    player.Emit("Client:ShowNotify", "Die Spieler ID gibt es nicht!");
                 }
             }
             else
             {
-                Alt.Log("Du bist nicht im Adminmodus");
+                player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
             }
         }
         else
         {
-            Alt.Log("Deine Berechtigung reicht nicht aus!");
+            player.Emit("Client:ShowNotify", "Deine Berechtigung reicht nicht aus!");        
         }
     }
     
     [Command("setDeveloper")]
     public static void SetDeveloperCmd(MyPlayer player, int adminLevel, ushort target)
     {
-        if (!AdminHandler.CheckAdminPermissions(player, 3) && player.IsAduty)
+        if (AdminHandler.CheckAdminPermissions(player, 3))
         {
-            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            if (player.IsAduty)
             {
-                if (playerTarget.Id.Equals(target))
+                try
                 {
-                    player = (MyPlayer)playerTarget;
-                    player.AdminLevel = 2;
-                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
+                    IPlayer selectedAdminPlayer = Alt.GetPlayersArray()[target].Value;
+                    MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
+                    
+                    setPlayerAdmin.AdminLevel = 2;
+                    DatabaseHandler.SetAdminLevel(selectedAdminPlayer.DiscordId, adminLevel);
+                    player.Emit("Client:ShowNotify", " Du hast " + selectedAdminPlayer.Name + " zum Developer gemacht");
                 }
-                else
+                catch (Exception ex)
                 {
-                    Alt.Log("Ungültige Spieler ID");
+                    Alt.Log("Fehler beim setzten des Admin Status!" + ex);
+                    player.Emit("Client:ShowNotify", "Die Spieler ID gibt es nicht!");
                 }
+            }
+            else
+            {
+                player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
             }
         }
         else
         {
-            Alt.Log("Deine Berechtigung reicht nicht aus!");
+            player.Emit("Client:ShowNotify", "Deine Berechtigung reicht nicht aus!");        
         }
     }
     
     [Command("setAdmin")]
     public static void SetAdminCmd(MyPlayer player, int adminLevel, ushort target)
     {
-        if (!AdminHandler.CheckAdminPermissions(player, 4) && player.IsAduty)
+        if (AdminHandler.CheckAdminPermissions(player, 4))
         {
-            foreach (IPlayer playerTarget in Alt.GetAllPlayers())
+            if (player.IsAduty)
             {
-                if (playerTarget.Id.Equals(target))
+                try
                 {
-                    player = (MyPlayer)playerTarget;
-                    player.AdminLevel = 3;
-                    DatabaseHandler.SetAdminLevel(player.DiscordId, adminLevel);
+                    IPlayer selectedAdminPlayer = Alt.GetPlayersArray()[target].Value;
+                    MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
+                    
+                    setPlayerAdmin.AdminLevel = 3;
+                    DatabaseHandler.SetAdminLevel(selectedAdminPlayer.DiscordId, adminLevel);
+                    player.Emit("Client:ShowNotify", " Du hast " + selectedAdminPlayer.Name + " zum Admin gemacht");
                 }
-                else
+                catch (Exception ex)
                 {
-                    Alt.Log("Ungültige Spieler ID");
+                    Alt.Log("Fehler beim setzten des Admin Status!" + ex);
+                    player.Emit("Client:ShowNotify", "Die Spieler ID gibt es nicht!");
                 }
+            }
+            else
+            {
+                player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
             }
         }
         else
         {
-            Alt.Log("Deine Berechtigung reicht nicht aus!");
+            player.Emit("Client:ShowNotify", "Deine Berechtigung reicht nicht aus!");        
         }
     }
     
@@ -116,14 +133,14 @@ public class CommandHandler : IScript
             IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y +1.5f, player.Position.Z),  player.Rotation);
             if (vehicle != null)
             {
-                player.SendChatMessage("Fahrzeug " + vehicleName + " wurde erfolgreich erstellt. Erstellt von " + player.PlayerName + ".");
+                player.Emit("Client:ShowNotify", "Du hast einen " + vehicleName + " gespawnt!");
             }
             
             player.SetIntoVehicle(vehicle, 1);
         }
         else
         {
-            Alt.Log("Du bist nicht im Admin Modus");
+            player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
         }
     }
     
@@ -142,10 +159,11 @@ public class CommandHandler : IScript
             {
                 playerTarget.Spawn(new Position(playerTarget.Position.X, playerTarget.Position.Y, playerTarget.Position.Z), 0);
                 playerTarget.Health = 200;
+                player.Emit("Client:ShowNotify", "Du hast " + playerTarget.Name + " wiederbelebt!");
             }
             else
             {
-                Alt.Log("Kein Spieler zum Reviven gefunden");
+                player.Emit("Client:ShowNotify", "Keinen Spieler mit der ID gefunden!");
             }
         }
     }
@@ -158,10 +176,11 @@ public class CommandHandler : IScript
             if (playerTarget.Id.Equals(target))
             {
                 playerTarget.Health = 0;
+                player.Emit("Client:ShowNotify", "Du hast " + playerTarget.Name + " getötet!");
             }
             else
             {
-                Alt.Log("Kein Spieler zum Töten gefunden");
+                player.Emit("Client:ShowNotify", "Keinen Spieler mit der ID gefunden!");
             }
         }
     }
