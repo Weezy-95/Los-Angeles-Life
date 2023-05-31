@@ -35,12 +35,11 @@ public class CommandHandler : IScript
             {
                 try
                 {
-                    IPlayer selectedAdminPlayer = Alt.GetPlayersArray()[target].Value;
-                    MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
-                    
-                    setPlayerAdmin.AdminLevel = 1;
-                    DatabaseHandler.SetAdminLevel(selectedAdminPlayer.DiscordId, adminLevel);
-                    player.Emit("Client:ShowNotify", " Du hast " + selectedAdminPlayer.Name + " zum Supporter gemacht");
+                    IPlayer selectedPlayerToSetToSupporter = Alt.GetPlayersArray()[target].Value;
+                    MyPlayer playerToSetToSupporter = (MyPlayer)selectedPlayerToSetToSupporter;
+                    playerToSetToSupporter.AdminLevel = 1;
+                    DatabaseHandler.SetAdminLevel(playerToSetToSupporter.DiscordId, adminLevel);
+                    player.Emit("Client:ShowNotify", " Du hast " + playerToSetToSupporter.Name + " zum Supporter gemacht");
                 }
                 catch (Exception ex)
                 {
@@ -165,9 +164,11 @@ public class CommandHandler : IScript
         {
             try
             {
-                playerTarget.Spawn(new Position(playerTarget.Position.X, playerTarget.Position.Y, playerTarget.Position.Z), 0);
-                playerTarget.Health = 200;
-                player.Emit("Client:ShowNotify", "Du hast " + playerTarget.Name + " wiederbelebt!");
+                IPlayer selectedPlayerToRevive = Alt.GetPlayersArray()[target].Value;
+                selectedPlayerToRevive.Spawn(new Position(selectedPlayerToRevive.Position.X, selectedPlayerToRevive.Position.Y, selectedPlayerToRevive.Position.Z), 0);
+                selectedPlayerToRevive.Health = 200;
+              
+                player.Emit("Client:ShowNotify", "Du hast " + selectedPlayerToRevive.Name + " wiederbelebt!");
             }
             catch (IndexOutOfRangeException ex)
             {
@@ -187,8 +188,10 @@ public class CommandHandler : IScript
         {
             try
             {
-                playerTarget.Health = 0;
-                player.Emit("Client:ShowNotify", "Du hast " + playerTarget.Name + " getötet!");
+                IPlayer selectedPlayerToKill = Alt.GetPlayersArray()[target].Value;
+                selectedPlayerToKill.Health = 0;
+                
+                player.Emit("Client:ShowNotify", "Du hast " + selectedPlayerToKill.Name + " getötet!");
             }
             catch (IndexOutOfRangeException ex)
             {
