@@ -196,7 +196,9 @@ public class CommandHandler : IScript
                 }
 
                 IPlayer selectedPlayer = Alt.GetPlayersArray()[target].Value;
-                selectedPlayer.GiveWeapon(Alt.Hash(weapon), ammo, true);
+                string selectedWeapon = "weapon_" + weapon;
+
+                selectedPlayer.GiveWeapon(Alt.Hash(selectedWeapon), ammo, true);
                 Alt.Log("[Weapon] " + player.PlayerName + "(" + player.PlayerId + ")" + " vergab die Waffe " + weapon + " an " + selectedPlayer.Name + "(" + target + ")" + " mit " + ammo + " Munition.");
             }
             catch (Exception ex)
