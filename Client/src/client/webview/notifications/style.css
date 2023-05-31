@@ -1,0 +1,51 @@
+/* Font Imports */
+@font-face {
+    font-family: Roboto-Regular;
+    src: url("../assets/fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Light;
+    src: url("../assets/fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Black;
+    src: url("../assets/fonts/Roboto-Black.ttf");
+}
+
+@font-face {
+    font-family: Roboto-BlackItalic;
+    src: url("../assets/fonts/Roboto-BlackItalic.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    src: url("../assets/fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    src: url("../assets/fonts/Roboto-Medium.ttf");
+}
+
+body {
+    background-color: transparent;
+    font-family: Roboto-Regular;
+    color: #201c1d;
+
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
+    user-select: None;
+}
+
+.main-container {
+    background-color: #0dcaf0;
+
+    width: 500px;
+}
+
+.inner-container {
+    background-color: #e77200;
+}

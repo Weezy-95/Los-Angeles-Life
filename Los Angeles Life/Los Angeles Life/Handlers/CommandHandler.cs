@@ -17,9 +17,12 @@ public class CommandHandler : IScript
         {
             case "on":
                 AdminHandler.Aduty(player);
+                player.Emit("Client:Notification", "Du bist im Admin Modus!");
+
                 break;
             case "off":
                 AdminHandler.NoDuty(player);
+                player.Emit("Client:Notification", "Du hast den Admin Modus beendet!");
                 break;
         }
     }
