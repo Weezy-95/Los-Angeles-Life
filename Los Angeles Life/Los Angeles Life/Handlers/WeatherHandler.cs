@@ -7,7 +7,7 @@ namespace Los_Angeles_Life.Handlers
     {
         private static Dictionary<int, WeatherType[]> weatherTypes = new();
         private static Timer? weatherTimer;
-        private const double weatherPatternTime = 80;
+        private const double weatherPatternTime = 60;
         private static WeatherType[] currentWeatherPattern;
 
         private static WeatherType[] rainyWeather = {
@@ -24,10 +24,23 @@ namespace Los_Angeles_Life.Handlers
             WeatherType.Snowlight
         };
 
+        private static WeatherType[] sunnyWeather = {
+            WeatherType.Clear,
+            WeatherType.ExtraSunny
+        };
+
+        private static WeatherType[] foggyWeather = {
+            WeatherType.Smog,
+            WeatherType.Foggy,
+            WeatherType.Clouds
+        };
+
         public static void StartWeather()
         {
             weatherTypes.Add(1, rainyWeather);
             weatherTypes.Add(2, snowyWeather);
+            weatherTypes.Add(3, sunnyWeather);
+            weatherTypes.Add(4, foggyWeather);
             new Timer(StartWeatherPattern, null, TimeSpan.Zero, TimeSpan.FromSeconds(weatherPatternTime));
         }
 
