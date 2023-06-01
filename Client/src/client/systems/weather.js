@@ -4,15 +4,19 @@
 import alt from 'alt-client';
 import native from 'natives';
 
-alt.on('globalSyncedMetaChange', (key, value, oldValue) => {
-    changeWeather(key, value, oldValue);
+alt.on('globalSyncedMetaChange', (key, value) => {
+    alt.log('globalSyncedMetaChange');
+    changeWeather(key, value);
 });
 
 alt.on('connectionComplete', () => {
-    changeWeather('ChangeWeather', value, oldValue);
+    let value = '';
+    changeWeather('ChangeWeather', value);
 });
 
-function changeWeather(key, value, oldValue) {
+function changeWeather(key, value) 
+{
     if (key !== 'ChangeWeather') return;
+
     native.setWeatherTypeOvertimePersist(value, 5);
 }
