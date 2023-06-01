@@ -5,7 +5,6 @@ import alt from 'alt-client';
 import native from 'natives';
 
 alt.on('globalSyncedMetaChange', (key, value) => {
-    alt.log('globalSyncedMetaChange');
     changeWeather(key, value);
 });
 
