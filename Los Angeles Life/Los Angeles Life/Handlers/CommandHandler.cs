@@ -341,4 +341,10 @@ public class CommandHandler : IScript
             }
         }
     }
+
+    [Command("time")]
+    public static void TimeCheckCmd(MyPlayer player)
+    {
+        player.Emit("Client:ShowNotify", "Es ist: " );
+    }
 }
