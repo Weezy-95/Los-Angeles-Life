@@ -121,6 +121,12 @@ public class CommandHandler : IScript
     {
         if (player.IsAduty)
         {
+            if (!Enum.IsDefined(typeof(VehicleModel), vehicleName))
+            {
+                Alt.Log(vehicleName + " ist keine gültige Waffe.");
+                return;
+            }
+
             IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y +1.5f, player.Position.Z),  player.Rotation);
             if (vehicle != null)
             {
