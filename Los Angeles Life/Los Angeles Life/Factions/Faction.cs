@@ -12,4 +12,9 @@ public abstract class Faction
     public float FactionMoney { get; set; }
     public List<FactionRank> FactionRankList { get; set; }
     
+
+    public Faction(string factionName)
+    {
+        this.FactionName = factionName;
+    }
 }

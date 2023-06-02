@@ -351,16 +351,15 @@ namespace Los_Angeles_Life.Handlers
             }
         }
 
-        public static Lspd? LoadLspd(Lspd? lspd)
+        public static Lspd selectLspdFromDatabase(Lspd lspd)
         {
             try
             {
                 _connection.Open();
 
                 MySqlCommand mySqlCommand = _connection.CreateCommand();
-                mySqlCommand.CommandText = "SELECT * FROM factions WHERE factionName=@factionName";
 
-                mySqlCommand.Parameters.AddWithValue("@factionName", lspd.FactionName);
+                mySqlCommand.CommandText = "SELECT * FROM factions WHERE FactionName='" + lspd.FactionName + "'";
 
                 using (MySqlDataReader dataReader = mySqlCommand.ExecuteReader())
                 {

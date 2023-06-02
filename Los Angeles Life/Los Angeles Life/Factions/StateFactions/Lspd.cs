@@ -3,5 +3,8 @@ namespace Los_Angeles_Life.Factions.StateFactions;
 
 public class Lspd : Faction
 {
-    
+    public Lspd(string factionName) : base(factionName)
+    {
+        FactionName = factionName;
+    }
 }

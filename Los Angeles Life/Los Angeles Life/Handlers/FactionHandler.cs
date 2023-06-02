@@ -6,23 +6,18 @@ namespace Los_Angeles_Life.Handlers
 {
     abstract class FactionHandler
     {
-        public static Dictionary<int, Faction> FactionDictionary { get; private set; }
+        public static Dictionary<int, Faction> factionList = new Dictionary<int, Faction>();
 
         public static void LoadFactions()
         {
-            if (FactionDictionary == null)
-                FactionDictionary = new Dictionary<int, Faction>();
             LoadLspd();
         }
 
         private static void LoadLspd()
         {
-            Faction lspd = DatabaseHandler.LoadLspd(new Lspd());
+            Faction lspd = DatabaseHandler.selectLspdFromDatabase(new Lspd("LSPD"));
 
-
-            FactionDictionary.Add(lspd.FactionId, lspd);
-
-            Alt.Log("[Faction] Load LSPD" + lspd.FactionId + " ," + lspd.FactionName + " ," + lspd.FactionLocation + " ," + lspd.FactionBlipId + " ," + lspd.FactionBlipColorId + " ," + lspd.FactionMoney);
+            factionList.Add(lspd.FactionId, lspd);
         }
     }
 }
