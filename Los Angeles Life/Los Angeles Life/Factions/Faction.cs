@@ -2,7 +2,7 @@
 
 namespace Los_Angeles_Life.Factions;
 
-public abstract class Faction
+public class Faction
 {
     public int FactionId { get; set; }
     public string FactionName { get; set; }
@@ -11,10 +11,4 @@ public abstract class Faction
     public int FactionBlipColorId { get; set; }
     public float FactionMoney { get; set; }
     public List<FactionRank> FactionRankList { get; set; }
-    
-
-    public Faction(string factionName)
-    {
-        this.FactionName = factionName;
-    }
 }

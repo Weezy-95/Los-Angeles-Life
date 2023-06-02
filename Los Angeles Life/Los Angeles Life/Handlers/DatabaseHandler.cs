@@ -350,48 +350,5 @@ namespace Los_Angeles_Life.Handlers
                 _connection.Close();
             }
         }
-
-        public static Lspd selectLspdFromDatabase(Lspd lspd)
-        {
-            try
-            {
-                _connection.Open();
-
-                MySqlCommand mySqlCommand = _connection.CreateCommand();
-
-                mySqlCommand.CommandText = "SELECT * FROM factions WHERE FactionName='" + lspd.FactionName + "'";
-
-                using (MySqlDataReader dataReader = mySqlCommand.ExecuteReader())
-                {
-                    if (dataReader.HasRows)
-                    {
-                        dataReader.Read();
-
-                        lspd.FactionId = dataReader.GetInt16("FactionId");
-                    
-                        Position loadedPosition = new Position(
-                            dataReader.GetFloat("FactionLocationX"),
-                            dataReader.GetFloat("FactionLocationY"), 
-                            dataReader.GetFloat("FactionLocationZ"));
-
-                        lspd.FactionLocation = loadedPosition;
-                        lspd.FactionBlipId = dataReader.GetInt16("FactionBlipId");
-                        lspd.FactionBlipColorId = dataReader.GetInt16("FactionBlipColorId");
-                        lspd.FactionMoney = dataReader.GetFloat("FactionMoney");
-                    }
-                }
-
-                return lspd;
-            }
-            catch (MySqlException ex)
-            {
-                Alt.Log("[MySQL] Fehler beim Laden der LSPD Faction: " + ex);
-                throw;
-            }
-            finally
-            {
-                _connection.Close();
-            }
-        }
     }
 }

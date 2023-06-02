@@ -54,7 +54,7 @@ public class CommandHandler : IScript
             }
         }
     }
-    
+
     [Command("setDeveloper")]
     public static void SetDeveloperCmd(MyPlayer player, int adminLevel, ushort target)
     {
@@ -66,7 +66,7 @@ public class CommandHandler : IScript
                 {
                     IPlayer selectedAdminPlayer = Alt.GetPlayersArray()[target].Value;
                     MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
-                    
+
                     setPlayerAdmin.AdminLevel = 2;
                     DatabaseHandler.SetAdminLevel(setPlayerAdmin.DiscordId, adminLevel);
                     player.Emit("Client:ShowNotify", " Du hast " + setPlayerAdmin.Name + " zum Developer gemacht");
@@ -84,7 +84,7 @@ public class CommandHandler : IScript
             }
         }
     }
-    
+
     [Command("setAdmin")]
     public static void SetAdminCmd(MyPlayer player, int adminLevel, ushort target)
     {
@@ -96,7 +96,7 @@ public class CommandHandler : IScript
                 {
                     IPlayer selectedAdminPlayer = Alt.GetPlayersArray()[target].Value;
                     MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
-                    
+
                     setPlayerAdmin.AdminLevel = 3;
                     DatabaseHandler.SetAdminLevel(setPlayerAdmin.DiscordId, adminLevel);
                     player.Emit("Client:ShowNotify", " Du hast " + setPlayerAdmin.Name + " zum Admin gemacht");
@@ -114,7 +114,7 @@ public class CommandHandler : IScript
             }
         }
     }
-    
+
     // Fliegt in der Alpha raus
     [Command("veh")]
     public static void CreateVehicleCmd(MyPlayer player, string vehicleName)
@@ -127,12 +127,12 @@ public class CommandHandler : IScript
                 return;
             }
 
-            IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y +1.5f, player.Position.Z),  player.Rotation);
+            IVehicle vehicle = Alt.CreateVehicle(Alt.Hash(vehicleName), new Position(player.Position.X, player.Position.Y + 1.5f, player.Position.Z), player.Rotation);
             if (vehicle != null)
             {
                 player.Emit("Client:ShowNotify", "Du hast einen " + vehicleName + " gespawnt!");
             }
-            
+
             player.SetIntoVehicle(vehicle, 1);
         }
         else
@@ -140,7 +140,7 @@ public class CommandHandler : IScript
             player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
         }
     }
-    
+
     [Command("pos")]
     public static void CurrentPlayerPositionCmd(MyPlayer player)
     {
@@ -152,7 +152,7 @@ public class CommandHandler : IScript
             }
             else
             {
-                player.Emit("Client:ShowNotify","Du bist nicht im Admin Modus!");
+                player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
             }
         }
     }
@@ -169,7 +169,7 @@ public class CommandHandler : IScript
                     IPlayer selectedPlayerToRevive = Alt.GetPlayersArray()[target].Value;
                     selectedPlayerToRevive.Spawn(new Position(selectedPlayerToRevive.Position.X, selectedPlayerToRevive.Position.Y, selectedPlayerToRevive.Position.Z), 0);
                     selectedPlayerToRevive.Health = 200;
-                  
+
                     player.Emit("Client:ShowNotify", "Du hast " + selectedPlayerToRevive.Name + " wiederbelebt!");
                 }
                 catch (IndexOutOfRangeException ex)
@@ -181,8 +181,8 @@ public class CommandHandler : IScript
             }
             else
             {
-                player.Emit("Client:ShowNotify","Du bist nicht im Admin Modus!");
-            }  
+                player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
+            }
         }
     }
 
@@ -197,7 +197,7 @@ public class CommandHandler : IScript
                 {
                     IPlayer selectedPlayerToKill = Alt.GetPlayersArray()[target].Value;
                     selectedPlayerToKill.Health = 0;
-                
+
                     player.Emit("Client:ShowNotify", "Du hast " + selectedPlayerToKill.Name + " getötet!");
                 }
                 catch (IndexOutOfRangeException ex)
@@ -209,13 +209,13 @@ public class CommandHandler : IScript
             }
             else
             {
-                player.Emit("Client:ShowNotify","Du bist nicht im Admin Modus!");
+                player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
 
             }
         }
     }
 
-    
+
     [Command("weapon")]
     public static void GivePlayerWeaponCmd(MyPlayer player, string weapon, int ammo, ushort target)
     {
@@ -239,7 +239,7 @@ public class CommandHandler : IScript
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    player.Emit("Client:ShowNotify","Keinen Spieler mit der ID " + target + " gefunden!");
+                    player.Emit("Client:ShowNotify", "Keinen Spieler mit der ID " + target + " gefunden!");
                     Alt.Log("[Command] GivePlayerWeaponCmd Fehler");
                     throw;
                 }
@@ -261,13 +261,13 @@ public class CommandHandler : IScript
                 try
                 {
                     IPlayer selectedPlayerToKick = Alt.GetPlayersArray()[target].Value;
-                    player.Emit("Client:ShowNotify",selectedPlayerToKick.Name + " wurde gekickt. Grund: " + reason);
+                    player.Emit("Client:ShowNotify", selectedPlayerToKick.Name + " wurde gekickt. Grund: " + reason);
 
                     selectedPlayerToKick.Kick(reason);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    player.Emit("Client:ShowNotify","Keinen Spieler mit der ID " + target + " gefunden!");
+                    player.Emit("Client:ShowNotify", "Keinen Spieler mit der ID " + target + " gefunden!");
                     Alt.Log("[Command] KickPlayerFromServer Fehler");
                     throw;
                 }
@@ -293,7 +293,7 @@ public class CommandHandler : IScript
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    player.Emit("Client:ShowNotify","Keinen Spieler mit der ID " + target + " gefunden!");
+                    player.Emit("Client:ShowNotify", "Keinen Spieler mit der ID " + target + " gefunden!");
                     Alt.Log("[Command] Freeze Fehler");
                     throw;
                 }
@@ -312,7 +312,7 @@ public class CommandHandler : IScript
         {
             if (player.IsAduty)
             {
-                player.Position = new Position(posX, posY+1f, posZ);
+                player.Position = new Position(posX, posY + 1f, posZ);
                 player.Emit("Client:ShowNotify", "Du hast dich zu " + posX + " ," + posY + " ," + posZ + " teleportiert!");
             }
             else
@@ -336,7 +336,7 @@ public class CommandHandler : IScript
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    player.Emit("Client:ShowNotify","Keinen Spieler mit der ID " + target + " gefunden!");
+                    player.Emit("Client:ShowNotify", "Keinen Spieler mit der ID " + target + " gefunden!");
                     Alt.Log("[Command] TpTo: " + ex.Message);
                     throw;
                 }
