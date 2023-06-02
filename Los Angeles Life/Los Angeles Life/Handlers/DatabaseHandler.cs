@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
 using MySql.Data.MySqlClient;
 
@@ -16,7 +15,7 @@ namespace Los_Angeles_Life.Handlers
             const string dbPort = "4406";
             const string dbUser = "dev";
             const string dbPassword = "Sonner2021$";
-            const string dbName = "altv_new";
+            const string dbName = "altv";
 
             const string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};";
 
