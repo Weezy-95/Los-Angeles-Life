@@ -13,6 +13,7 @@ internal class Server : Resource
     {
         _databaseHandler.LoadPlayerCount();
         WeatherHandler.StartWeather();
+        FactionHandler.LoadFactions();
     }
 
     public override void OnStop()
