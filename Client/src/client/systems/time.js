@@ -8,5 +8,5 @@ alt.on('connectionComplete', () => {
     let date = new Date(Date.now());
 
     native.setClockTime(date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-    alt.setMsPerGameMinute(1000);
+    native.setMsPerGameMinute(1000);
 });
