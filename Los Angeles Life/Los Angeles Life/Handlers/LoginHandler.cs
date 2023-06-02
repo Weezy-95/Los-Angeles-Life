@@ -27,15 +27,16 @@ public class LoginHandler : IScript
         {
             player.PlayerName = player.Name;
             player.SocialClub = player.SocialClubId;
-            player.Money = 1500;
+            player.Cash = 1500f;
+            player.Bank = 0f;
             player.AdminLevel = 0;
             player.IsWhitelisted = false;
             player.Model = (uint)PedModel.FreemodeMale01;
-            player.PlayerDim = 0;
+            player.PlayerDimension = 0;
 
             Position playerPos = new Position(0f, 0f, 75f);
             Rotation playerRot = new Rotation(0f, 0f, 0f);
-            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub, player.AdminLevel, player.Money, player.IsWhitelisted, playerPos, playerRot, player.PlayerDim);
+            DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub, player.AdminLevel, player.IsWhitelisted, player.Cash, player.Bank, playerPos, playerRot, player.PlayerDimension);
             player.Spawn(playerPos, 1);
          
             player.Emit("Client:Auth:CloseLoginHud");

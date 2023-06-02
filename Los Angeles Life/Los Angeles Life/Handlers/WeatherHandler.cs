@@ -55,10 +55,9 @@ namespace Los_Angeles_Life.Handlers
             if (currentWeatherPattern.Length > 0)
             {
                 WeatherType nextWeather = currentWeatherPattern[0];
- 
                 Alt.SetSyncedMetaData("ChangeWeather", nextWeather.ToString().ToUpper());
+                
                 currentWeatherPattern = currentWeatherPattern[1..];
-                Alt.Log(nextWeather.ToString().ToUpper());
 
                 if (currentWeatherPattern.Length == 0)
                 {
@@ -82,7 +81,6 @@ namespace Los_Angeles_Life.Handlers
             int weatherIndex = random.Next(1, weatherTypes.Count + 1);
 
             WeatherType[] weatherPattern = weatherTypes[weatherIndex];
-            Alt.Log("GetRandomWeatherState: " + weatherIndex);
 
             return weatherPattern;
         }

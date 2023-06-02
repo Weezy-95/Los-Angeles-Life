@@ -68,8 +68,8 @@ public class CommandHandler : IScript
                     MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
                     
                     setPlayerAdmin.AdminLevel = 2;
-                    DatabaseHandler.SetAdminLevel(selectedAdminPlayer.DiscordId, adminLevel);
-                    player.Emit("Client:ShowNotify", " Du hast " + selectedAdminPlayer.Name + " zum Developer gemacht");
+                    DatabaseHandler.SetAdminLevel(setPlayerAdmin.DiscordId, adminLevel);
+                    player.Emit("Client:ShowNotify", " Du hast " + setPlayerAdmin.Name + " zum Developer gemacht");
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -98,8 +98,8 @@ public class CommandHandler : IScript
                     MyPlayer? setPlayerAdmin = (MyPlayer)selectedAdminPlayer;
                     
                     setPlayerAdmin.AdminLevel = 3;
-                    DatabaseHandler.SetAdminLevel(selectedAdminPlayer.DiscordId, adminLevel);
-                    player.Emit("Client:ShowNotify", " Du hast " + selectedAdminPlayer.Name + " zum Admin gemacht");
+                    DatabaseHandler.SetAdminLevel(setPlayerAdmin.DiscordId, adminLevel);
+                    player.Emit("Client:ShowNotify", " Du hast " + setPlayerAdmin.Name + " zum Admin gemacht");
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -346,11 +346,5 @@ public class CommandHandler : IScript
                 player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
             }
         }
-    }
-
-    [Command("time")]
-    public static void TimeCheckCmd(MyPlayer player)
-    {
-        player.Emit("Client:ShowNotify", "Es ist: " );
     }
 }
