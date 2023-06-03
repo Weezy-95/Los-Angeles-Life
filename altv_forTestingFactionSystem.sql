@@ -1,3 +1,19 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : localhost_4406
+ Source Server Type    : MySQL
+ Source Server Version : 80033 (8.0.33)
+ Source Host           : localhost:4406
+ Source Schema         : altv
+
+ Target Server Type    : MySQL
+ Target Server Version : 80033 (8.0.33)
+ File Encoding         : 65001
+
+ Date: 03/06/2023 16:52:13
+*/
+
 CREATE DATABASE IF NOT EXISTS altv;
 USE altv;
 
@@ -37,14 +53,20 @@ CREATE TABLE `factionranks`  (
   `FactionName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `FactionRankName` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `FactionRankPermission` int NOT NULL DEFAULT 0,
-  PRIMARY KEY (`FactionRankId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1002 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+  PRIMARY KEY (`FactionRankId`) USING BTREE,
+  INDEX `FactionName_FK`(`FactionName` ASC) USING BTREE,
+  CONSTRAINT `FactionName_FK` FOREIGN KEY (`FactionName`) REFERENCES `factions` (`FactionName`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1013 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of factionranks
 -- ----------------------------
 INSERT INTO `factionranks` VALUES (1000, 'LSPD', 'Penis', 10);
 INSERT INTO `factionranks` VALUES (1001, 'LSPD', 'Muschi', 9);
+INSERT INTO `factionranks` VALUES (1002, 'LSPD', 'Beides', 8);
+INSERT INTO `factionranks` VALUES (1003, 'Test1', 'Hoden', 4);
+INSERT INTO `factionranks` VALUES (1005, 'Test2', 'Hand', 5);
+INSERT INTO `factionranks` VALUES (1012, 'Test1', 'Dieter Peter', 999);
 
 -- ----------------------------
 -- Table structure for factions
@@ -59,13 +81,16 @@ CREATE TABLE `factions`  (
   `FactionBlipId` int NOT NULL,
   `FactionBlipColorId` int NOT NULL,
   `FactionMoney` float NULL DEFAULT NULL,
-  PRIMARY KEY (`FactionId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1001 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+  PRIMARY KEY (`FactionId`) USING BTREE,
+  INDEX `FactionName`(`FactionName` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1006 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of factions
 -- ----------------------------
-INSERT INTO `factions` VALUES (1000, 'LSPD', 0, 0, 0, 669, 8, 555.88);
+INSERT INTO `factions` VALUES (1000, 'LSPD', 1, 2, 3, 669, 8, 555.88);
+INSERT INTO `factions` VALUES (1004, 'Test1', 4, 5, 6, 44, 5, 45);
+INSERT INTO `factions` VALUES (1005, 'Test2', 8, 9, 10, 55, 77, 448);
 
 -- ----------------------------
 -- Table structure for playerfinances
@@ -104,6 +129,6 @@ CREATE TABLE `playerpositions`  (
 -- Records of playerpositions
 -- ----------------------------
 INSERT INTO `playerpositions` VALUES ('244741995917082624', 740.4, 1293.77, 360.294, 1.83053, 0);
-INSERT INTO `playerpositions` VALUES ('398114157276299264', 190.615, -68.4923, 68.5736, -1.88001, 0);
+INSERT INTO `playerpositions` VALUES ('398114157276299264', 205.108, -49.7275, 68.7252, 0, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

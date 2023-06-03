@@ -11,4 +11,9 @@ public class Faction
     public int FactionBlipColorId { get; set; }
     public float FactionMoney { get; set; }
     public List<FactionRank> FactionRankList { get; set; }
+
+    public Faction()
+    {
+        FactionRankList = new List<FactionRank>();
+    }
 }
