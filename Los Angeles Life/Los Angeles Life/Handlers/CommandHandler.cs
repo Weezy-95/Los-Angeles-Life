@@ -123,7 +123,7 @@ public class CommandHandler : IScript
         {
             if (!Enum.IsDefined(typeof(VehicleModel), vehicleName))
             {
-                Alt.Log(vehicleName + " ist kein gültiges Fahrzeugname.");
+                Alt.Log("Falscher Fahrzeugname: " + vehicleName);
                 return;
             }
 
