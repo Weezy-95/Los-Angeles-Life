@@ -287,7 +287,7 @@ namespace Los_Angeles_Life.Handlers
             }
         }
         
-        public static void SaveAllPlayersPositions(long discordId, Position playerPosition, Rotation playerRotation, int playerDimension)
+        public static void SaveAllPlayersPositions(string discordId, Position playerPosition, Rotation playerRotation, int playerDimension)
         {
             try
             {
