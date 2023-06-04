@@ -6,8 +6,8 @@ import './webview/notifications/app.js';
 import './world/missedInterrios.js';
 import './systems/notification.js';
 import './systems/weather.js';
-import './systems/noclip.js';
+import './systems/sounds.js';
 import './systems/time.js';
 
 // Loading events
-import './events/connectionComplete.js';
+import './events/discordAuth.js';
