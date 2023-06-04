@@ -37,6 +37,8 @@ namespace Los_Angeles_Life.Events
         public void OnPlayerDead(MyPlayer player, IEntity killer, uint weapon)
         {
             Alt.Log(DateTime.Now + ": " + player.PlayerName +" wurde von " + killer + " mit " + weapon + " getötet!");
+            
+            DatabaseHandler.SaveAllPlayersPositions(player.DiscordId, player.Position, player.Rotation, player.PlayerDimension);
         }
     }
 }
