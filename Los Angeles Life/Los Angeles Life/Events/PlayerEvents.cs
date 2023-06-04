@@ -15,6 +15,7 @@ namespace Los_Angeles_Life.Events
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} ist dem Server beigetreten!");
             
             player.PlayerDimension = -1;
+            player.SetDateTime(DateTime.UtcNow);
             
             // Position for Login Camera
             player.Spawn(new AltV.Net.Data.Position((float)754.694, (float)1299.995, (float)360.294), 0);
