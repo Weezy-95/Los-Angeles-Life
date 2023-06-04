@@ -8,6 +8,7 @@ public class Lspd : Faction
     public Lspd(int factionId, string factionName, Position factionLocation, int factionBlipId, int factionBlipColorId, float factionMoney)
     {
         FactionId = factionId;
+        FactionName = factionName;
         FactionLocation = factionLocation;
         FactionBlipId = factionBlipId;
         FactionBlipColorId = factionBlipColorId;

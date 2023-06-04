@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using Los_Angeles_Life.Entities;
-using System.Runtime.CompilerServices;
 
 namespace Los_Angeles_Life.Handlers;
 
@@ -87,7 +86,7 @@ public class FactionCommandHandler : IScript
 
         if(FactionHandler.AddFactionRank(replacedFactionName, replacedFactionRankName, factionRankPermission))
         {
-            Alt.Log(replacedFactionRankName + " wurde für die Fraktion " + replacedFactionName + " mit der Berechtigung " + factionRankPermission + "erstellt.");
+            Alt.Log(replacedFactionRankName + " wurde für die Fraktion " + replacedFactionName + " mit der Berechtigung " + factionRankPermission + " erstellt.");
             FactionHandler.GetAllFactionRanks();
         }
         else
