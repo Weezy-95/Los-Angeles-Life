@@ -4,7 +4,6 @@ using Los_Angeles_Life.Factions;
 using Los_Angeles_Life.Factions.StateFactions;
 
 using MySql.Data.MySqlClient;
-using System.Data.Common;
 
 namespace Los_Angeles_Life.Handlers
 {
