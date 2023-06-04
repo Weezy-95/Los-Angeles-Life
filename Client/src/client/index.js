@@ -8,6 +8,7 @@ import './systems/notification.js';
 import './systems/weather.js';
 import './systems/sounds.js';
 import './systems/time.js';
+import './systems/blips.js';
 
 // Loading events
 import './events/discordAuth.js';

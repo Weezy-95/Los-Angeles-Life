@@ -18,6 +18,7 @@ public class LoginHandler : IScript
             player.Model = (uint)PedModel.FreemodeMale01;
             player.PlayerPos = new Position(player.PlayerPos.X, player.PlayerPos.Y, player.PlayerPos.Z);
             player.Spawn(player.PlayerPos, 1);
+            BlipManager.CreateBlip(player);
 
             player.Emit("Client:Auth:CloseLoginHud");
             
@@ -38,6 +39,7 @@ public class LoginHandler : IScript
             Rotation playerRot = new Rotation(0f, 0f, 0f);
             DatabaseHandler.CreateAccount(player.PlayerName, player.DiscordId, player.SocialClub, player.AdminLevel, player.IsWhitelisted, player.Cash, player.Bank, playerPos, playerRot, player.PlayerDimension);
             player.Spawn(playerPos, 1);
+            BlipManager.CreateBlip(player);
          
             player.Emit("Client:Auth:CloseLoginHud");
             
