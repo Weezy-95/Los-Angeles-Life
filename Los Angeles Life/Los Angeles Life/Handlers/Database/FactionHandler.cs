@@ -10,7 +10,7 @@ namespace Los_Angeles_Life.Handlers
     abstract class FactionHandler
     {
         private static MySqlConnection connection;
-        private static Dictionary<string, Faction> factionList;
+        public static Dictionary<string, Faction> factionList;
 
 
         const string dbHost = "localhost";
@@ -64,15 +64,15 @@ namespace Los_Angeles_Life.Handlers
                         {
                             case "LSPD":
                                 faction = new Lspd(factionId, factionName, factionLocation, factionBlipId, factionBlipColorId, factionMoney);
-                                // LSPD Database Einträge abrufen und zuweisen
                                 break;
-                            case "Test1":
-                                faction = new Test1(factionId, factionName, factionLocation, factionBlipId, factionBlipColorId, factionMoney);
-                                // Test1 Database Einträge abrufen und zuweisen
+                            case "LSMC":
+                                faction = new Lsmc(factionId, factionName, factionLocation, factionBlipId, factionBlipColorId, factionMoney);
                                 break;
-                            case "Test2":
-                                faction = new Test2(factionId, factionName, factionLocation, factionBlipId, factionBlipColorId, factionMoney);
-                                // Test2 Database Einträge abrufen und zuweisen
+                            case "FIB":
+                                faction = new Fib(factionId, factionName, factionLocation, factionBlipId, factionBlipColorId, factionMoney);
+                                break;
+                            case "ACLS":
+                                faction = new Acls(factionId, factionName, factionLocation, factionBlipId, factionBlipColorId, factionMoney);
                                 break;
                         }
 
