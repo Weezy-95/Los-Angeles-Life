@@ -347,4 +347,10 @@ public class CommandHandler : IScript
             }
         }
     }
+
+    [Command("garage")]
+    public static void GarageOpenCmd(MyPlayer player)
+    {
+        player.Emit("Client:Garage:Open");
+    }
 }
