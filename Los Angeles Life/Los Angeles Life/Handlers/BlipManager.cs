@@ -1,11 +1,15 @@
 ﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
+using Los_Angeles_Life.Garages;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace Los_Angeles_Life.Handlers;
 
 public abstract class BlipManager : IScript
 {
-    public static void CreateBlip(MyPlayer player)
+    public static void CreateFactionBlips(MyPlayer player)
     {
         foreach (var faction in FactionHandler.factionList.Values)
         {
@@ -16,7 +20,21 @@ public abstract class BlipManager : IScript
             var blipColor = faction.FactionBlipColorId;
             var name = faction.FactionName;
             
-            player.Emit("Client:SendFactionList", locX, locY, locZ, blip, blipColor, name);
+            player.Emit("Client:SendBlipList", locX, locY, locZ, blip, blipColor, name);
+        }
+    }
+
+    public static void CreateGarageBlips(MyPlayer player)
+    {
+        foreach(KeyValuePair<int, Garage> garageEntry in GarageHandler.garageList)
+        {
+            player.Emit("Client:SendBlipList",
+                garageEntry.Value.Location.X,
+                garageEntry.Value.Location.Y,
+                garageEntry.Value.Location.Z,
+                garageEntry.Value.BlipId,
+                garageEntry.Value.BlipColorId,
+                garageEntry.Value.Name);
         }
     }
 }

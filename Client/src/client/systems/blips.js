@@ -4,8 +4,7 @@
 import alt from 'alt-client';
 import native from 'natives';
 
-alt.onServer('Client:SendFactionList', (PosX, PosY, PosZ, BlipId, BlipColorId, Name) => {
-    alt.log("Test");
+alt.onServer('Client:SendBlipList', (PosX, PosY, PosZ, BlipId, BlipColorId, Name) => {
     createBlip(PosX, PosY, PosZ, BlipId, BlipColorId, Name);
 });
 

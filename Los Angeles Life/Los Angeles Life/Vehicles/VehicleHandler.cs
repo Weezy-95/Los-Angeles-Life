@@ -3,17 +3,16 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
 using Los_Angeles_Life.Factions;
-using Los_Angeles_Life.Vehicles;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 
-namespace Los_Angeles_Life.Handlers.Database
+namespace Los_Angeles_Life.Vehicles
 {
     abstract class VehicleHandler : IScript
     {
         private static MySqlConnection connection;
         private static Dictionary<long, ServerVehicle> serverVehicleList;
-        private static Dictionary <int, VehicleTemplate> vehicleTemplateList;
+        private static Dictionary<int, VehicleTemplate> vehicleTemplateList;
 
 
         const string dbHost = "localhost";
@@ -162,7 +161,7 @@ namespace Los_Angeles_Life.Handlers.Database
 
                 IVehicle spawnedVehicle = Alt.CreateVehicle(vehicleTemplateList[carToSpawn].ModelId, vehicleSpawnPosition, vehicleRotation);
                 serverVehicle.SessionId = spawnedVehicle.Id;
-                
+
                 MySqlCommand updateFactionNameCommand = connection.CreateCommand();
                 updateFactionNameCommand.CommandText = "UPDATE vehicles SET SessionId = @SessionId WHERE Owner = @Owner AND Id = @Id";
                 updateFactionNameCommand.Parameters.AddWithValue("@SessionId", serverVehicle.SessionId);
@@ -217,7 +216,7 @@ namespace Los_Angeles_Life.Handlers.Database
 
                 mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText =
-                    "UPDATE vehicles SET GarageStorageId = @GarageStorageId, Fuel = @Fuel, Mileage = @Mileage, IsEngineHealthy = @IsEngineHealthy, IsLocked = @IsLocked, IsInGarage = @IsInGarage, PositionX = @PositionX, PositionY = @PositionY, PositionZ = @PositionZ, Rotation = @Rotation, Plate = @Plate " + 
+                    "UPDATE vehicles SET GarageStorageId = @GarageStorageId, Fuel = @Fuel, Mileage = @Mileage, IsEngineHealthy = @IsEngineHealthy, IsLocked = @IsLocked, IsInGarage = @IsInGarage, PositionX = @PositionX, PositionY = @PositionY, PositionZ = @PositionZ, Rotation = @Rotation, Plate = @Plate " +
                     "WHERE Owner = @Owner AND Id = @Id";
                 mySqlCommand.Parameters.AddWithValue("@GarageStorageId", serverVehicle.GarageStorageId);
                 mySqlCommand.Parameters.AddWithValue("@Fuel", serverVehicle.Fuel);

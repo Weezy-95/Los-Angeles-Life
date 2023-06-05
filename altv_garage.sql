@@ -11,7 +11,7 @@
  Target Server Version : 80033 (8.0.33)
  File Encoding         : 65001
 
- Date: 05/06/2023 17:58:27
+ Date: 06/06/2023 01:49:11
 */
 
 CREATE DATABASE IF NOT EXISTS altv;
@@ -97,21 +97,65 @@ CREATE TABLE `garages`  (
   `LocationX` float NULL DEFAULT 0,
   `LocationY` float NULL DEFAULT 0,
   `LocationZ` float NULL DEFAULT 0,
-  `SpawnPositionX` float NULL DEFAULT 0,
-  `SpawnPositionY` float NULL DEFAULT 0,
-  `SpawnPositionZ` float NULL DEFAULT 0,
-  `SpawnRotation` float NULL DEFAULT NULL,
-  `StoragePositionX` float NULL DEFAULT NULL,
-  `StoragePositionY` float NULL DEFAULT NULL,
-  `StoragePositionZ` float NULL DEFAULT NULL,
   `BlipId` int NULL DEFAULT 0,
   `BlipColorId` int NULL DEFAULT 0,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1001 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of garages
 -- ----------------------------
+INSERT INTO `garages` VALUES (1000, 'Garage 1', 213.824, -808.906, 30.9985, 225, 25);
+
+-- ----------------------------
+-- Table structure for garagespawnpositions
+-- ----------------------------
+DROP TABLE IF EXISTS `garagespawnpositions`;
+CREATE TABLE `garagespawnpositions`  (
+  `SpawnPositionId` int NOT NULL AUTO_INCREMENT,
+  `GarageId` int NULL DEFAULT NULL,
+  `PositionX` float NULL DEFAULT NULL,
+  `PositionY` float NULL DEFAULT NULL,
+  `PositionZ` float NULL DEFAULT NULL,
+  `Rotation` float NULL DEFAULT NULL,
+  PRIMARY KEY (`SpawnPositionId`) USING BTREE,
+  INDEX `GarageSpawnPositionId_FK`(`GarageId` ASC) USING BTREE,
+  CONSTRAINT `GarageSpawnPositionId_FK` FOREIGN KEY (`GarageId`) REFERENCES `garages` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1006 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of garagespawnpositions
+-- ----------------------------
+INSERT INTO `garagespawnpositions` VALUES (1000, 1000, 214.154, -804.29, 30.3414, 1.1379);
+INSERT INTO `garagespawnpositions` VALUES (1001, 1000, 216.198, -799.305, 30.3414, 1.1379);
+INSERT INTO `garagespawnpositions` VALUES (1003, 1000, 217.873, -794.334, 30.3414, 1.1379);
+INSERT INTO `garagespawnpositions` VALUES (1004, 1000, 220.022, -789.429, 30.3414, 1.1379);
+INSERT INTO `garagespawnpositions` VALUES (1005, 1000, 221.855, -784.338, 30.3414, 1.1379);
+
+-- ----------------------------
+-- Table structure for garagestoragepositions
+-- ----------------------------
+DROP TABLE IF EXISTS `garagestoragepositions`;
+CREATE TABLE `garagestoragepositions`  (
+  `StoragePositionId` int NOT NULL AUTO_INCREMENT,
+  `GarageId` int NULL DEFAULT NULL,
+  `PositionX` float NULL DEFAULT NULL,
+  `PositionY` float NULL DEFAULT NULL,
+  `PositionZ` float NULL DEFAULT NULL,
+  `Rotation` float NULL DEFAULT NULL,
+  PRIMARY KEY (`StoragePositionId`) USING BTREE,
+  INDEX `GarageStoragePositionId_FK`(`GarageId` ASC) USING BTREE,
+  CONSTRAINT `GarageStoragePositionId_FK` FOREIGN KEY (`GarageId`) REFERENCES `garages` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1005 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of garagestoragepositions
+-- ----------------------------
+INSERT INTO `garagestoragepositions` VALUES (1000, 1000, 234.989, -752.123, 30.392, -1.88001);
+INSERT INTO `garagestoragepositions` VALUES (1001, 1000, 242.545, -756.58, 30.392, -1.92948);
+INSERT INTO `garagestoragepositions` VALUES (1002, 1000, 236.519, -739.78, 30.392, 1.18737);
+INSERT INTO `garagestoragepositions` VALUES (1003, 1000, 234.791, -751.49, 34.2, -1.88001);
+INSERT INTO `garagestoragepositions` VALUES (1004, 1000, 258.462, -747.785, 34.2, -0.346317);
 
 -- ----------------------------
 -- Table structure for garagestorages
@@ -120,9 +164,13 @@ DROP TABLE IF EXISTS `garagestorages`;
 CREATE TABLE `garagestorages`  (
   `Id` bigint NOT NULL AUTO_INCREMENT,
   `GarageId` int NULL DEFAULT NULL,
-  `VehicleId` int NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  `VehicleId` bigint NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE,
+  INDEX `GarageStorageId_FK`(`GarageId` ASC) USING BTREE,
+  INDEX `GarageVehicleId_FK`(`VehicleId` ASC) USING BTREE,
+  CONSTRAINT `GarageStorageId_FK` FOREIGN KEY (`GarageId`) REFERENCES `garages` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `GarageVehicleId_FK` FOREIGN KEY (`VehicleId`) REFERENCES `vehicles` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of garagestorages
@@ -165,7 +213,7 @@ CREATE TABLE `playerpositions`  (
 -- Records of playerpositions
 -- ----------------------------
 INSERT INTO `playerpositions` VALUES ('244741995917082624', 0, 0, 75, 0, 0);
-INSERT INTO `playerpositions` VALUES ('398114157276299264', 0, 0, 75, 0.940004, 0);
+INSERT INTO `playerpositions` VALUES ('398114157276299264', 210.409, -801.956, 30.9143, -2.91896, 0);
 
 -- ----------------------------
 -- Table structure for vehicles
@@ -189,11 +237,13 @@ CREATE TABLE `vehicles`  (
   `Rotation` float NULL DEFAULT NULL,
   `Plate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1009 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1011 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vehicles
 -- ----------------------------
+INSERT INTO `vehicles` VALUES (1009, 0, 1000, 0, 0, '398114157276299264', 60, 0, 1, 1, 0, 1183.21, -594.673, 63.6198, 0.21935, 'PO PO 1337');
+INSERT INTO `vehicles` VALUES (1010, 1, 1001, 0, 0, '398114157276299264', 65, 0, 1, 1, 0, 213.64, -801.982, 30.4425, -1.94293, 'PO PO 1337');
 
 -- ----------------------------
 -- Table structure for vehicletemplates
