@@ -2,6 +2,7 @@
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Factories;
 using Los_Angeles_Life.Handlers;
+using Los_Angeles_Life.Handlers.Database;
 
 namespace Los_Angeles_Life;
 
@@ -14,6 +15,7 @@ internal class Server : Resource
         _databaseHandler.LoadPlayerCount();
         WeatherHandler.StartWeather();
         FactionHandler.LoadFactionsAndFactionRanks();
+        VehicleHandler.LoadVehicleSystem();
     }
 
     public override void OnStop()

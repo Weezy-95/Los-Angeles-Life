@@ -11,7 +11,7 @@
  Target Server Version : 80033 (8.0.33)
  File Encoding         : 65001
 
- Date: 03/06/2023 16:52:13
+ Date: 05/06/2023 17:58:27
 */
 
 CREATE DATABASE IF NOT EXISTS altv;
@@ -56,17 +56,11 @@ CREATE TABLE `factionranks`  (
   PRIMARY KEY (`FactionRankId`) USING BTREE,
   INDEX `FactionName_FK`(`FactionName` ASC) USING BTREE,
   CONSTRAINT `FactionName_FK` FOREIGN KEY (`FactionName`) REFERENCES `factions` (`FactionName`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1013 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1015 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of factionranks
 -- ----------------------------
-INSERT INTO `factionranks` VALUES (1000, 'LSPD', 'Penis', 10);
-INSERT INTO `factionranks` VALUES (1001, 'LSPD', 'Muschi', 9);
-INSERT INTO `factionranks` VALUES (1002, 'LSPD', 'Beides', 8);
-INSERT INTO `factionranks` VALUES (1003, 'Test1', 'Hoden', 4);
-INSERT INTO `factionranks` VALUES (1005, 'Test2', 'Hand', 5);
-INSERT INTO `factionranks` VALUES (1012, 'Test1', 'Dieter Peter', 999);
 
 -- ----------------------------
 -- Table structure for factions
@@ -83,14 +77,56 @@ CREATE TABLE `factions`  (
   `FactionMoney` float NULL DEFAULT NULL,
   PRIMARY KEY (`FactionId`) USING BTREE,
   INDEX `FactionName`(`FactionName` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1006 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1011 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of factions
 -- ----------------------------
-INSERT INTO `factions` VALUES (1000, 'LSPD', 1, 2, 3, 669, 8, 555.88);
-INSERT INTO `factions` VALUES (1004, 'Test1', 4, 5, 6, 44, 5, 45);
-INSERT INTO `factions` VALUES (1005, 'Test2', 8, 9, 10, 55, 77, 448);
+INSERT INTO `factions` VALUES (1000, 'LSPD', 446.085, -987.151, 43.686, 60, 0, 555.88);
+INSERT INTO `factions` VALUES (1008, 'LSMC', 314.254, -577.648, 94.471, 61, 1, 50000.5);
+INSERT INTO `factions` VALUES (1009, 'FIB', 135.995, -749.248, 258.15, 564, 0, 50000.5);
+INSERT INTO `factions` VALUES (1010, 'ACLS', -336.145, -136.865, 60.452, 446, 5, 5000.66);
+
+-- ----------------------------
+-- Table structure for garages
+-- ----------------------------
+DROP TABLE IF EXISTS `garages`;
+CREATE TABLE `garages`  (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `LocationX` float NULL DEFAULT 0,
+  `LocationY` float NULL DEFAULT 0,
+  `LocationZ` float NULL DEFAULT 0,
+  `SpawnPositionX` float NULL DEFAULT 0,
+  `SpawnPositionY` float NULL DEFAULT 0,
+  `SpawnPositionZ` float NULL DEFAULT 0,
+  `SpawnRotation` float NULL DEFAULT NULL,
+  `StoragePositionX` float NULL DEFAULT NULL,
+  `StoragePositionY` float NULL DEFAULT NULL,
+  `StoragePositionZ` float NULL DEFAULT NULL,
+  `BlipId` int NULL DEFAULT 0,
+  `BlipColorId` int NULL DEFAULT 0,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of garages
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for garagestorages
+-- ----------------------------
+DROP TABLE IF EXISTS `garagestorages`;
+CREATE TABLE `garagestorages`  (
+  `Id` bigint NOT NULL AUTO_INCREMENT,
+  `GarageId` int NULL DEFAULT NULL,
+  `VehicleId` int NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of garagestorages
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for playerfinances
@@ -102,7 +138,7 @@ CREATE TABLE `playerfinances`  (
   `Bank` float NULL DEFAULT 0,
   PRIMARY KEY (`PlayerFinanceId`) USING BTREE,
   CONSTRAINT `PlayerFinanceId_FK` FOREIGN KEY (`PlayerFinanceId`) REFERENCES `accounts` (`DiscordID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of playerfinances
@@ -123,12 +159,58 @@ CREATE TABLE `playerpositions`  (
   `playerDimension` int NOT NULL,
   PRIMARY KEY (`PositionId`) USING BTREE,
   CONSTRAINT `PositionId_FK` FOREIGN KEY (`PositionId`) REFERENCES `accounts` (`DiscordID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of playerpositions
 -- ----------------------------
-INSERT INTO `playerpositions` VALUES ('244741995917082624', 740.4, 1293.77, 360.294, 1.83053, 0);
-INSERT INTO `playerpositions` VALUES ('398114157276299264', 205.108, -49.7275, 68.7252, 0, 0);
+INSERT INTO `playerpositions` VALUES ('244741995917082624', 0, 0, 75, 0, 0);
+INSERT INTO `playerpositions` VALUES ('398114157276299264', 0, 0, 75, 0.940004, 0);
+
+-- ----------------------------
+-- Table structure for vehicles
+-- ----------------------------
+DROP TABLE IF EXISTS `vehicles`;
+CREATE TABLE `vehicles`  (
+  `Id` bigint NOT NULL AUTO_INCREMENT,
+  `SessionId` int NULL DEFAULT NULL,
+  `VehicleTemplateId` int NULL DEFAULT NULL,
+  `FactionId` int NULL DEFAULT NULL,
+  `GarageStorageId` int NULL DEFAULT NULL,
+  `Owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `Fuel` float NULL DEFAULT NULL,
+  `Mileage` float NULL DEFAULT NULL,
+  `IsEngineHealthy` tinyint(1) NULL DEFAULT 1,
+  `IsLocked` tinyint(1) NULL DEFAULT 1,
+  `IsInGarage` tinyint(1) NULL DEFAULT 0,
+  `PositionX` float NULL DEFAULT NULL,
+  `PositionY` float NULL DEFAULT NULL,
+  `PositionZ` float NULL DEFAULT NULL,
+  `Rotation` float NULL DEFAULT NULL,
+  `Plate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1009 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of vehicles
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for vehicletemplates
+-- ----------------------------
+DROP TABLE IF EXISTS `vehicletemplates`;
+CREATE TABLE `vehicletemplates`  (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `ModelId` bigint NULL DEFAULT NULL,
+  `Fuel` float NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1002 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of vehicletemplates
+-- ----------------------------
+INSERT INTO `vehicletemplates` VALUES (1000, 'Police', 2046537925, 60);
+INSERT INTO `vehicletemplates` VALUES (1001, 'Police 2', 2667966721, 65);
 
 SET FOREIGN_KEY_CHECKS = 1;

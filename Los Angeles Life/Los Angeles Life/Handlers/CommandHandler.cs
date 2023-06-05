@@ -4,6 +4,7 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using Los_Angeles_Life.Entities;
+using Los_Angeles_Life.Handlers.Database;
 
 namespace Los_Angeles_Life.Handlers;
 
@@ -140,6 +141,8 @@ public class CommandHandler : IScript
             player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
         }
     }
+
+
 
     [Command("pos")]
     public static void CurrentPlayerPositionCmd(MyPlayer player)
@@ -346,5 +349,11 @@ public class CommandHandler : IScript
                 player.Emit("Client:ShowNotify", "Du bist nicht im Admin Modus!");
             }
         }
+    }
+
+    [Command("testveh")]
+    public static void TestVehCmd(MyPlayer player, int vehicleTemplateId)
+    {
+        VehicleHandler.CreateNewVehicle(vehicleTemplateId, "PO PO 1337", player.Position, player.Rotation, player);
     }
 }

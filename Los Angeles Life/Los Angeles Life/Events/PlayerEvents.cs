@@ -2,6 +2,7 @@
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
 using Los_Angeles_Life.Handlers;
+using Los_Angeles_Life.Handlers.Database;
 
 namespace Los_Angeles_Life.Events
 {
@@ -31,6 +32,13 @@ namespace Los_Angeles_Life.Events
             
             DatabaseHandler.SaveAccount(player);
             DatabaseHandler.SavePlayerPosition(player.DiscordId, player.PlayerPos, player.PlayerRot, player.PlayerDimension);
+
+            if (player.IsInVehicle)
+            {
+                IVehicle vehicleToSave = player.Vehicle;
+                VehicleHandler.SaveVehicle(vehicleToSave, player, player.Seat);
+            }
+
             _channel.RemovePlayer(player);
         }
 
@@ -40,6 +48,12 @@ namespace Los_Angeles_Life.Events
             Alt.Log(DateTime.Now + ": " + player.PlayerName +" wurde von " + killer + " mit " + weapon + " getötet!");
             
             DatabaseHandler.SavePlayerPosition(player.DiscordId, player.Position, player.Rotation, player.PlayerDimension);
+        }
+
+        [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
+        public void OnPlayerLeaveVehicle(IVehicle vehicle, IPlayer player, byte seat)
+        {
+            VehicleHandler.SaveVehicle(vehicle, player, seat);
         }
     }
 }
