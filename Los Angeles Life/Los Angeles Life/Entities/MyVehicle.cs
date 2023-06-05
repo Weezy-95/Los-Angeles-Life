@@ -6,6 +6,8 @@ namespace Los_Angeles_Life.Entities;
 
 public class MyVehicle : Vehicle
 {
+    public int VehicleId { get; set; }
+
     public MyVehicle(ICore core, uint model, Position position, Rotation rotation) : base(core, model, position, rotation)
     {
     }
