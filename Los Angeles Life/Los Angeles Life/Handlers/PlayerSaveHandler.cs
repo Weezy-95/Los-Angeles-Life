@@ -15,7 +15,7 @@ namespace Los_Angeles_Life.Handlers
             {
                 Position playerPosition = player.Position;
                 Rotation playerRotation = player.Rotation;
-                DatabaseHandler.SaveAllPlayersPositions(player.DiscordId.ToString(), playerPosition, playerRotation, player.Dimension);
+                DatabaseHandler.SavePlayerPosition(player.DiscordId.ToString(), playerPosition, playerRotation, player.Dimension);
             }
         }
     }

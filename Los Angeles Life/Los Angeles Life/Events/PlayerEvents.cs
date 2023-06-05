@@ -30,6 +30,7 @@ namespace Los_Angeles_Life.Events
             Alt.Log(DateTime.Now + ": " + $"Der Spieler {player.Name} mit der ID {player.Id} hat den Server verlassen! Grund: " + reason);
             
             DatabaseHandler.SaveAccount(player);
+            DatabaseHandler.SavePlayerPosition(player.DiscordId, player.PlayerPos, player.PlayerRot, player.PlayerDimension);
             _channel.RemovePlayer(player);
         }
 
@@ -38,7 +39,7 @@ namespace Los_Angeles_Life.Events
         {
             Alt.Log(DateTime.Now + ": " + player.PlayerName +" wurde von " + killer + " mit " + weapon + " getötet!");
             
-            DatabaseHandler.SaveAllPlayersPositions(player.DiscordId, player.Position, player.Rotation, player.PlayerDimension);
+            DatabaseHandler.SavePlayerPosition(player.DiscordId, player.Position, player.Rotation, player.PlayerDimension);
         }
     }
 }
