@@ -23,7 +23,6 @@ namespace Los_Angeles_Life.Events
 
             BlipManager.CreateFactionBlips(player);
             BlipManager.CreateGarageBlips(player);
-            PedHandler.LoadPeds(player);
 
             player.Emit("Client:Auth:Open");
             _channel.AddPlayer(player);
