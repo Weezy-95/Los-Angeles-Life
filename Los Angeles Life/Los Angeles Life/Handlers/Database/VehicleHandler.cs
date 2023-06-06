@@ -2,11 +2,10 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
-using Los_Angeles_Life.Factions;
+using Los_Angeles_Life.Vehicles;
 using MySql.Data.MySqlClient;
-using System.Data.Common;
 
-namespace Los_Angeles_Life.Vehicles
+namespace Los_Angeles_Life.Handlers.Database
 {
     abstract class VehicleHandler : IScript
     {
@@ -45,12 +44,13 @@ namespace Los_Angeles_Life.Vehicles
 
                 while (reader.Read())
                 {
-                    VehicleTemplate vehicleTemplate = new VehicleTemplate();
-
-                    vehicleTemplate.Id = reader.GetInt16("Id");
-                    vehicleTemplate.Name = reader.GetString("Name");
-                    vehicleTemplate.ModelId = reader.GetUInt32("ModelId");
-                    vehicleTemplate.Fuel = reader.GetFloat("Fuel");
+                    VehicleTemplate vehicleTemplate = new VehicleTemplate
+                    {
+                        Id = reader.GetInt16("Id"),
+                        Name = reader.GetString("Name"),
+                        ModelId = reader.GetUInt32("ModelId"),
+                        Fuel = reader.GetFloat("Fuel")
+                    };
 
                     vehicleTemplateList.Add(vehicleTemplate.Id, vehicleTemplate);
                 }

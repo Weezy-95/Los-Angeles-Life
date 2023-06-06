@@ -1,9 +1,10 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
+using Los_Angeles_Life.Garages;
 using Los_Angeles_Life.Misc;
 using MySql.Data.MySqlClient;
 
-namespace Los_Angeles_Life.Garages
+namespace Los_Angeles_Life.Handlers.Database
 {
     abstract class GarageHandler
     {
@@ -51,7 +52,7 @@ namespace Los_Angeles_Life.Garages
                     Garage garage = new Garage(id, name, location, blipId, blipColorId);
 
                     garageList.Add(id, garage);
-                    Alt.Log("Garage: " + garage.Name);
+                    Alt.Log("[MySQL] Es wurde erfolgreich die Garage " + garage.Name +" geladen!");
                 }
             }
             catch (Exception ex)
