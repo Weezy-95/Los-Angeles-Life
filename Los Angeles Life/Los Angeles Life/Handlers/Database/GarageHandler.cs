@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Garages;
 using Los_Angeles_Life.Misc;
 using MySql.Data.MySqlClient;
@@ -25,6 +26,7 @@ namespace Los_Angeles_Life.Handlers.Database
             garageList = new Dictionary<int, Garage>();
             LoadGarages();
             LoadGarageSpawnPositionsAndGarageStoragePositions();
+            CreateGarageStorageColShapesAndMarker();
         }
 
         private static void LoadGarages()
@@ -131,6 +133,28 @@ namespace Los_Angeles_Life.Handlers.Database
             {
                 connection.Close();
             }
+        }
+
+        private static void CreateGarageStorageColShapesAndMarker()
+        {
+            List<Position> storagePositionList = new List<Position>();
+
+            foreach (KeyValuePair<int, Garage> garageEntry in garageList)
+            {
+                foreach(SpawnInformation spawnInformation in garageEntry.Value.StoragePositionInformationList)
+                {
+                    Position storagePosition = spawnInformation.Position;
+                    storagePosition.Z -= 1f;
+
+                    IColShape colShape = Alt.CreateColShapeCylinder(storagePosition, 3f, 3f);
+                    colShape.IsPlayersOnly = true;
+                    colShape.SetMetaData("Server:ColShape:GarageStoragePosition", "GarageStoragePosition");
+
+                    storagePositionList.Add(storagePosition);
+                }
+            }
+
+            Alt.SetSyncedMetaData("Client:Marker:Garage", storagePositionList);
         }
     }
 }

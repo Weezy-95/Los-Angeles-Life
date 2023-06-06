@@ -19,6 +19,7 @@ internal class Server : Resource
         FactionHandler.LoadFactionsAndFactionRanks();
         VehicleHandler.LoadVehicleSystem();
         GarageHandler.LoadGarageSystem();
+        ColShapeHandler.LoadingColShapeEvents();
     }
 
     public override void OnStop()
