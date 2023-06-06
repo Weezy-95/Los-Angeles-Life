@@ -11,6 +11,7 @@ import './systems/time.js';
 import './systems/blips.js';
 import './systems/garage.js';
 import './systems/ped.js';
+import './systems/marker.js';
 
 // Loading events
 import './events/discordAuth.js';
