@@ -34,10 +34,10 @@ body {
     font-family: Roboto-Regular;
     color: #f8f8f8;
 
-    /*-ms-user-select: None;
+    -ms-user-select: None;
     -moz-user-select: None;
     -webkit-user-select: None;
-    user-select: None;*/
+    user-select: None;
 }
 
 .main-container {
@@ -79,6 +79,14 @@ body {
     color: #f8f8f8;
 }
 
+.list-group-item:hover {
+    background-color: #201c1d;
+}
+
+.selected {
+    background-color: #000000;
+}
+
 .btn-parkin {
     position: relative;
     top: 25%;
@@ -99,8 +107,4 @@ body {
     left: 6%;
 
     width: 220px;
-}
-
-.img {
-    width: 20px;
 }
