@@ -4,6 +4,8 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using Los_Angeles_Life.Entities;
+using Los_Angeles_Life.Handlers.Database;
+using Los_Angeles_Life.Vehicles;
 
 namespace Los_Angeles_Life.Handlers;
 
@@ -141,6 +143,8 @@ public class CommandHandler : IScript
         }
     }
 
+
+
     [Command("pos")]
     public static void CurrentPlayerPositionCmd(MyPlayer player)
     {
@@ -148,7 +152,7 @@ public class CommandHandler : IScript
         {
             if (player.IsAduty)
             {
-                Alt.Log("[Pos] " + player.Position);
+                Alt.Log("[Pos] " + player.Position + " [Rot] " + player.Rotation);
             }
             else
             {
@@ -348,9 +352,9 @@ public class CommandHandler : IScript
         }
     }
 
-    [Command("garage")]
-    public static void GarageOpenCmd(MyPlayer player)
+    [Command("testveh")]
+    public static void TestVehCmd(MyPlayer player, int vehicleTemplateId)
     {
-        player.Emit("Client:Garage:Open");
+        VehicleHandler.CreateNewVehicle(vehicleTemplateId, "PO PO 1337", player.Position, player.Rotation, player);
     }
 }
