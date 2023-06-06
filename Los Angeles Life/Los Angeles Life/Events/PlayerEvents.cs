@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Entities;
 using Los_Angeles_Life.Handlers;
-using Los_Angeles_Life.Vehicles;
+using Los_Angeles_Life.Handlers.Database;
 
 namespace Los_Angeles_Life.Events
 {
