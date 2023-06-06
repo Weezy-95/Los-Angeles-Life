@@ -357,4 +357,12 @@ public class CommandHandler : IScript
     {
         VehicleHandler.CreateNewVehicle(vehicleTemplateId, "PO PO 1337", player.Position, player.Rotation, player);
     }
+
+    [Command("createped")]
+    public static void CreatePed(MyPlayer player, string name, int pedtype, string hash, float posx, float posy, float posz, float rot)
+    {
+        PedHandler.CreatePeds(name, pedtype, hash, posx, posy, posz, rot);
+        player.Emit("Client:Ped:Create", pedtype, hash, posx, posy, posz, rot);
+        PedHandler.LoadPeds();
+    }
 }

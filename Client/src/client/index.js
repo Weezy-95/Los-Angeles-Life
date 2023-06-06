@@ -9,7 +9,8 @@ import './systems/weather.js';
 import './systems/sounds.js';
 import './systems/time.js';
 import './systems/blips.js';
-import './systems/marker.js';
+import './systems/garage.js';
+import './systems/ped.js';
 
 // Loading events
 import './events/discordAuth.js';
