@@ -4,10 +4,10 @@ namespace Los_Angeles_Life.Entities;
 
 public class MyPed 
 {
-    public int PedId { get; set; }
-    public string PedName { get; set; }
-    public int PedType { get; set; }
-    public string PedHash { get; set; }
-    public Position PedPos { get; set; }
-    public Rotation PedRot { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int Type { get; set; }
+    public string Hash { get; set; }
+    public Position Position { get; set; }
+    public Rotation Rotation { get; set; }
 }

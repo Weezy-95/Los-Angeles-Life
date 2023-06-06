@@ -352,17 +352,22 @@ public class CommandHandler : IScript
         }
     }
 
-    [Command("testveh")]
+    [Command("testVeh")]
     public static void TestVehCmd(MyPlayer player, int vehicleTemplateId)
     {
         VehicleHandler.CreateNewVehicle(vehicleTemplateId, "PO PO 1337", player.Position, player.Rotation, player);
     }
 
-    [Command("createped")]
-    public static void CreatePed(MyPlayer player, string name, int pedtype, string hash, float posx, float posy, float posz, float rot)
+    [Command("createPed")]
+    public static void CreatePedCmd(MyPlayer player, string name, int pedtype, string hash, float posx, float posy, float posz, float rot)
     {
         PedHandler.CreatePeds(name, pedtype, hash, posx, posy, posz, rot);
         player.Emit("Client:Ped:Create", pedtype, hash, posx, posy, posz, rot);
-        PedHandler.LoadPeds();
+    }
+
+    [Command("reloadPeds")]
+    public static void ReloadPetsCmd(MyPlayer player)
+    {
+        PedHandler.LoadPeds(player);
     }
 }

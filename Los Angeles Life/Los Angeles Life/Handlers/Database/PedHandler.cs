@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using Los_Angeles_Life.Entities;
+using Los_Angeles_Life.Garages;
 using MySql.Data.MySqlClient;
 
 namespace Los_Angeles_Life.Handlers.Database;
@@ -8,7 +9,8 @@ namespace Los_Angeles_Life.Handlers.Database;
 public abstract class PedHandler : IScript
 {
     private static MySqlConnection connection;
-    
+    public static Dictionary<int, MyPed> loadedPedList;
+
     const string dbHost = "localhost";
     const string dbPort = "4406";
     const string dbUser = "dev";
@@ -21,8 +23,8 @@ public abstract class PedHandler : IScript
     public static void LoadPedSystem()
     {
         connection = new MySqlConnection(connectionString);
+        loadedPedList = new Dictionary<int, MyPed>();
         LoadPedCount();
-        LoadPeds();
     }
     
     private static void LoadPedCount()
@@ -32,14 +34,14 @@ public abstract class PedHandler : IScript
             connection.Open();
 
             var mySqlCommand = connection.CreateCommand();
-            mySqlCommand.CommandText = "SELECT * FROM ped";
+            mySqlCommand.CommandText = "SELECT * FROM peds";
 
             var count = 0;
             using (MySqlDataReader reader = mySqlCommand.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    var id = reader.GetInt32("PedId");
+                    var id = reader.GetInt32("Id");
                     count++;
                 }
             }
@@ -57,43 +59,50 @@ public abstract class PedHandler : IScript
         }
     }
 
-    public static void LoadPeds()
+    public static void LoadPeds(MyPlayer player)
     {
         try
         {
             connection.Open();
 
             MySqlCommand mySqlCommand = connection.CreateCommand();
-            mySqlCommand.CommandText = "SELECT * FROM ped";
+            mySqlCommand.CommandText = "SELECT * FROM peds";
             MySqlDataReader reader = mySqlCommand.ExecuteReader();
-            
+
             while (reader.Read())
             {
-                MyPed ped = new();
+                int pedId = reader.GetInt32("Id");
 
-                ped.PedId = reader.GetInt32("PedId");
-                ped.PedType = reader.GetInt32("PedType");
-                ped.PedName = reader.GetString("PedName");
-                ped.PedHash = reader.GetString("PedHash");
+                if (loadedPedList.ContainsKey(pedId))
+                    continue;
+
+                MyPed ped = new MyPed();
+
+                ped.Id = pedId;
+                ped.Type = reader.GetInt32("Type");
+                ped.Name = reader.GetString("Name");
+                ped.Hash = reader.GetString("Hash");
                 Position loadedPosition = new Position(
-                    reader.GetFloat("PedPosX"),
-                    reader.GetFloat("PedPosY"),
-                    reader.GetFloat("PedPosZ"));
+                    reader.GetFloat("PositionX"),
+                    reader.GetFloat("PositionY"),
+                    reader.GetFloat("PositionZ"));
 
                 Rotation loadedRotation = new Rotation(
                     0f,
                     0f,
-                    reader.GetFloat("PedRot"));
+                    reader.GetFloat("Rotation"));
 
-                ped.PedPos = loadedPosition;
-                ped.PedRot = loadedRotation;
-                
-                Alt.EmitAllClients("Client:Ped:Create", ped.PedType, ped.PedHash, ped.PedPos.X, ped.PedPos.Y, ped.PedPos.Z, ped.PedRot.Yaw);
+                ped.Position = loadedPosition;
+                ped.Rotation = loadedRotation;
+
+                player.Emit("Client:Ped:Create", ped.Type, ped.Hash, ped.Position.X, ped.Position.Y, ped.Position.Z, ped.Rotation.Yaw);
+
+                loadedPedList.Add(pedId, ped);
             }
         }
         catch (MySqlException ex)
         {
-            Alt.Log("[MySQL] Fehler beim laden der Server Ped's: " + ex);
+            Alt.Log("[MySQL] Fehler beim Laden der Server Peds: " + ex);
             throw;
         }
         finally
@@ -102,23 +111,24 @@ public abstract class PedHandler : IScript
         }
     }
 
-    public static void CreatePeds(string pedName, int pedType, string pedHash, float pedPosX, float pedPosY, float pedPosZ, float pedRot)
+
+    public static void CreatePeds(string name, int type, string hash, float positionX, float positionY, float positionZ, float rotation)
     {
         try
         {
             connection.Open();
 
             MySqlCommand mySqlCommand = connection.CreateCommand();
-            mySqlCommand.CommandText = "INSERT ped SET pedName=@pedName, pedType=@pedType, pedHash=@pedHash, " +
-                                       "pedPosX=@pedPosX, pedPosY=@pedPosY, pedPosZ=@pedPosZ, pedRot=@pedRot";
+            mySqlCommand.CommandText = "INSERT pedS SET name=@name, type=@Type, hash=@hash, " +
+                                       "positionX=@positionX, positionY=@positionY, positionZ=@positionZ, rotation=@rotation";
 
-            mySqlCommand.Parameters.AddWithValue("@pedName", pedName);
-            mySqlCommand.Parameters.AddWithValue("@pedType", pedType);
-            mySqlCommand.Parameters.AddWithValue("@pedHash", pedHash);
-            mySqlCommand.Parameters.AddWithValue("@pedPosX", pedPosX);
-            mySqlCommand.Parameters.AddWithValue("@pedPosY", pedPosY);
-            mySqlCommand.Parameters.AddWithValue("@pedPosZ", pedPosZ);
-            mySqlCommand.Parameters.AddWithValue("@pedRot", pedRot);
+            mySqlCommand.Parameters.AddWithValue("@name", name);
+            mySqlCommand.Parameters.AddWithValue("@type", type);
+            mySqlCommand.Parameters.AddWithValue("@hash", hash);
+            mySqlCommand.Parameters.AddWithValue("@positionX", positionX);
+            mySqlCommand.Parameters.AddWithValue("@positionY", positionY);
+            mySqlCommand.Parameters.AddWithValue("@positionZ", positionZ);
+            mySqlCommand.Parameters.AddWithValue("@rotation", rotation);
 
             mySqlCommand.ExecuteNonQuery();
         }
