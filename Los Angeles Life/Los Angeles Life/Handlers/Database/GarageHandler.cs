@@ -1,15 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using Los_Angeles_Life.Handlers;
 using Los_Angeles_Life.Misc;
-using Los_Angeles_Life.Vehicles;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Los_Angeles_Life.Garages
 {
@@ -102,7 +94,7 @@ namespace Los_Angeles_Life.Garages
 
                         garageEntry.Value.SpawnPositionInformationList.Add(spawnInformation);
 
-                        Alt.Log("GarageSpawnPosition: " + spawnInformation.Position.ToString());
+                        Alt.Log("GarageSpawnPosition: " + spawnInformation.Position);
                     }
 
                     reader.Close();
@@ -126,7 +118,7 @@ namespace Los_Angeles_Life.Garages
 
                         garageEntry.Value.StoragePositionInformationList.Add(spawnInformation);
 
-                        Alt.Log("GarageStoragePosition: " + spawnInformation.Position.ToString());
+                        Alt.Log("GarageStoragePosition: " + spawnInformation.Position);
                     }
                 }
             }

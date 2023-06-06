@@ -77,18 +77,19 @@ namespace Los_Angeles_Life.Vehicles
 
                 while (reader.Read())
                 {
-                    ServerVehicle serverVehicle = new ServerVehicle();
-
-                    serverVehicle.Id = reader.GetInt64("Id");
-                    serverVehicle.VehicleTemplateId = reader.GetInt16("VehicleTemplateId");
-                    serverVehicle.FactionId = reader.GetInt16("FactionId");
-                    serverVehicle.GarageStorageId = reader.GetInt16("GarageStorageId");
-                    serverVehicle.Owner = reader.GetString("Owner");
-                    serverVehicle.Fuel = reader.GetFloat("Fuel");
-                    serverVehicle.Mileage = reader.GetFloat("Mileage");
-                    serverVehicle.IsEngineHealthy = reader.GetBoolean("IsEngineHealthy");
-                    serverVehicle.IsLocked = reader.GetBoolean("IsLocked");
-                    serverVehicle.IsInGarage = reader.GetBoolean("IsInGarage");
+                    ServerVehicle serverVehicle = new ServerVehicle
+                    {
+                        Id = reader.GetInt64("Id"),
+                        VehicleTemplateId = reader.GetInt16("VehicleTemplateId"),
+                        FactionId = reader.GetInt16("FactionId"),
+                        GarageStorageId = reader.GetInt16("GarageStorageId"),
+                        Owner = reader.GetString("Owner"),
+                        Fuel = reader.GetFloat("Fuel"),
+                        Mileage = reader.GetFloat("Mileage"),
+                        IsEngineHealthy = reader.GetBoolean("IsEngineHealthy"),
+                        IsLocked = reader.GetBoolean("IsLocked"),
+                        IsInGarage = reader.GetBoolean("IsInGarage")
+                    };
 
                     Position serverVehiclePosition = new Position(
                         reader.GetFloat("PositionX"),
@@ -109,7 +110,7 @@ namespace Los_Angeles_Life.Vehicles
             }
             catch (Exception ex)
             {
-                Alt.Log("[MySQL] Fehler mit der Faction Abfrage: " + ex);
+                Alt.Log("[MySQL] Fehler mit der Vehicle Abfrage: " + ex);
             }
             finally
             {
@@ -122,20 +123,21 @@ namespace Los_Angeles_Life.Vehicles
             try
             {
                 VehicleTemplate vehicleTemplate = vehicleTemplateList[carToSpawn];
-                ServerVehicle serverVehicle = new ServerVehicle();
-
-                serverVehicle.VehicleTemplateId = vehicleTemplate.Id;
-                serverVehicle.FactionId = spawner.FactionId;
-                serverVehicle.GarageStorageId = 0;
-                serverVehicle.Owner = spawner.DiscordId;
-                serverVehicle.Fuel = vehicleTemplate.Fuel;
-                serverVehicle.Mileage = 0f;
-                serverVehicle.IsEngineHealthy = true;
-                serverVehicle.IsLocked = true;
-                serverVehicle.IsInGarage = false;
-                serverVehicle.VehiclePosition = vehicleSpawnPosition;
-                serverVehicle.VehicleRotation = vehicleRotation;
-                serverVehicle.Plate = plate;
+                ServerVehicle serverVehicle = new ServerVehicle
+                {
+                    VehicleTemplateId = vehicleTemplate.Id,
+                    FactionId = spawner.FactionId,
+                    GarageStorageId = 0,
+                    Owner = spawner.DiscordId,
+                    Fuel = vehicleTemplate.Fuel,
+                    Mileage = 0f,
+                    IsEngineHealthy = true,
+                    IsLocked = true,
+                    IsInGarage = false,
+                    VehiclePosition = vehicleSpawnPosition,
+                    VehicleRotation = vehicleRotation,
+                    Plate = plate
+                };
 
                 connection.Open();
 
@@ -216,7 +218,9 @@ namespace Los_Angeles_Life.Vehicles
 
                 mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText =
-                    "UPDATE vehicles SET GarageStorageId = @GarageStorageId, Fuel = @Fuel, Mileage = @Mileage, IsEngineHealthy = @IsEngineHealthy, IsLocked = @IsLocked, IsInGarage = @IsInGarage, PositionX = @PositionX, PositionY = @PositionY, PositionZ = @PositionZ, Rotation = @Rotation, Plate = @Plate " +
+                    "UPDATE vehicles SET GarageStorageId = @GarageStorageId, Fuel = @Fuel, Mileage = @Mileage, " +
+                    "IsEngineHealthy = @IsEngineHealthy, IsLocked = @IsLocked, IsInGarage = @IsInGarage, " +
+                    "PositionX = @PositionX, PositionY = @PositionY, PositionZ = @PositionZ, Rotation = @Rotation, Plate = @Plate " +
                     "WHERE Owner = @Owner AND Id = @Id";
                 mySqlCommand.Parameters.AddWithValue("@GarageStorageId", serverVehicle.GarageStorageId);
                 mySqlCommand.Parameters.AddWithValue("@Fuel", serverVehicle.Fuel);
