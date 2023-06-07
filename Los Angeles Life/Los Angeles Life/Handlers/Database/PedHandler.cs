@@ -95,9 +95,11 @@ public abstract class PedHandler : IScript
                 ped.Position = loadedPosition;
                 ped.Rotation = loadedRotation;
 
-                player.Emit("Client:Ped:Create", ped.Type, ped.Hash, ped.Position.X, ped.Position.Y, ped.Position.Z, ped.Rotation.Yaw);
-
                 loadedPedList.Add(pedId, ped);
+
+                bool isNewPedInstance = true;
+
+                player.Emit("Client:Ped:Create", ped.Type, ped.Hash, ped.Position.X, ped.Position.Y, ped.Position.Z, ped.Rotation.Yaw, isNewPedInstance);
             }
         }
         catch (MySqlException ex)
@@ -112,6 +114,7 @@ public abstract class PedHandler : IScript
     }
 
 
+
     public static void CreatePeds(string name, int type, string hash, float positionX, float positionY, float positionZ, float rotation)
     {
         try
@@ -119,7 +122,7 @@ public abstract class PedHandler : IScript
             connection.Open();
 
             MySqlCommand mySqlCommand = connection.CreateCommand();
-            mySqlCommand.CommandText = "INSERT pedS SET name=@name, type=@Type, hash=@hash, " +
+            mySqlCommand.CommandText = "INSERT peds SET name=@name, type=@Type, hash=@hash, " +
                                        "positionX=@positionX, positionY=@positionY, positionZ=@positionZ, rotation=@rotation";
 
             mySqlCommand.Parameters.AddWithValue("@name", name);

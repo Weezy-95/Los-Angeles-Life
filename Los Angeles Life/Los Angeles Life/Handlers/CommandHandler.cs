@@ -362,7 +362,7 @@ public class CommandHandler : IScript
     public static void CreatePedCmd(MyPlayer player, string name, int pedtype, string hash, float posx, float posy, float posz, float rot)
     {
         PedHandler.CreatePeds(name, pedtype, hash, posx, posy, posz, rot);
-        player.Emit("Client:Ped:Create", pedtype, hash, posx, posy, posz, rot);
+        player.Emit("Client:Ped:Create", pedtype, hash, posx, posy, posz, rot, true);
     }
 
     [Command("reloadPeds")]

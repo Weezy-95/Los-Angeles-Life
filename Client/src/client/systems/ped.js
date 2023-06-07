@@ -2,7 +2,10 @@ import alt from 'alt-client';
 import native from 'natives';
 
 
-function createPed(type, hash, positionX, positionY, positionZ, rotation) {
+function createPed(type, hash, positionX, positionY, positionZ, rotation, isNewPed) {
+
+    if(!isNewPed) return;
+
     const modelHash = alt.hash(hash);
     alt.loadModel(modelHash);
     const ped = native.createPed(type, modelHash, positionX, positionY, positionZ, rotation, false, false);
@@ -15,6 +18,6 @@ function createPed(type, hash, positionX, positionY, positionZ, rotation) {
 }
 
 
-alt.onServer('Client:Ped:Create', (type, hash, positionX, positionY, positionZ, rotation) => {
-    createPed(type, hash, positionX, positionY, positionZ, rotation, false, false);
+alt.onServer('Client:Ped:Create', (type, hash, positionX, positionY, positionZ, rotation, isNewPed) => {
+    createPed(type, hash, positionX, positionY, positionZ, rotation, isNewPed);
 });
