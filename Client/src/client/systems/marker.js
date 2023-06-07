@@ -4,25 +4,20 @@
 import alt from 'alt-client';
 import native from 'natives';
 
-function createGarageMarker(storagePositionList) {
-    //if (key !== 'Client:Marker:Garage') return;
-
+function createGarageMarker(storagePositionList) 
+{
     const markerOptions = {
         color: new alt.RGBA(58, 38, 150, 255),
         type: 1
     };
 
-    storagePositionList.forEach(function(position) {
-        const marker = new alt.Utils.Marker(new alt.Vector3(position), markerOptions);
+    storagePositionList.forEach(function(markerPosition) 
+    {
+        const marker = new alt.Utils.Marker(markerPosition, markerOptions);
         marker.scale = new alt.Vector3(3.0);
     });
 }
 
 alt.onServer('Client:Marker:Garage', (storagePositionList) => {
-    alt.log("Test");
     createGarageMarker(storagePositionList);
 });
-
-/*alt.on('globalSyncedMetaChange', (key, value) => {
-    createGarageMarker(key, value);
-});*/

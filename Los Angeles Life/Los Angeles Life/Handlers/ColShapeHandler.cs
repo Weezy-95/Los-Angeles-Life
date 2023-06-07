@@ -1,20 +1,24 @@
 ﻿using AltV.Net;
+using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Events;
-using AltV.Net.Shared.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Los_Angeles_Life.Entities;
+using Los_Angeles_Life.Garages;
+using Los_Angeles_Life.Handlers.Database;
+using Los_Angeles_Life.Misc;
+
 
 namespace Los_Angeles_Life.Handlers
 {
     abstract class ColShapeHandler : IScript
     {
-        public static void LoadingColShapeEvents()
+        public static void LoadingColShapeEventSystem()
         {
             Alt.OnColShape += OnGarageStorageColShape;
+        }
+
+        public static void StopColShapeEventSystem()
+        {
+            Alt.OnColShape -= OnGarageStorageColShape;
         }
 
         private static void OnGarageStorageColShape(IColShape colShape, IEntity entity, bool state)
@@ -27,6 +31,28 @@ namespace Los_Angeles_Life.Handlers
             {
                 Alt.Log("Close GarageMenü");
             }
+        }
+
+        public static void CreateGarageStorageColShapesAndMarker(MyPlayer player)
+        {
+            List<Position> storagePositionList = new List<Position>();
+
+            foreach (KeyValuePair<int, Garage> garageEntry in GarageHandler.garageList)
+            {
+                foreach (SpawnInformation spawnInformation in garageEntry.Value.StoragePositionInformationList)
+                {
+                    Position storagePosition = spawnInformation.Position;
+                    storagePosition.Z -= 1f;
+
+                    IColShape colShape = Alt.CreateColShapeCylinder(storagePosition, 3f, 3f);
+                    colShape.IsPlayersOnly = true;
+                    colShape.SetMetaData("Server:ColShape:GarageStoragePosition", "GarageStoragePosition");
+
+                    storagePositionList.Add(storagePosition);
+                }
+            }
+
+            player.Emit("Client:Marker:Garage", storagePositionList);
         }
     }
 }

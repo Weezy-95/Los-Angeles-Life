@@ -23,6 +23,8 @@ namespace Los_Angeles_Life.Events
 
             BlipManager.CreateFactionBlips(player);
             BlipManager.CreateGarageBlips(player);
+            ColShapeHandler.LoadingColShapeEventSystem();
+            ColShapeHandler.CreateGarageStorageColShapesAndMarker(player);
 
             player.Emit("Client:Auth:Open");
             _channel.AddPlayer(player);
@@ -43,6 +45,12 @@ namespace Los_Angeles_Life.Events
             }
 
             _channel.RemovePlayer(player);
+        }
+
+        [ScriptEvent(ScriptEventType.PlayerRemove)]
+        public void OnPlayerRemove(MyPlayer player)
+        {
+            Alt.Log("PlayerRemoved");
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]

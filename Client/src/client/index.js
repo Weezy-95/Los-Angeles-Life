@@ -1,3 +1,6 @@
+// Kann mit der v15 raus - der Bug soll dann wohl gefixt sein
+import './systems/flickeringFix.js';
+
 // Loading webview
 import './webview/login/app.js';
 import './webview/notifications/app.js';

@@ -2,8 +2,8 @@ import alt from 'alt-client';
 import native from 'natives';
 
 
-function createPed(type, hash, positionX, positionY, positionZ, rotation, isNewPed) {
-
+function createPed(type, hash, positionX, positionY, positionZ, rotation, isNewPed) 
+{
     if(!isNewPed) return;
 
     const modelHash = alt.hash(hash);
@@ -14,7 +14,6 @@ function createPed(type, hash, positionX, positionY, positionZ, rotation, isNewP
     native.setBlockingOfNonTemporaryEvents(ped, true);
     native.setEntityRotation(ped, 0, 0, rotation, 2, true);
     const test = native.getEntityRotation(ped, 2);
-    alt.log(test);
 }
 
 
