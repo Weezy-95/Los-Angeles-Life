@@ -154,7 +154,7 @@ namespace Los_Angeles_Life.Handlers.Database
                 }
             }
 
-            Alt.SetSyncedMetaData("Client:Marker:Garage", storagePositionList);
+            Alt.Emit("Client:Marker:Garage", storagePositionList);
         }
     }
 }
