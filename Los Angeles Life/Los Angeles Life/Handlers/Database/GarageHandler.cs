@@ -96,8 +96,6 @@ namespace Los_Angeles_Life.Handlers.Database
                         SpawnInformation spawnInformation = new SpawnInformation(position, rotation);
 
                         garageEntry.Value.SpawnPositionInformationList.Add(spawnInformation);
-
-                        Alt.Log("GarageSpawnPosition: " + spawnInformation.Position);
                     }
 
                     reader.Close();
@@ -120,8 +118,6 @@ namespace Los_Angeles_Life.Handlers.Database
                         SpawnInformation spawnInformation = new SpawnInformation(position, rotation);
 
                         garageEntry.Value.StoragePositionInformationList.Add(spawnInformation);
-
-                        Alt.Log("GarageStoragePosition: " + spawnInformation.Position);
                     }
                 }
             }
