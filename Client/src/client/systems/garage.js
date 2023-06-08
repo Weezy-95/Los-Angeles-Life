@@ -4,7 +4,9 @@
 import alt from 'alt-client';
 import native from 'natives';
 
+
 let garage;
+let key;
 let isWebViewOpen = false;
 const interactionRadius = 2;
 const interactionKey = 69;
@@ -17,22 +19,24 @@ alt.everyTick(() => {
 
     // TODO 2: keydown Event von altv nutzen
     if (distance <= interactionRadius) {
-        if (alt.isKeyDown(interactionKey)) {
-            if (!isWebViewOpen) {
-                garage = new alt.WebView("http://resource/client/webview/garage/index.html");
-                isWebViewOpen = true;
-                garage.on('CloseGarageWebView',() => {
-                    garage.destroy();
-                    alt.showCursor(false);
-                    alt.toggleGameControls(true);
-                    garage = null;
-                    isWebViewOpen = false;
-                });
-                garage.focus();
-                alt.showCursor(true);
-                alt.toggleGameControls(false);
+        alt.on('keydown', (key) => {
+            if (key === "E".charCodeAt(0)) {
+                if (!isWebViewOpen) {
+                    garage = new alt.WebView("http://resource/client/webview/garage/index.html");
+                    isWebViewOpen = true;
+                    garage.on('CloseGarageWebView',() => {
+                        garage.destroy();
+                        alt.showCursor(false);
+                        alt.toggleGameControls(true);
+                        garage = null;
+                        isWebViewOpen = false;
+                    });
+                    garage.focus();
+                    alt.showCursor(true);
+                    alt.toggleGameControls(false);
+                }
             }
-        }
+        })
     }
 });
 
