@@ -7,7 +7,7 @@ import native from 'natives';
 function createGarageMarker(storagePositionList) 
 {
     const markerOptions = {
-        color: new alt.RGBA(58, 38, 150, 255),
+        color: new alt.RGBA(231, 114, 0, 255),
         type: 1
     };
 

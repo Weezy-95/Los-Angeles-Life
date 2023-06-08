@@ -44,7 +44,7 @@ namespace Los_Angeles_Life.Handlers
                     Position storagePosition = spawnInformation.Position;
                     storagePosition.Z -= 1f;
 
-                    IColShape colShape = Alt.CreateColShapeCylinder(storagePosition, 3f, 3f);
+                    IColShape colShape = Alt.CreateColShapeCylinder(storagePosition, 3f, 1f);
                     colShape.IsPlayersOnly = true;
                     colShape.SetMetaData("Server:ColShape:GarageStoragePosition", "GarageStoragePosition");
 
