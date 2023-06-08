@@ -16,6 +16,9 @@
 <header>
     <div class="main-container">
         <div class="inner-container">
+            <div data-bs-theme="dark">
+                <button type="button" id="garage-close" class="btn-close garage-close" aria-label="Close"></button>
+            </div>
             <ul class="list-group garage-list">
                 <li class="list-group-item" id="car-1">
                     <p class="car-name-1">Fahrzeugname:</p>
@@ -42,13 +45,13 @@
 </header>
 
 <body>
-    <script type="text/javascript">
-        alt.on('ShowGarage', (name) => {
-           document.getElementById('car-1').innerText = name;
-        });
-    </script>
-    <script src="../assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../assets/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-    <script src="app.js" type="text/javascript"></script>
+<script type="text/javascript">
+    alt.on('ShowGarage', (name) => {
+        document.getElementById('car-1').innerText = name;
+    });
+</script>
+<script src="../assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="app.js" type="text/javascript"></script>
 </body>
 </html>

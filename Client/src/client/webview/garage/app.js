@@ -35,3 +35,14 @@ function ShowGarage() {
         alt.emit('ShowGarage');
     }
 }
+
+const closeButton = document.getElementById('garage-close');
+
+closeButton.addEventListener('click', () => {
+    if ('alt' in window) {
+        alt.emit('CloseGarageWebView');
+    }
+});
+
+
+

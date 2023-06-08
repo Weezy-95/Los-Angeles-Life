@@ -56,6 +56,14 @@ body {
     box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 0.38);
 }
 
+.garage-close {
+    position: absolute;
+    padding-top: 10%;
+    right: 5%;
+
+    color: #e77200;
+}
+
 .inner-container {
     position: absolute;
     width: 500px;
