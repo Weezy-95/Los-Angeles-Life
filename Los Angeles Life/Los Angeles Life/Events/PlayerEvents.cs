@@ -19,7 +19,7 @@ namespace Los_Angeles_Life.Events
             player.SetDateTime(DateTime.UtcNow);
             
             // Position for Login Camera
-            player.Spawn(new AltV.Net.Data.Position((float)754.694, (float)1299.995, (float)360.294), 0);
+            player.Spawn(new AltV.Net.Data.Position((float)-1374.7781, (float) -1124.9802, (float)4.493), 0);
 
             BlipManager.CreateFactionBlips(player);
             BlipManager.CreateGarageBlips(player);

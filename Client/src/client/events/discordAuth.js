@@ -18,7 +18,7 @@ alt.onServer('Client:Auth:Open', () => {
     alt.toggleVoiceControls(false);
     native.displayRadar(false);
 
-    cam = native.createCamWithParams('DEFAULT_SCRIPTED_CAMERA', 133.52966, 905.81537, 352.375, 0, 0,  150, 90, true, 0);
+    cam = native.createCamWithParams('DEFAULT_SCRIPTED_CAMERA', -1373.9209, -1116.0791, 21.29309, 0, 0,  130, 90, true, 0);
     native.setCamActive(cam, true);
     native.renderScriptCams(true, false, 0, true, false, 0);
     native.freezeEntityPosition(alt.Player.local.scriptID, true);
@@ -49,3 +49,5 @@ async function getOAuthToken() {
         alt.logError("[Client] Es gab einen Fehler mit dem Discord Token: " + e);
     }
 }
+
+
