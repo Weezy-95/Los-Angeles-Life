@@ -185,10 +185,11 @@ namespace Los_Angeles_Life.Handlers.Database
             }
         }
 
-        public static void SaveVehicle(IVehicle vehicleToSave, IPlayer player, byte seat)
+        public static void SaveVehicle(IVehicle vehicleToSave, MyPlayer player, byte seat)
         {
             try
             {
+                // ToDo -> Bedingung nochmal überdenken
                 if (seat != 1) { return; }
 
                 long vehicleIdToSave = 0;
@@ -196,9 +197,9 @@ namespace Los_Angeles_Life.Handlers.Database
                 connection.Open();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
-                mySqlCommand.CommandText = "SELECT Id FROM vehicles WHERE owner=@owner AND sessionId=@sessionId";
+                mySqlCommand.CommandText = "SELECT Id FROM vehicles WHERE sessionId=@sessionId";
 
-                mySqlCommand.Parameters.AddWithValue("@owner", player.DiscordId);
+                //mySqlCommand.Parameters.AddWithValue("@owner", player.DiscordId);
                 mySqlCommand.Parameters.AddWithValue("@sessionId", vehicleToSave.Id);
 
                 using (MySqlDataReader dataReader = mySqlCommand.ExecuteReader())
@@ -221,7 +222,7 @@ namespace Los_Angeles_Life.Handlers.Database
                     "UPDATE vehicles SET GarageStorageId = @GarageStorageId, Fuel = @Fuel, Mileage = @Mileage, " +
                     "IsEngineHealthy = @IsEngineHealthy, IsLocked = @IsLocked, IsInGarage = @IsInGarage, " +
                     "PositionX = @PositionX, PositionY = @PositionY, PositionZ = @PositionZ, Rotation = @Rotation, Plate = @Plate " +
-                    "WHERE Owner = @Owner AND Id = @Id";
+                    "WHERE Id = @Id";
                 mySqlCommand.Parameters.AddWithValue("@GarageStorageId", serverVehicle.GarageStorageId);
                 mySqlCommand.Parameters.AddWithValue("@Fuel", serverVehicle.Fuel);
                 mySqlCommand.Parameters.AddWithValue("@Mileage", serverVehicle.Mileage);
@@ -233,7 +234,7 @@ namespace Los_Angeles_Life.Handlers.Database
                 mySqlCommand.Parameters.AddWithValue("@PositionZ", serverVehicle.VehiclePosition.Z);
                 mySqlCommand.Parameters.AddWithValue("@Rotation", serverVehicle.VehicleRotation.Yaw);
                 mySqlCommand.Parameters.AddWithValue("@Plate", serverVehicle.Plate);
-                mySqlCommand.Parameters.AddWithValue("@Owner", player.DiscordId);
+                //mySqlCommand.Parameters.AddWithValue("@Owner", player.DiscordId);
                 mySqlCommand.Parameters.AddWithValue("@Id", vehicleIdToSave);
 
                 mySqlCommand.ExecuteNonQuery();
