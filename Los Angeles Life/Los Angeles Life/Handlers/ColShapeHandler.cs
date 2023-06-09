@@ -14,11 +14,13 @@ namespace Los_Angeles_Life.Handlers
         public static void LoadingColShapeEventSystem()
         {
             Alt.OnColShape += OnGarageStorageColShape;
+            Alt.Log("Hinzugefügt");
         }
 
         public static void StopColShapeEventSystem()
         {
             Alt.OnColShape -= OnGarageStorageColShape;
+            Alt.Log("Entfernt");
         }
 
         private static void OnGarageStorageColShape(IColShape colShape, IEntity entity, bool state)
@@ -39,6 +41,8 @@ namespace Los_Angeles_Life.Handlers
 
             foreach (KeyValuePair<int, Garage> garageEntry in GarageHandler.garageList)
             {
+                Alt.Log("Garage gefunden: " + garageEntry.Value.Name);
+
                 foreach (SpawnInformation spawnInformation in garageEntry.Value.StoragePositionInformationList)
                 {
                     Position storagePosition = spawnInformation.Position;
@@ -49,6 +53,8 @@ namespace Los_Angeles_Life.Handlers
                     colShape.SetMetaData("Server:ColShape:GarageStoragePosition", "GarageStoragePosition");
 
                     storagePositionList.Add(storagePosition);
+
+                    Alt.Log("ColShape von " + garageEntry.Value.Name + " für SpawnGarageStoragePosition erstellt.");
                 }
             }
 
