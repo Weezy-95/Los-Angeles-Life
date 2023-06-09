@@ -370,4 +370,12 @@ public class CommandHandler : IScript
     {
         PedHandler.LoadPeds(player);
     }
+
+    [Command("setTime")]
+    public static void SetTimeCmd(MyPlayer player, string time)
+    {
+        Alt.Log("Zeit: " + time);
+        var newTime = DateTime.Parse(time);
+        player.SetDateTime(newTime);
+    }
 }
