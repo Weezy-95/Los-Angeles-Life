@@ -62,7 +62,7 @@ namespace Los_Angeles_Life.Events
         }
 
         [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
-        public void OnPlayerLeaveVehicle(IVehicle vehicle, IPlayer player, byte seat)
+        public void OnPlayerLeaveVehicle(IVehicle vehicle, MyPlayer player, byte seat)
         {
             VehicleHandler.SaveVehicle(vehicle, player, seat);
         }
