@@ -7,13 +7,18 @@ import native from 'natives';
 let notify;
 
 alt.onServer('Client:ShowNotify', (message) => {
-    notify = new alt.WebView("http://resource/client/webview/notifications/index.html");
+    if (!notify) {
+        notify = new alt.WebView("http://resource/client/webview/notifications/index.html");
+    }
     notify.emit('ShowNotify', message);
-
-    setTimeout(() => {
+    KillWebview().then(() => {
         if (notify) {
             notify.destroy();
             notify = null;
         }
-    }, 5000);
+    });
 });
+
+async function KillWebview() {
+    await new Promise(resolve => setTimeout(resolve, 5000));
+}
