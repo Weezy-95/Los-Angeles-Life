@@ -10,32 +10,30 @@ let isWebViewOpen = false;
 const interactionRadius = 2;
 const pedFloatGarage = { x: 213.784, y: -808.47, z: 29.992 };
 
-// TODO 1: Discord msg: Entity Streamer nutzen
-alt.everyTick(() => {
-    alt.on('keydown', (key) => {
-        const playerPos = alt.Player.local.pos;
-        const distance = playerPos.distanceTo(pedFloatGarage);
+alt.on('keydown', (key) => {
+    const playerPos = alt.Player.local.pos;
+    const distance = playerPos.distanceTo(pedFloatGarage);
 
-        if (distance <= interactionRadius) {
-            if (key === "E".charCodeAt(0)) {
-                if (!isWebViewOpen) {
-                    garage = new alt.WebView("http://resource/client/webview/garage/index.html");
-                    isWebViewOpen = true;
-                    garage.on('CloseGarageWebView', () => {
-                        garage.destroy();
-                        alt.showCursor(false);
-                        alt.toggleGameControls(true);
-                        garage = null;
-                        isWebViewOpen = false;
-                    });
-                    garage.focus();
-                    alt.showCursor(true);
-                    alt.toggleGameControls(false);
-                }
+    if (distance <= interactionRadius) {
+        if (key === "E".charCodeAt(0)) {
+            if (!isWebViewOpen) {
+                garage = new alt.WebView("http://resource/client/webview/garage/index.html");
+                isWebViewOpen = true;
+                garage.on('CloseGarageWebView', () => {
+                    garage.destroy();
+                    alt.showCursor(false);
+                    alt.toggleGameControls(true);
+                    garage = null;
+                    isWebViewOpen = false;
+                });
+                garage.focus();
+                alt.showCursor(true);
+                alt.toggleGameControls(false);
             }
         }
-    })
+    }
 });
+
 
 alt.onServer('Client:Garage:Open', (name, fuel, plate) => {
     if (isWebViewOpen && garage) {
