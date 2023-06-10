@@ -38,9 +38,9 @@ namespace Los_Angeles_Life.Handlers
         public static void StartWeather()
         {
             weatherTypes.Add(1, rainyWeather);
-            weatherTypes.Add(2, snowyWeather);
-            weatherTypes.Add(3, sunnyWeather);
-            weatherTypes.Add(4, foggyWeather);
+            //weatherTypes.Add(2, snowyWeather);
+            weatherTypes.Add(2, sunnyWeather);
+            weatherTypes.Add(3, foggyWeather);
             new Timer(StartWeatherPattern, null, TimeSpan.Zero, TimeSpan.FromSeconds(weatherPatternTime));
         }
 
