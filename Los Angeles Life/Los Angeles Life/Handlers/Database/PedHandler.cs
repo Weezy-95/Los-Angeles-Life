@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using Los_Angeles_Life.Entities;
-using Los_Angeles_Life.Garages;
 using MySql.Data.MySqlClient;
 
 namespace Los_Angeles_Life.Handlers.Database;

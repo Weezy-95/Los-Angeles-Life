@@ -5,7 +5,6 @@ using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using Los_Angeles_Life.Entities;
 using Los_Angeles_Life.Handlers.Database;
-using Los_Angeles_Life.Vehicles;
 
 namespace Los_Angeles_Life.Handlers;
 

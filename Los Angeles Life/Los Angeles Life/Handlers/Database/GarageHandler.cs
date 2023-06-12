@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using Los_Angeles_Life.Garages;
 using Los_Angeles_Life.Misc;
 using MySql.Data.MySqlClient;
