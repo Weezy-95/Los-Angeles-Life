@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <RootNamespace>Los_Angeles_Life</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -13,13 +13,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AltV.Net" Version="14.0.2" />
-      <PackageReference Include="AltV.Net.Async" Version="14.0.2" />
-      <PackageReference Include="AltV.Net.EntitySync.ServerEvent" Version="14.0.2" />
-      <PackageReference Include="AltV.Net.Interactions" Version="14.0.2" />
-      <PackageReference Include="AltV.Net.Resources.Chat.Api" Version="14.0.2" />
-      <PackageReference Include="MySql.Data" Version="8.0.33" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="AltV.Net" Version="14.0.2" />
+        <PackageReference Include="AltV.Net.Async" Version="14.0.2" />
+        <PackageReference Include="AltV.Net.ColShape" Version="14.0.2" />
+        <PackageReference Include="AltV.Net.EntitySync.ServerEvent" Version="14.0.2" />
+        <PackageReference Include="AltV.Net.Interactions" Version="14.0.2" />
+        <PackageReference Include="AltV.Net.Resources.Chat.Api" Version="14.0.2" />
+        <PackageReference Include="MySql.Data" Version="8.0.33" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 </Project>
