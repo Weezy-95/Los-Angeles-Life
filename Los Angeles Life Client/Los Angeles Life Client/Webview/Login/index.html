@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Login</title>
+
+    <link href="../Assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../Assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="../Assets/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="../Assets/fontawesome/css/solid.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<header>
+    <div class="main-container text-center">
+        <div class="inner-container text-center">
+            <i class="fa-brands fa-3x fa-discord logo-discord" style="color: #e77200;"></i>
+        </div>
+        <div class="text-container">
+            <p>Wir nutzen zur Authentifizierung deine Discord ID</p>
+        </div>
+        <audio hidden id="music" controls controlsList="nodownload noplaybackrate">
+            <source src="intro.mp3" type="audio/mp3">
+        </audio>
+        <button onclick="Auth()" type="button" class="btn btn-primary btn-lg btn-login">Login</button>
+    </div>
+</header>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('music');
+            audio.volume = 0.08;
+            audio.play();
+        });
+    </script>
+
+    <script src="../Assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../Assets/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="app.js" type="text/javascript"></script>
+</body>
+</html>
