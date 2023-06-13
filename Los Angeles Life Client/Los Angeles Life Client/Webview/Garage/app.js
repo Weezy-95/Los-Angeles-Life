@@ -44,5 +44,8 @@ closeButton.addEventListener('click', () => {
     }
 });
 
-
-
+function TestClick() {
+    if ('alt' in window) {
+        alt.emit('TestClick');
+    }
+}

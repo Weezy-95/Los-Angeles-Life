@@ -1,5 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using Los_Angeles_Life_Server.Entities;
 using Los_Angeles_Life_Server.Garages;
 using Los_Angeles_Life_Server.Misc;
 using MySql.Data.MySqlClient;
@@ -127,6 +129,15 @@ namespace Los_Angeles_Life_Server.Handlers.Database
             {
                 connection.Close();
             }
+        }
+
+        public static void GetPlayerInformationFromGarage()
+        {
+            Alt.OnClient<string>("Client:Garage:SendPlayerInformation", (player, msg)=>
+            {
+                Alt.Log(player.Name);
+                Alt.Log(msg);
+            });
         }
     }
 }

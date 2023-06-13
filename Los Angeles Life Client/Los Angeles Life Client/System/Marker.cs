@@ -8,8 +8,7 @@ public abstract class Marker : Client
     {
         Alt.OnServer("Client:Marker:Garage", () =>
         {
-            Alt.Natives.DrawMarker(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 231, 114, 0, 255, 
-                false, false, 0, false, "Test", "Test", false);
+            Alt.Log("Marker Garage erstellt");
         });
     }
 }

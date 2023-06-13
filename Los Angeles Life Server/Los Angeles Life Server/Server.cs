@@ -18,6 +18,7 @@ internal class Server : Resource
         VehicleHandler.LoadVehicleSystem();
         GarageHandler.LoadGarageSystem();
         PedHandler.LoadPedSystem();
+        GarageHandler.GetPlayerInformationFromGarage();
     }
 
     public override void OnStop()
