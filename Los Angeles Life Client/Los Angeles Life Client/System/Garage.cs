@@ -5,11 +5,11 @@ using AltV.Net.Data;
 
 namespace Los_Angeles_Life_Client.System;
 
-public class Garage : Client
+public abstract class Garage : Client
 {
     private static bool _isWebViewOpen;
     private const int InteractionsRadius = 2;
-    private static readonly Position PedFloatGarage = new Position((float)213.784, (float)-808.47, (float)29.992);
+    private static readonly Position PedFloatGarage = new((float)213.784, (float)-808.47, (float)29.992);
     private static IWebView? _garageHud;
     
     public static void Load()

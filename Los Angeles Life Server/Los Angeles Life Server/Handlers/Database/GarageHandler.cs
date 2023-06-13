@@ -133,7 +133,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
 
         public static void GetPlayerInformationFromGarage()
         {
-            Alt.OnClient<string>("Client:Garage:SendPlayerInformation", (player, msg)=>
+            Alt.OnClient<string>("Client:Garage:SendPlayerInformation", (player, msg) =>
             {
                 Alt.Log(player.Name);
                 Alt.Log(msg);
