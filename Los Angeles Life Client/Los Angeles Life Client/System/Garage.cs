@@ -23,6 +23,7 @@ public class Garage : Client
             {
                 if (key == Key.E)
                 {
+                    Alt.EmitServer("Client:Garage:SendPlayerInformation", "Test");
                     if (!_isWebViewOpen)
                     {
                         _garageHud = Alt.CreateWebView("http://resource/net6.0/webview/garage/index.html");
@@ -35,6 +36,7 @@ public class Garage : Client
                             _garageHud = null;
                             _isWebViewOpen = false;
                         });
+                        
                         _garageHud.Focus();
                         Alt.ShowCursor(true);
                         Alt.GameControlsEnabled = false;

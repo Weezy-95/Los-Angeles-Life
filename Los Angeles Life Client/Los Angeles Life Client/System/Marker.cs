@@ -8,7 +8,7 @@ public abstract class Marker : Client
     {
         Alt.OnServer("Client:Marker:Garage", () =>
         {
-            
+            Alt.Log("Marker Garage erstellt");
         });
     }
 }
