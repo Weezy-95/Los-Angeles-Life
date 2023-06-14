@@ -22,6 +22,7 @@ public class LoginHandler : IScript
             PedHandler.LoadPeds(player);
 
             player.Emit("Client:Auth:CloseLoginHud");
+            player.Emit("Client:Hud:OpenWebView");
             
             _timer = new Timer(PlayerSaveHandler.SaveAllPlayersPositions, null, Interval, Interval);
         }
@@ -43,6 +44,7 @@ public class LoginHandler : IScript
             PedHandler.LoadPeds(player);
          
             player.Emit("Client:Auth:CloseLoginHud");
+            player.Emit("Client:Hud:OpenWebView");
             
             _timer = new Timer(PlayerSaveHandler.SaveAllPlayersPositions, null, Interval, Interval);
         }

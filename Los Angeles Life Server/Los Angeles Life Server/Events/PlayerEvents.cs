@@ -59,6 +59,7 @@ namespace Los_Angeles_Life_Server.Events
             Alt.Log(DateTime.Now + ": " + player.PlayerName +" wurde von " + killer + " mit " + weapon + " getötet!");
             
             DatabaseHandler.SavePlayerPosition(player.DiscordId, player.Position, player.Rotation, player.PlayerDimension);
+            player.Emit("Client:Hud:CloseWebView");
         }
 
         [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]

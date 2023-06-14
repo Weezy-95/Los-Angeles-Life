@@ -1,0 +1,58 @@
+﻿/* Font Imports */
+@font-face {
+    font-family: Roboto-Regular;
+    src: url("../Assets/fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Light;
+    src: url("../Assets/fonts/Roboto-Light.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Black;
+    src: url("../Assets/fonts/Roboto-Black.ttf");
+}
+
+@font-face {
+    font-family: Roboto-BlackItalic;
+    src: url("../Assets/fonts/Roboto-BlackItalic.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    src: url("../Assets/fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    src: url("../Assets/fonts/Roboto-Medium.ttf");
+}
+
+body {
+    background-color: transparent;
+    font-family: Roboto-Regular;
+    color: #f8f8f8;
+
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
+    user-select: None;
+}
+
+.main-container {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+
+    width: 130px;
+    height: 130px;
+
+    background-color: hsla(0, 0%, 12%, 0.8);
+    border-radius: 20px;
+    box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 0.38);
+}
+
+.progress-bar-heath {
+    
+}

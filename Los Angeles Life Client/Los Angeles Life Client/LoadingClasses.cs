@@ -17,5 +17,6 @@ public static class LoadingClasses
         Marker.Load();
         Garage.Load();
         Blips.Load();
+        Hud.Load();
     }
 }
