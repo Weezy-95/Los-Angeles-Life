@@ -2,7 +2,6 @@
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life_Server.Entities;
 using Los_Angeles_Life_Server.Handlers;
-using Los_Angeles_Life_Server.Handlers.Database;
 
 namespace Los_Angeles_Life_Server.Events
 {
@@ -23,8 +22,6 @@ namespace Los_Angeles_Life_Server.Events
 
             BlipManager.CreateFactionBlips(player);
             BlipManager.CreateGarageBlips(player);
-            ColShapeHandler.LoadingColShapeEventSystem();
-            ColShapeHandler.CreateGarageStorageColShapesAndMarker(player);
 
             player.Emit("Client:Auth:Open");
             _channel.AddPlayer(player);

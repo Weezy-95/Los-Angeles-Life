@@ -2,7 +2,6 @@
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life_Server.Factories;
 using Los_Angeles_Life_Server.Handlers;
-using Los_Angeles_Life_Server.Handlers.Database;
 
 namespace Los_Angeles_Life_Server;
 
@@ -18,12 +17,13 @@ internal class Server : Resource
         VehicleHandler.LoadVehicleSystem();
         GarageHandler.LoadGarageSystem();
         PedHandler.LoadPedSystem();
-        GarageHandler.GetPlayerInformationFromGarage();
+        ColShapeHandler.LoadingColShapeEventSystem();
+        ColShapeHandler.CreateGarageStorageColShapesAndMarker();
     }
 
     public override void OnStop()
     {
-        _databaseHandler.CloseConnection();
+        DatabaseHandler.CloseConnection();
     }
     
     public override IEntityFactory<IPlayer> GetPlayerFactory()

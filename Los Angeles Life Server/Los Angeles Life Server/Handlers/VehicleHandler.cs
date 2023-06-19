@@ -5,26 +5,15 @@ using Los_Angeles_Life_Server.Entities;
 using Los_Angeles_Life_Server.Vehicles;
 using MySql.Data.MySqlClient;
 
-namespace Los_Angeles_Life_Server.Handlers.Database
+namespace Los_Angeles_Life_Server.Handlers
 {
     abstract class VehicleHandler : IScript
     {
-        private static MySqlConnection connection;
         private static Dictionary<long, ServerVehicle> serverVehicleList;
         private static Dictionary<int, VehicleTemplate> vehicleTemplateList;
 
-
-        const string dbHost = "localhost";
-        const string dbPort = "4406";
-        const string dbUser = "dev";
-        const string dbPassword = "Sonner2021$";
-        const string dbName = "altv";
-
-        const string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};";
-
         public static void LoadVehicleSystem()
         {
-            connection = new MySqlConnection(connectionString);
             serverVehicleList = new Dictionary<long, ServerVehicle>();
             vehicleTemplateList = new Dictionary<int, VehicleTemplate>();
             LoadVehicleTemplatesFromDatabase();
@@ -36,7 +25,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
         {
             try
             {
-                connection.Open();
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT * FROM vehicletemplates";
@@ -61,7 +50,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
             }
             finally
             {
-                connection.Close();
+                DatabaseHandler.CloseConnection();
             }
         }
 
@@ -69,7 +58,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
         {
             try
             {
-                connection.Open();
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT * FROM vehicles";
@@ -114,7 +103,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
             }
             finally
             {
-                connection.Close();
+                DatabaseHandler.CloseConnection();
             }
         }
 
@@ -122,6 +111,8 @@ namespace Los_Angeles_Life_Server.Handlers.Database
         {
             try
             {
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
+
                 VehicleTemplate vehicleTemplate = vehicleTemplateList[carToSpawn];
                 ServerVehicle serverVehicle = new ServerVehicle
                 {
@@ -138,8 +129,6 @@ namespace Los_Angeles_Life_Server.Handlers.Database
                     VehicleRotation = vehicleRotation,
                     Plate = plate
                 };
-
-                connection.Open();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText =
@@ -181,7 +170,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
             }
             finally
             {
-                connection.Close();
+                DatabaseHandler.CloseConnection();
             }
         }
 
@@ -189,12 +178,12 @@ namespace Los_Angeles_Life_Server.Handlers.Database
         {
             try
             {
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
+
                 // ToDo -> Bedingung nochmal überdenken
                 if (seat != 1) { return; }
 
                 long vehicleIdToSave = 0;
-
-                connection.Open();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT Id FROM vehicles WHERE sessionId=@sessionId";
@@ -246,7 +235,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
             }
             finally
             {
-                connection.Close();
+                DatabaseHandler.CloseConnection();
             }
 
         }
@@ -255,7 +244,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
         {
             try
             {
-                connection.Open();
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                 foreach (KeyValuePair<long, ServerVehicle> serverVehicle in serverVehicleList)
                 {
@@ -279,7 +268,7 @@ namespace Los_Angeles_Life_Server.Handlers.Database
             }
             finally
             {
-                connection.Close();
+                DatabaseHandler.CloseConnection();
             }
         }
     }

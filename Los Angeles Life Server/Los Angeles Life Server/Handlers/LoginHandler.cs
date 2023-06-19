@@ -2,7 +2,6 @@
 using AltV.Net.Data;
 using AltV.Net.Enums;
 using Los_Angeles_Life_Server.Entities;
-using Los_Angeles_Life_Server.Handlers.Database;
 
 namespace Los_Angeles_Life_Server.Handlers;
 

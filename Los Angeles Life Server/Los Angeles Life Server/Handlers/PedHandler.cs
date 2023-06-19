@@ -3,35 +3,23 @@ using AltV.Net.Data;
 using Los_Angeles_Life_Server.Entities;
 using MySql.Data.MySqlClient;
 
-namespace Los_Angeles_Life_Server.Handlers.Database;
+namespace Los_Angeles_Life_Server.Handlers;
 
 public abstract class PedHandler : IScript
 {
-    private static MySqlConnection connection;
     public static Dictionary<int, MyPed> loadedPedList;
-
-    const string dbHost = "localhost";
-    const string dbPort = "4406";
-    const string dbUser = "dev";
-    const string dbPassword = "Sonner2021$";
-    const string dbName = "altv";
-
-    const string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};";
-    
 
     public static void LoadPedSystem()
     {
-        connection = new MySqlConnection(connectionString);
         loadedPedList = new Dictionary<int, MyPed>();
         LoadPedCount();
     }
-    
+
     private static void LoadPedCount()
     {
         try
         {
-            connection.Open();
-
+            MySqlConnection connection = DatabaseHandler.OpenConnection();
             var mySqlCommand = connection.CreateCommand();
             mySqlCommand.CommandText = "SELECT * FROM peds";
 
@@ -54,7 +42,7 @@ public abstract class PedHandler : IScript
         }
         finally
         {
-            connection.Close();
+            DatabaseHandler.CloseConnection();
         }
     }
 
@@ -62,7 +50,7 @@ public abstract class PedHandler : IScript
     {
         try
         {
-            connection.Open();
+            MySqlConnection connection = DatabaseHandler.OpenConnection();
 
             MySqlCommand mySqlCommand = connection.CreateCommand();
             mySqlCommand.CommandText = "SELECT * FROM peds";
@@ -108,7 +96,7 @@ public abstract class PedHandler : IScript
         }
         finally
         {
-            connection.Close();
+            DatabaseHandler.CloseConnection();
         }
     }
 
@@ -118,7 +106,7 @@ public abstract class PedHandler : IScript
     {
         try
         {
-            connection.Open();
+            MySqlConnection connection = DatabaseHandler.OpenConnection();
 
             MySqlCommand mySqlCommand = connection.CreateCommand();
             mySqlCommand.CommandText = "INSERT peds SET name=@name, type=@Type, hash=@hash, " +
@@ -141,7 +129,7 @@ public abstract class PedHandler : IScript
         }
         finally
         {
-            connection.Close();
+            DatabaseHandler.CloseConnection();
         }
     }
 

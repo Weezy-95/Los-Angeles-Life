@@ -44,8 +44,8 @@ closeButton.addEventListener('click', () => {
     }
 });
 
-function TestClick() {
+function ParkIntoGarage() {
     if ('alt' in window) {
-        alt.emit('TestClick');
+        alt.emit('ParkIntoGarage');
     }
 }

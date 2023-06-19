@@ -3,39 +3,44 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life_Server.Entities;
 using Los_Angeles_Life_Server.Garages;
-using Los_Angeles_Life_Server.Handlers.Database;
 using Los_Angeles_Life_Server.Misc;
-
 
 namespace Los_Angeles_Life_Server.Handlers
 {
     abstract class ColShapeHandler : IScript
     {
+        public static Dictionary<int, IColShape> colShapeList = new Dictionary<int, IColShape>();
+        private static int colShapeCounter = 1;
+
         public static void LoadingColShapeEventSystem()
         {
             Alt.OnColShape += OnGarageStorageColShape;
-            Alt.Log("Hinzugefügt");
         }
 
         public static void StopColShapeEventSystem()
         {
             Alt.OnColShape -= OnGarageStorageColShape;
-            Alt.Log("Entfernt");
         }
 
         private static void OnGarageStorageColShape(IColShape colShape, IEntity entity, bool state)
         {
             if (colShape.HasMetaData("Server:ColShape:GarageStoragePosition") && state)
             {
-                Alt.Log("Open GarageMenü");
-            }
-            else
-            {
-                Alt.Log("Close GarageMenü");
+                Position colShapePosition = new Position(colShape.GetPosition().X, colShape.GetPosition().Y, colShape.GetPosition().Z);
+
+                foreach(IColShape listColShape in colShapeList.Values)
+                {
+                    Position listColShapePosition = new Position(listColShape.GetPosition().X, listColShape.GetPosition().Y, listColShape.GetPosition().Z);
+
+                    if (colShapePosition.Equals(listColShapePosition))
+                    {
+                        // noch kein Plan wieso weshalb ich das eingebaut habe :D
+                    }
+                }
             }
         }
 
-        public static void CreateGarageStorageColShapesAndMarker(MyPlayer player)
+        public static void CreateGarageStorageColShapesAndMarker()
         {
             List<Position> storagePositionList = new List<Position>();
 
@@ -49,16 +54,17 @@ namespace Los_Angeles_Life_Server.Handlers
                     storagePosition.Z -= 1f;
 
                     IColShape colShape = Alt.CreateColShapeCylinder(storagePosition, 3f, 3f);
-                    colShape.IsPlayersOnly = true;
+                    colShape.IsPlayersOnly = false;
                     colShape.SetMetaData("Server:ColShape:GarageStoragePosition", "GarageStoragePosition");
-
+                    colShapeList.Add(colShapeCounter, colShape);
                     storagePositionList.Add(storagePosition);
+                    garageEntry.Value.ColShapeList.Add(colShape);
 
-                    Alt.Log("ColShape von " + garageEntry.Value.Name + " für SpawnGarageStoragePosition erstellt.");
+                    colShapeCounter++;
                 }
             }
 
-            player.Emit("Client:Marker:Garage", storagePositionList);
+            // Hier irgendwie die Marker ertellen..
         }
     }
 }
