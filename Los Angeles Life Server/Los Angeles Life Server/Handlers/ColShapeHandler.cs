@@ -14,29 +14,18 @@ namespace Los_Angeles_Life_Server.Handlers
 
         public static void LoadingColShapeEventSystem()
         {
-            Alt.OnColShape += OnGarageStorageColShape;
+            Alt.OnColShape += OnVehicleEnterColShape;
         }
 
-        public static void StopColShapeEventSystem()
+        private static void OnVehicleEnterColShape(IColShape colShape, IEntity entity, bool state)
         {
-            Alt.OnColShape -= OnGarageStorageColShape;
-        }
+            if(!(entity is IVehicle)) { return; }
 
-        private static void OnGarageStorageColShape(IColShape colShape, IEntity entity, bool state)
-        {
-            if (colShape.HasMetaData("Server:ColShape:GarageStoragePosition") && state)
+            IVehicle vehicle = (IVehicle)entity;
+
+            if (colShape.HasMetaData("Server:ColShape:GarageStoragePosition"))
             {
-                Position colShapePosition = new Position(colShape.GetPosition().X, colShape.GetPosition().Y, colShape.GetPosition().Z);
-
-                foreach(IColShape listColShape in colShapeList.Values)
-                {
-                    Position listColShapePosition = new Position(listColShape.GetPosition().X, listColShape.GetPosition().Y, listColShape.GetPosition().Z);
-
-                    if (colShapePosition.Equals(listColShapePosition))
-                    {
-                        // noch kein Plan wieso weshalb ich das eingebaut habe :D
-                    }
-                }
+                GarageHandler.AddOrRemoveVehiclesToStoreOnGarage(colShape, vehicle, state);
             }
         }
 
@@ -56,9 +45,9 @@ namespace Los_Angeles_Life_Server.Handlers
                     IColShape colShape = Alt.CreateColShapeCylinder(storagePosition, 3f, 3f);
                     colShape.IsPlayersOnly = false;
                     colShape.SetMetaData("Server:ColShape:GarageStoragePosition", "GarageStoragePosition");
+                    colShape.SetMetaData("Server:ColShape:Garage:" + garageEntry.Value.Name, garageEntry.Value.Name);
                     colShapeList.Add(colShapeCounter, colShape);
                     storagePositionList.Add(storagePosition);
-                    garageEntry.Value.ColShapeList.Add(colShape);
 
                     colShapeCounter++;
                 }

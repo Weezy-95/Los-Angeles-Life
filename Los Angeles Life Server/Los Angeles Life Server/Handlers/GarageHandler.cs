@@ -6,8 +6,7 @@ using Los_Angeles_Life_Server.Garages;
 using Los_Angeles_Life_Server.Misc;
 using Los_Angeles_Life_Server.Vehicles;
 using MySql.Data.MySqlClient;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Los_Angeles_Life_Server.Handlers
 {
@@ -20,7 +19,6 @@ namespace Los_Angeles_Life_Server.Handlers
             garageList = new Dictionary<int, Garage>();
             LoadGarages();
             LoadGarageSpawnPositionsAndGarageStoragePositions();
-            GetPlayerInformationFromGarage();
         }
 
         private static void LoadGarages()
@@ -135,14 +133,14 @@ namespace Los_Angeles_Life_Server.Handlers
                 MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
+
                 mySqlCommand.CommandText =
                     "SELECT * " +
                     "FROM vehicles " +
                     "JOIN garagestorages " +
                     "ON vehicles.GarageStorageId = garagestorages.Id " +
                     "WHERE garagestorages.GarageId = @GarageId AND vehicles.Owner = @Owner";
-                Alt.Log(garageId.ToString());
-                Alt.Log(player.DiscordId);
+
                 mySqlCommand.Parameters.AddWithValue("@GarageId", garageId);
                 mySqlCommand.Parameters.AddWithValue("@Owner", player.DiscordId);
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
@@ -181,42 +179,34 @@ namespace Los_Angeles_Life_Server.Handlers
             }
         }
 
-        public static void ParkInVehicleIntoGarage(MyPlayer player, int garageId)
+        public static void AddOrRemoveVehiclesToStoreOnGarage(IColShape colShape, IVehicle vehicle, bool state)
         {
-            Garage garage = garageList[garageId];
-            List<IVehicle> vehicleList = new List<IVehicle>();
-            vehicleList.Clear();
-
-            foreach (IColShape colShapeEntry in garage.ColShapeList)
+            foreach (KeyValuePair<int, Garage> garage in garageList)
             {
-                IVehicle[] vehiclesInColShape = colShapeEntry.Core.GetVehicles();
+                string garageName;
 
-                if (vehiclesInColShape.Length != 0) 
+                colShape.GetMetaData("Server:ColShape:Garage:" + garage.Value.Name, out garageName);
+
+                if (garage.Value.Name.Equals(garageName))
                 {
-                    foreach (IVehicle vehicle in vehiclesInColShape)
+                    if (state)
                     {
-                        if (!vehicleList.Any(v => v.Id == vehicle.Id))
-                        {
-                            vehicleList.Add(vehicle);
-                        }
+                        garage.Value.VehiclesToStore.Add(vehicle);
+                    }
+                    else
+                    {
+                        garage.Value.VehiclesToStore.Remove(vehicle);
                     }
                 }
-            }
 
-            foreach (IVehicle vehicle in vehicleList)
-            {
-                Alt.Log(vehicle.Id.ToString());
+                return;
             }
-
-            vehicleList = new List<IVehicle>();
-            // Verarbeite die Liste der gefundenen Fahrzeuge (vehicleList) weiter undf klappt noch nicht ganz, die Methode GetVehicles wird wohl nie zurückgesetzt (Array und so)
         }
 
         public static void GetPlayerInformationFromGarage()
         {
             Alt.OnClient<int>("Client:Garage:SendPlayerInformation", (player, garageId) =>
             {
-                GetVehiclesFromPlayerByGarage((MyPlayer)player, garageId);
             });
         }
 
@@ -224,7 +214,6 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             Alt.OnClient<int>("Client:Garage:ParkIntoGarage", (player, garageId) =>
             {
-                //ParkInVehicleIntoGarage((MyPlayer)player, garageId);
             });
         }
     }

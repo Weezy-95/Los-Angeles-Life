@@ -376,10 +376,4 @@ public class CommandHandler : IScript
         var newTime = DateTime.Parse(time);
         player.SetDateTime(newTime);
     }
-
-    [Command("ga")]
-    public static void TestGarage(MyPlayer player)
-    {
-        GarageHandler.ParkInVehicleIntoGarage(player, 1000);
-    }
 }
