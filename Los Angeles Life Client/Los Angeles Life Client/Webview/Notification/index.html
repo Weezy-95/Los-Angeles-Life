@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Notification</title>
+
+    <link href="../Assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="../Assets/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="../Assets/fontawesome/css/solid.css" rel="stylesheet">
+    <link href="../Assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+<header>
+    <div class="main-container text-center">
+        <div class="inner-container">
+            <i class="fa-solid fa-triangle-exclamation warn-icon fa-xl" style="color: #f8f8f8;"></i>
+            <p class="inner-title">Meldung</p>
+        </div>
+        <p id="main-text" class="main-text"></p>
+    </div>
+</header>
+
+<script src="../Assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../Assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="app.js" type="text/javascript"></script>
+<script type="text/javascript">
+    alt.on('ShowNotify', (message) => {
+        document.getElementById('main-text').innerText = message;
+    });
+</script>
+</body>
+</html>

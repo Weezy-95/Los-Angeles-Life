@@ -40,3 +40,6 @@ Los Angeles Life/Los Angeles Life/Properties/launchSettings.json
 Los Angeles Life/server.log
 
 Gameserver/server.toml
+Los Angeles Life Client/Los Angeles Life Client/Properties/launchSettings.json
+Los Angeles Life Server/Los Angeles Life Server/Properties/launchSettings.json
+Los Angeles Life Server/Los Angeles Life Server/server.log

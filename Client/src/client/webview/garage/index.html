@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Login</title>
+
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="../assets/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="../assets/fontawesome/css/solid.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<header>
+    <div class="main-container">
+        <div class="inner-container">
+            <div data-bs-theme="dark">
+                <button type="button" id="garage-close" class="btn-close garage-close" aria-label="Close"></button>
+            </div>
+            <ul class="list-group garage-list">
+                <li class="list-group-item" id="car-1">
+                    <p class="car-name-1">Fahrzeugname:</p>
+                    <p class="car-fuel-1">Treibstoff:</p>
+                    <p class="car-plate-1">Kennzeichen:</p>
+                </li>
+                <hr>
+                <li class="list-group-item" id="car-2">
+                    <p class="car-name-2">Fahrzeugname:</p>
+                    <p class="car-fuel-2">Treibstoff:</p>
+                    <p class="car-plate-2">Kennzeichen:</p>
+                </li>
+                <hr>
+                <li class="list-group-item" id="car-3">
+                    <p class="car-name-3">Fahrzeugname:</p>
+                    <p class="car-fuel-3">Treibstoff:</p>
+                    <p class="car-plate-3">Kennzeichen:</p>
+                </li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-parkin">Einparken</button>
+            <button type="button" class="btn btn-secondary btn-parkout">Ausparken</button>
+        </div>
+    </div>
+</header>
+
+<body>
+<script type="text/javascript">
+    alt.on('ShowGarage', (name) => {
+        document.getElementById('car-1').innerText = name;
+    });
+</script>
+<script src="../assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="app.js" type="text/javascript"></script>
+</body>
+</html>
