@@ -185,16 +185,20 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             Garage garage = garageList[garageId];
             List<IVehicle> vehicleList = new List<IVehicle>();
+            vehicleList.Clear();
 
             foreach (IColShape colShapeEntry in garage.ColShapeList)
             {
                 IVehicle[] vehiclesInColShape = colShapeEntry.Core.GetVehicles();
 
-                foreach (IVehicle vehicle in vehiclesInColShape)
+                if (vehiclesInColShape.Length != 0) 
                 {
-                    if (!vehicleList.Any(v => v.Id == vehicle.Id))
+                    foreach (IVehicle vehicle in vehiclesInColShape)
                     {
-                        vehicleList.Add(vehicle);
+                        if (!vehicleList.Any(v => v.Id == vehicle.Id))
+                        {
+                            vehicleList.Add(vehicle);
+                        }
                     }
                 }
             }
@@ -204,10 +208,8 @@ namespace Los_Angeles_Life_Server.Handlers
                 Alt.Log(vehicle.Id.ToString());
             }
 
-            vehicleList.Clear();
-            vehicleList = null;
-            // Verarbeite die Liste der gefundenen Fahrzeuge (vehicleList) weiter
-            // ...
+            vehicleList = new List<IVehicle>();
+            // Verarbeite die Liste der gefundenen Fahrzeuge (vehicleList) weiter undf klappt noch nicht ganz, die Methode GetVehicles wird wohl nie zurückgesetzt (Array und so)
         }
 
         public static void GetPlayerInformationFromGarage()
