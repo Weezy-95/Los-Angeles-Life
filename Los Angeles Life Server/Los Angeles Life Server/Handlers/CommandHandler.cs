@@ -376,4 +376,10 @@ public class CommandHandler : IScript
         var newTime = DateTime.Parse(time);
         player.SetDateTime(newTime);
     }
+
+    [Command("in")]
+    public static void ParkInVehicleCmd(MyPlayer player)
+    {
+        GarageHandler.ParkInVehicle(player, 1000);
+    }
 }

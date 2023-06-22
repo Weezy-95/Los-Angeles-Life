@@ -9,7 +9,7 @@ namespace Los_Angeles_Life_Server.Handlers
 {
     abstract class VehicleHandler : IScript
     {
-        private static Dictionary<long, ServerVehicle> serverVehicleList;
+        public static Dictionary<long, ServerVehicle> serverVehicleList;
         private static Dictionary<int, VehicleTemplate> vehicleTemplateList;
 
         public static void LoadVehicleSystem()

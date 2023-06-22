@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using Los_Angeles_Life_Server.Entities;
+using Los_Angeles_Life_Server.Factions;
 using Los_Angeles_Life_Server.Garages;
 using Los_Angeles_Life_Server.Misc;
 using Los_Angeles_Life_Server.Vehicles;
@@ -210,11 +211,100 @@ namespace Los_Angeles_Life_Server.Handlers
             });
         }
 
-        public static void RequestToParkInVehicle()
+        public static void ParkInVehicle(MyPlayer player, int garageId)
         {
-            Alt.OnClient<int>("Client:Garage:ParkIntoGarage", (player, garageId) =>
+            Garage garage = garageList[garageId];
+
+            if (garage.VehiclesToStore.Count == 0)
             {
-            });
+                Alt.Log("Kein Fahrzeug zum Einparken");
+                return;
+            }
+
+            long vehicleId = -1;
+            ServerVehicle serverVehicle = new ServerVehicle();
+
+            foreach (IVehicle vehicle in garage.VehiclesToStore)
+            {
+                try
+                {
+                    MySqlConnection connection = DatabaseHandler.OpenConnection();
+
+                    MySqlCommand mySqlCommand = connection.CreateCommand();
+
+                    mySqlCommand.CommandText =
+                        "SELECT Id " +
+                        "FROM vehicles " +
+                        "WHERE vehicles.SessionId = @SessionId AND vehicles.Owner = @Owner";
+
+                    mySqlCommand.Parameters.AddWithValue("@SessionId", vehicle.Id);
+                    mySqlCommand.Parameters.AddWithValue("@Owner", player.DiscordId);
+                    MySqlDataReader reader = mySqlCommand.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        vehicleId = reader.GetInt64("Id");
+                        serverVehicle = VehicleHandler.serverVehicleList[vehicleId];
+                    }
+
+                    garage.VehiclesToStore.Remove(vehicle);
+                    vehicle.Destroy();
+
+                    break;
+                }
+                catch (MySqlException ex)
+                {
+                    Alt.Log("[MySQL] Fehler mit der Garage-Abfrage: " + ex);
+                }
+                finally
+                {
+                    DatabaseHandler.CloseConnection();
+                }
+            }
+
+            try
+            {
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
+
+                MySqlCommand mySqlCommand = connection.CreateCommand();
+
+                mySqlCommand.CommandText =
+                    "INSERT INTO garagestorages (GarageId, VehicleId) " +
+                    "VALUES (@GarageId, @VehicleId)";
+
+                mySqlCommand.Parameters.AddWithValue("@GarageId", garageId);
+                mySqlCommand.Parameters.AddWithValue("@VehicleId", vehicleId);
+
+                mySqlCommand.ExecuteNonQuery();
+
+                int garageStorageId = (int)mySqlCommand.LastInsertedId;
+
+                mySqlCommand = connection.CreateCommand();
+                mySqlCommand.CommandText = "UPDATE vehicles SET garageStorageId=@garageStorageId WHERE Owner=@Owner AND Id=@Id";
+
+                mySqlCommand.Parameters.AddWithValue("@garageStorageId", garageStorageId);
+                mySqlCommand.Parameters.AddWithValue("@Owner", player.DiscordId);
+                mySqlCommand.Parameters.AddWithValue("@Id", vehicleId);
+
+                mySqlCommand.ExecuteNonQuery();
+
+                serverVehicle.GarageStorageId = garageStorageId;
+                serverVehicle.IsInGarage = true;
+            }
+            catch (MySqlException ex)
+            {
+                Alt.Log("[MySQL] Fehler mit der Garage-Abfrage: " + ex);
+            }
+            finally
+            {
+                DatabaseHandler.CloseConnection();
+            }
+        }
+
+
+        public static void ParkOutVehicle()
+        {
+
         }
     }
 }
