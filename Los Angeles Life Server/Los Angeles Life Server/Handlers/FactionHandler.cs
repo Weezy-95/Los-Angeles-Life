@@ -8,21 +8,10 @@ namespace Los_Angeles_Life_Server.Handlers
 {
     abstract class FactionHandler
     {
-        private static MySqlConnection connection;
         public static Dictionary<string, Faction> factionList;
-
-
-        const string dbHost = "localhost";
-        const string dbPort = "4406";
-        const string dbUser = "dev";
-        const string dbPassword = "Sonner2021$";
-        const string dbName = "altv";
-
-        const string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};";
 
         public static void LoadFactionsAndFactionRanks()
         {
-            connection = new MySqlConnection(connectionString);
             factionList = new Dictionary<string, Faction>();
             GetAllFactions();
             GetAllFactionRanks();
@@ -32,7 +21,7 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                connection.Open();
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT FactionId, FactionName, FactionLocationX, FactionLocationY, FactionLocationZ, FactionBlipId, FactionBlipColorId, FactionMoney FROM factions";
@@ -87,7 +76,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                connection.Close();
+                DatabaseHandler.CloseConnection();
             }
         }
 
@@ -95,7 +84,7 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                connection.Open();
+                MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                 MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT FactionName, FactionRankName, FactionRankPermission FROM FactionRanks";
@@ -136,8 +125,8 @@ namespace Los_Angeles_Life_Server.Handlers
                 return false;
             }
             finally 
-            { 
-                connection.Close(); 
+            {
+                DatabaseHandler.CloseConnection();
             }
         }
 
@@ -153,7 +142,7 @@ namespace Los_Angeles_Life_Server.Handlers
                     try
                     {
                         faction.FactionRankList.Remove(rankToRemove);
-                        connection.Open();
+                        MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                         MySqlCommand mySqlCommand = connection.CreateCommand();
                         mySqlCommand.CommandText = "DELETE FROM FactionRanks WHERE FactionName = @FactionName AND FactionRankName = @FactionRankName";
@@ -171,7 +160,7 @@ namespace Los_Angeles_Life_Server.Handlers
                     }
                     finally
                     {
-                        connection.Close();
+                        DatabaseHandler.CloseConnection();
                     }
                 }
                 return false;
@@ -188,7 +177,7 @@ namespace Los_Angeles_Life_Server.Handlers
 
                 try
                 {
-                    connection.Open();
+                    MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                     MySqlCommand mySqlCommand = connection.CreateCommand();
                     mySqlCommand.CommandText = "DELETE FROM FactionRanks WHERE FactionName = @FactionName";
@@ -207,7 +196,7 @@ namespace Los_Angeles_Life_Server.Handlers
                 }
                 finally
                 {
-                    connection.Close();
+                    DatabaseHandler.CloseConnection();
                 }
 
                 return false;
@@ -226,7 +215,7 @@ namespace Los_Angeles_Life_Server.Handlers
 
                 try
                 {
-                    connection.Open();
+                    MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                     MySqlCommand mySqlCommand = connection.CreateCommand();
                     mySqlCommand.CommandText = "INSERT INTO FactionRanks (FactionName, FactionRankName, FactionRankPermission) VALUES (@FactionName, @FactionRankName, @FactionRankPermission)";
@@ -244,7 +233,7 @@ namespace Los_Angeles_Life_Server.Handlers
                 }
                 finally
                 {
-                    connection.Close();
+                    DatabaseHandler.CloseConnection();
                 }
             }
             return false;
@@ -263,7 +252,7 @@ namespace Los_Angeles_Life_Server.Handlers
 
                     try
                     {
-                        connection.Open();
+                        MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                         MySqlCommand mySqlCommand = connection.CreateCommand();
                         mySqlCommand.CommandText = "UPDATE FactionRanks SET FactionRankPermission = @NewFactionRankPermission WHERE FactionName = @FactionName AND FactionRankName = @FactionRankName";
@@ -283,7 +272,7 @@ namespace Los_Angeles_Life_Server.Handlers
                     }
                     finally
                     {
-                        connection.Close();
+                        DatabaseHandler.CloseConnection();
                     }
                 }
                 return false;
@@ -303,7 +292,7 @@ namespace Los_Angeles_Life_Server.Handlers
                     try
                     {
                         faction.FactionName = newFactionName;
-                        connection.Open();
+                        MySqlConnection connection = DatabaseHandler.OpenConnection();
 
                         MySqlCommand updateFactionNameCommand = connection.CreateCommand();
                         updateFactionNameCommand.CommandText = "UPDATE FactionRanks SET FactionRankName = @NewFactionName WHERE FactionName = @FactionName AND FactionRankName = @OldFactionRankName";
@@ -321,7 +310,7 @@ namespace Los_Angeles_Life_Server.Handlers
                     }
                     finally
                     {
-                        connection.Close();
+                        DatabaseHandler.CloseConnection();
                     }
                 }
                 return false;

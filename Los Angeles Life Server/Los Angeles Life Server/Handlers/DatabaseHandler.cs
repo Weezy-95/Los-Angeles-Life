@@ -7,7 +7,7 @@ namespace Los_Angeles_Life_Server.Handlers
 {
     public class DatabaseHandler
     {
-        private static MySqlConnection _connection;
+        private static MySqlConnection connection;
 
         public DatabaseHandler()
         {
@@ -19,14 +19,15 @@ namespace Los_Angeles_Life_Server.Handlers
 
             const string connectionString = $"Server={dbHost};Port={dbPort};Database={dbName};Uid={dbUser};Pwd={dbPassword};";
 
-            _connection = new MySqlConnection(connectionString);
+            connection = new MySqlConnection(connectionString);
         }
 
-        public void OpenConnection()
+        public static MySqlConnection OpenConnection()
         {
             try
             {
-                _connection.Open();
+                connection.Open();
+                return connection;
                 Alt.Log("[MySQL] Datenbank Verbindung erfolgreich aufgebaut!");
             }
             catch (MySqlException ex)
@@ -36,18 +37,18 @@ namespace Los_Angeles_Life_Server.Handlers
             }
         }
 
-        public void CloseConnection()
+        public static void CloseConnection()
         {
-            _connection.Close();
+            connection.Close();
         }
 
         public void LoadPlayerCount()
         {
             try
             {
-                _connection.Open();
+                connection.Open();
 
-                var mySqlCommand = _connection.CreateCommand();
+                var mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT * FROM accounts";
 
                 var count = 0;
@@ -69,7 +70,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
         }
 
@@ -77,9 +78,9 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                _connection.Open();
+                connection.Open();
                 
-                MySqlCommand mySqlCommand = _connection.CreateCommand();
+                MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId";
                 mySqlCommand.Parameters.AddWithValue("@discordId", discordId);
 
@@ -98,7 +99,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
         }
 
@@ -107,9 +108,9 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                _connection.Open();
+                connection.Open();
 
-                MySqlCommand mySqlCommand = _connection.CreateCommand();
+                MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText =
                     "INSERT INTO accounts (DiscordId, PlayerName, SocialClub, AdminLevel, IsWhitelisted) " +
                     "VALUES (@discordId, @playerName, @socialClub, @adminLevel, @IsWhitelisted)";
@@ -154,7 +155,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
         }
 
@@ -163,9 +164,9 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                _connection.Open();
+                connection.Open();
 
-                MySqlCommand mySqlCommand = _connection.CreateCommand();
+                MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "SELECT * FROM accounts WHERE discordId=@discordId";
 
                 mySqlCommand.Parameters.AddWithValue("@discordId", player.DiscordId);
@@ -241,7 +242,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
         }
 
@@ -251,9 +252,9 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                _connection.Open();
+                connection.Open();
 
-                MySqlCommand mySqlCommand = _connection.CreateCommand();
+                MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText = "UPDATE accounts SET playerName=@playerName, adminLevel=@adminLevel, isWhitelisted=@isWhitelisted WHERE discordId=@discordId";
 
                 mySqlCommand.Parameters.AddWithValue("@discordId", player.DiscordId);
@@ -282,7 +283,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
         }
         
@@ -290,9 +291,9 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                _connection.Open();
+                connection.Open();
 
-                MySqlCommand mySqlCommand = _connection.CreateCommand();
+                MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText =
                     "UPDATE playerpositions " +
                     "JOIN accounts " +
@@ -320,7 +321,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
         }
 
@@ -328,9 +329,9 @@ namespace Los_Angeles_Life_Server.Handlers
         {
             try
             {
-                _connection.Open();
+                connection.Open();
 
-                MySqlCommand mySqlCommand = _connection.CreateCommand();
+                MySqlCommand mySqlCommand = connection.CreateCommand();
                 mySqlCommand.CommandText =
                     "UPDATE accounts SET adminLevel=@adminLevel WHERE discordId=@discordId";
 
@@ -346,7 +347,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
             finally
             {
-                _connection.Close();
+                connection.Close();
             }
         }
     }

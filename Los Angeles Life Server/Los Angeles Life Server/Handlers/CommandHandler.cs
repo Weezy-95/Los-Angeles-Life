@@ -4,7 +4,6 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using Los_Angeles_Life_Server.Entities;
-using Los_Angeles_Life_Server.Handlers.Database;
 
 namespace Los_Angeles_Life_Server.Handlers;
 
@@ -376,5 +375,11 @@ public class CommandHandler : IScript
         Alt.Log("Zeit: " + time);
         var newTime = DateTime.Parse(time);
         player.SetDateTime(newTime);
+    }
+
+    [Command("in")]
+    public static void ParkInVehicleCmd(MyPlayer player)
+    {
+        GarageHandler.ParkInVehicle(player, 1000);
     }
 }

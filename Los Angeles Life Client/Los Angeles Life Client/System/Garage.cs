@@ -23,7 +23,7 @@ public abstract class Garage : Client
             {
                 if (key == Key.E)
                 {
-                    Alt.EmitServer("Client:Garage:SendPlayerInformation", "Test");
+                    //Alt.EmitServer("Client:Garage:SendPlayerInformation", 1000);
                     if (!_isWebViewOpen)
                     {
                         _garageHud = Alt.CreateWebView("http://resource/net6.0/webview/garage/index.html");
@@ -35,6 +35,11 @@ public abstract class Garage : Client
                             Alt.GameControlsEnabled = true;
                             _garageHud = null;
                             _isWebViewOpen = false;
+                        });
+
+                        _garageHud.On("ParkIntoGarage", () =>
+                        {
+                            Alt.EmitServer("Client:Garage:ParkIntoGarage", 1000);
                         });
                         
                         _garageHud.Focus();
