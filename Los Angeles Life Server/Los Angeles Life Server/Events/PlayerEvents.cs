@@ -62,7 +62,7 @@ namespace Los_Angeles_Life_Server.Events
         [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
         public void OnPlayerLeaveVehicle(IVehicle vehicle, MyPlayer player, byte seat)
         {
-            VehicleHandler.SaveVehicle(vehicle, player, seat);
+            ///VehicleHandler.SaveVehicle(vehicle, player, seat); //Abfrage für wenn das auto nicht schon gespeichert ist einbinden...
         }
     }
 }

@@ -124,7 +124,7 @@ namespace Los_Angeles_Life_Server.Handlers
             }
         }
 
-        private static void GetVehiclesFromPlayerByGarage(MyPlayer player, int garageId)
+        public static Dictionary<long, ServerVehicle> GetVehiclesFromDatabase(MyPlayer player, int garageId)
         {
             Dictionary<long, ServerVehicle> vehicleList = new Dictionary<long, ServerVehicle>();
 
@@ -165,14 +165,20 @@ namespace Los_Angeles_Life_Server.Handlers
                     vehicleList.Add(vehicle.Id, vehicle);
                 }
 
+
                 foreach (KeyValuePair<long, ServerVehicle> entry in vehicleList)
                 {
                     Alt.Log(entry.Value.Id.ToString() + " " + entry.Value.GarageStorageId.ToString());
                 }
+
+                return vehicleList;
             }
             catch (MySqlException ex)
             {
                 Alt.Log("[MySQL] Fehler mit der Garage-Abfrage: " + ex);
+
+                vehicleList.Clear();
+                return vehicleList;
             }
             finally
             {
@@ -280,9 +286,10 @@ namespace Los_Angeles_Life_Server.Handlers
                 int garageStorageId = (int)mySqlCommand.LastInsertedId;
 
                 mySqlCommand = connection.CreateCommand();
-                mySqlCommand.CommandText = "UPDATE vehicles SET garageStorageId=@garageStorageId WHERE Owner=@Owner AND Id=@Id";
+                mySqlCommand.CommandText = "UPDATE vehicles SET garageStorageId=@GarageStorageId, isInGarage=@IsInGarage WHERE owner=@Owner AND id=@Id";
 
-                mySqlCommand.Parameters.AddWithValue("@garageStorageId", garageStorageId);
+                mySqlCommand.Parameters.AddWithValue("@GarageStorageId", garageStorageId);
+                mySqlCommand.Parameters.AddWithValue("@IsInGarage", true);
                 mySqlCommand.Parameters.AddWithValue("@Owner", player.DiscordId);
                 mySqlCommand.Parameters.AddWithValue("@Id", vehicleId);
 
@@ -299,12 +306,6 @@ namespace Los_Angeles_Life_Server.Handlers
             {
                 DatabaseHandler.CloseConnection();
             }
-        }
-
-
-        public static void ParkOutVehicle()
-        {
-
         }
     }
 }
