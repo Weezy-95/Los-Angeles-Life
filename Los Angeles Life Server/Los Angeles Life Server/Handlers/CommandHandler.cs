@@ -382,4 +382,10 @@ public class CommandHandler : IScript
     {
         GarageHandler.ParkInVehicle(player, 1000);
     }
+
+    [Command("out")]
+    public static void ParkOutVehicleCmd(MyPlayer player)
+    {
+        GarageHandler.GetVehiclesFromDatabase(player, 1000);
+    }
 }
